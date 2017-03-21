@@ -1,5 +1,5 @@
-inherit_from: .rubocop_todo.yml
-
+## This is a list of rubocop configuration options. Set to ignore Rails default 
+#  generated items as of 3/21/2017
 AllCops:
   Include:
     - 'Rakefile'
@@ -37,4 +37,3 @@ Style/StringLiterals:
     - 'bin/spring'
     - 'config/environments/production.rb'
     - 'config/puma.rb'
-    
