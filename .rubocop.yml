@@ -1,6 +1,7 @@
 ## This is a list of rubocop configuration options. Set to ignore Rails default 
 #  generated items as of 3/21/2017
 AllCops:
+  TargetRubyVersion: 2.3
   Include:
     - 'Rakefile'
     - 'config.ru'
@@ -8,12 +9,18 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Bundler/OrderedGems:
   Exclude:
     - 'Gemfile'
 
 Metrics/LineLength:
   Max: 130
+
+Metrics/BlockLength:
+  Max: 110
 
 Style/ClassAndModuleChildren:
   Exclude:
@@ -33,7 +40,12 @@ Style/SpaceInsideBrackets:
     - 'config/environments/production.rb'
 
 Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  AutoCorrect: true
   Exclude:
     - 'bin/spring'
     - 'config/environments/production.rb'
     - 'config/puma.rb'
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
