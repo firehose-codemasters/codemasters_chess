@@ -46,6 +46,8 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   # Use RSpec for testing
   gem 'rspec-rails', '~> 3.5'
+  # Use rails-controller-testing gem to support scaffolded test suites
+  gem 'rails-controller-testing'
 end
 
 group :development do
