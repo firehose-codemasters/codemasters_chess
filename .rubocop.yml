@@ -1,51 +1,33 @@
-## This is a list of rubocop configuration options. Set to ignore Rails default 
-#  generated items as of 3/21/2017
+# require: rubocop-rspec
+# inherit_from: .rubocop_todo.yml
+
+Rails:
+  Enabled: true
+
 AllCops:
-  TargetRubyVersion: 2.3
-  Include:
-    - 'Rakefile'
-    - 'config.ru'
-    - 'lib/**/*.rake'
   Exclude:
+    - 'bin/**/*'
     - 'db/schema.rb'
+    - 'vendor/**/*'
+  # Cop names are not displayed in offense messages by default. Change behavior
+  # by overriding DisplayCopNames, or by giving the `-D/--display-cop-names`
+  # option.
+  DisplayCopNames: true
+  # Style guide URLs are not displayed in offense messages by default. Change
+  # behavior by overriding `DisplayStyleGuide`, or by giving the
+  # `-S/--display-style-guide` option.
+  DisplayStyleGuide: true
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/controllers/**/*'
+    - 'spec/routing/**/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-Bundler/OrderedGems:
-  Exclude:
-    - 'Gemfile'
-
-Metrics/LineLength:
-  Max: 130
-
-Metrics/BlockLength:
-  Max: 110
-
-Style/ClassAndModuleChildren:
-  Exclude:
-    - 'test/test_helper.rb'
-
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'app/controllers/application_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/mailers/application_mailer.rb'
-    - 'app/models/application_record.rb'
-
-Style/SpaceInsideBrackets:
-  Exclude:
-    - 'config/environments/production.rb'
-
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-  AutoCorrect: true
-  Exclude:
-    - 'bin/spring'
-    - 'config/environments/production.rb'
-    - 'config/puma.rb'
-
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
