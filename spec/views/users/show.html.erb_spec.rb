@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe 'users/show', type: :view do
   before do
-    @user = assign(:user, User.create!)
+    @user = assign(:user, FactoryGirl.create(:user))
   end
 
   it 'renders attributes in <p>' do

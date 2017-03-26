@@ -5,8 +5,8 @@ RSpec.describe 'users/index', type: :view do
   before do
     assign(:users,
            [
-             User.create!,
-             User.create!
+             FactoryGirl.create(:user),
+             FactoryGirl.create(:user)
            ])
   end
 
