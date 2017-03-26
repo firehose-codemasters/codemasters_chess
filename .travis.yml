@@ -6,7 +6,9 @@ services:
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
-script: bundle exec rspec
+script:
+  - bundle exec rspec
+  - bundle exec rubocop
 notifications:
   slack:
     secure: ccHX7Fh9akhQ3kj51ftvz5KvdGTXf25GL5BfhdKWtbXanJuxWAXdeDFJy9MWnLWoK/hfBpD8FZZKaqKFIwKzXe4MqBa6SC3bN74aKrkx4sa4jMQ+TFPr3EjctGxLQ0gYfWGxd5ztYnQRQ9i7G0Dd9du8g9yKQ5wddHGd0nXHVho8QplVBpFaMTtsX87lQjniqG6b7YboyFwOk80ovPlRg2huXpY/93rDPnZ8rlf1zqpxW9UmMsUnPIVf+q0pV2dUDz/B7CvyjaA8dapdnEoruyFX8yhN/WgwqKon/PMq8y950CTSEBhqo8MfQBLj4vpyGincQxGuLFqHIpRYcUP69BLn1XUo45NTJm10Yca8n4mjY8mZ9+WUMRtcAXcYKIYul0sVlY5O9ux7GGMhzwTn8Y7LS4+6FVHlyo8qqxR7oFi9DHCBEmOu/2FKcq1ZcoiGRBecglRMXWNN2bLvGjw4alCetQH2Nk+SZL41IWeEnAhQRmJzrZy8MXAhsKNxbXcNgkUjp3kcnbz4y8g49BWgaPxpmPc2Ki0uHazK0hdDih3bTfScbEvbc+LPY0QfvN9ipF6dVAk98CNmeLSlEw0Wu//RJ03BPC8eLqxiKryXHpx5Ptfg+bV21AvC5hKC/2jPykEPew8wvOMeJxSbcDhKA73o8PcfXJbAG4x3DwObiB0=
