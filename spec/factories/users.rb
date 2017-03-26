@@ -3,6 +3,6 @@ FactoryGirl.define do
     sequence :email do |n|
       "dummyemail#{n}@gmail.com"
     end
-    name "Ima User"
+    name 'Ima User'
   end
 end
