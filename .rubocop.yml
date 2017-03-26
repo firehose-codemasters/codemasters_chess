@@ -1,4 +1,4 @@
-# require: rubocop-rspec
+require: rubocop-rspec
 # inherit_from: .rubocop_todo.yml
 
 Rails:
@@ -25,6 +25,10 @@ Metrics/BlockLength:
 
 Metrics/LineLength:
   Max: 120
+
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/views/users/edit.html.erb_spec.rb'
 
 Style/Documentation:
   Enabled: false

@@ -70,10 +70,14 @@ RSpec.describe UsersController, type: :controller do
         end.to change(User, :count).by(1)
       end
 
+      it 'saves the new user to the database' do
+        post :create, params: { user: valid_attributes }, session: valid_session
+        expect(assigns(:user)).to be_persisted
+      end
+
       it 'assigns a newly created user as @user' do
         post :create, params: { user: valid_attributes }, session: valid_session
         expect(assigns(:user)).to be_a(User)
-        expect(assigns(:user)).to be_persisted
       end
 
       it 'redirects to the created user' do

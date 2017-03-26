@@ -52,8 +52,8 @@ end
 group :development do
   gem 'listen', '~> 3.0.5'
   # Add RuboCop for linting, don't need it in production
-  gem 'rubocop', '~>0.47.1', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop', '~> 0.47.1', require: false
+  gem 'rubocop-rspec', '~> 1.15.0', require: false
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
