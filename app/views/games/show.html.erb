@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @game.name %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @game.result %>
+</p>
+
+<p>
+  <strong>White player:</strong>
+  <%= @game.white_player %>
+</p>
+
+<p>
+  <strong>Black player:</strong>
+  <%= @game.black_player %>
+</p>
+
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
