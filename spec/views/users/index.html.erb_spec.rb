@@ -3,11 +3,10 @@ require 'rails_helper'
 
 RSpec.describe 'users/index', type: :view do
   before do
-    assign(:users,
-           [
-             FactoryGirl.create(:user),
-             FactoryGirl.create(:user)
-           ])
+    assign(:users, [
+      FactoryGirl.create(:user),
+      FactoryGirl.create(:user)
+    ])
   end
 
   it 'renders a list of users' do

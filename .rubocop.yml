@@ -26,8 +26,20 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 120
 
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/views/games/edit.html.erb_spec.rb'
+    - 'spec/views/games/new.html.erb_spec.rb'
+
+Style/IndentArray:
+  EnforcedStyle: consistent
+
+Style/IndentHash:
+  EnforcedStyle: consistent
+
 RSpec/InstanceVariable:
   Exclude:
+    - 'spec/views/games/edit.html.erb_spec.rb'
     - 'spec/views/users/edit.html.erb_spec.rb'
 
 Style/Documentation:
