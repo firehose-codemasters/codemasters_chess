@@ -61,6 +61,9 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
+# Bootstrap gem added 3/22/17 by jimchicago:
+gem 'bootstrap', '~> 4.0.0.alpha6'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
