@@ -1,5 +1,5 @@
 require: rubocop-rspec
-# inherit_from: .rubocop_todo.yml
+inherit_from: .rubocop_todo.yml
 
 Rails:
   Enabled: true
@@ -19,6 +19,7 @@ AllCops:
   DisplayStyleGuide: true
 
 Metrics/BlockLength:
+  Max: 29
   Exclude:
     - 'spec/controllers/**/*'
     - 'spec/routing/**/*'
@@ -30,20 +31,31 @@ RSpec/ExampleLength:
   Exclude:
     - 'spec/views/games/edit.html.erb_spec.rb'
     - 'spec/views/games/new.html.erb_spec.rb'
+    - 'spec/views/pieces/edit.html.erb_spec.rb'
+    - 'spec/views/pieces/index.html.erb_spec.rb'
+    - 'spec/views/pieces/new.html.erb_spec.rb'
+    - 'spec/views/pieces/show.html.erb_spec.rb'
+
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/views/games/edit.html.erb_spec.rb'
+    - 'spec/views/pieces/edit.html.erb_spec.rb'
+    - 'spec/views/users/edit.html.erb_spec.rb'
+
+RSpec/MultipleExpectations:
+  Max: 6
+
+Style/Documentation:
+  Enabled: false
+
+Style/FirstParameterIndentation:
+  EnforcedStyle: consistent
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 Style/IndentArray:
   EnforcedStyle: consistent
 
 Style/IndentHash:
   EnforcedStyle: consistent
-
-RSpec/InstanceVariable:
-  Exclude:
-    - 'spec/views/games/edit.html.erb_spec.rb'
-    - 'spec/views/users/edit.html.erb_spec.rb'
-
-Style/Documentation:
-  Enabled: false
-
-Style/FrozenStringLiteralComment:
-  Enabled: false

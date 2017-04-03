@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @piece.color %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @piece.active %>
+</p>
+
+<p>
+  <strong>X Position:</strong>
+  <%= @piece.x_position %>
+</p>
+
+<p>
+  <strong>Y Position:</strong>
+  <%= @piece.y_position %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @piece.type %>
+</p>
+
+<p>
+  <strong>Game:</strong>
+  <%= @piece.game %>
+</p>
+
+<%= link_to 'Edit', edit_piece_path(@piece) %> |
+<%= link_to 'Back', pieces_path %>
