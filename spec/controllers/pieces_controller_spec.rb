@@ -5,23 +5,39 @@ RSpec.describe PiecesController, type: :controller do
   let(:game2) { FactoryGirl.create(:game) }
 
   let(:valid_attributes) do
-    color:'black',
-    active: true,
-    x_position: 1,
-    y_position: 1,
-  # Type needs to be implemented when first piece is created:
-  # type: 'rook',
-    game_id: game1.id
+    {
+      color: 'white',
+      active: true,
+      x_position: 1,
+      y_position: 1,
+      # Type needs to be implemented when first piece is created:
+      # type: 'rook',
+      game_id: game1.id
+    }
   end
 
   let(:invalid_attributes) do
-    color:'',
-    active: nil,
-    x_position: nil,
-    y_position: nil,
-  # Type needs to be implemented when first piece is created:
-  #  type: '',
-    game_id: nil
+    {
+      color: '',
+      active: nil,
+      x_position: nil,
+      y_position: nil,
+      # Type needs to be implemented when first piece is created:
+      # type: '',
+      game_id: nil
+    }
+  end
+
+  let(:new_attributes) do
+    {
+      color: 'black',
+      active: false,
+      x_position: 2,
+      y_position: 2,
+      # # Type needs to be implemented when first piece is created:
+      # type: 'rook',
+      game_id: game2.id
+    }
   end
 
   let(:valid_session) { {} }
@@ -92,17 +108,6 @@ RSpec.describe PiecesController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
-      let(:new_attributes) do {
-        color:'white',
-        active: false,
-        x_position: 2,
-        y_position: 2,
-      # Type needs to be implemented when first piece is created:
-      #  type: 'rook',
-        game_id: game2.id
-      }
-      end
-
       it 'updates the requested piece' do
         piece = Piece.create! valid_attributes
         put :update, params: { id: piece.to_param, piece: new_attributes }, session: valid_session

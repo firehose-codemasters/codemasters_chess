@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :piece do
-    color 'MyString'
-    active false
+    color 'white'
+    active true
     x_position 1
     y_position 1
     type ''
-    game nil
+    association :game
   end
 end
