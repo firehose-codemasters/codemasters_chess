@@ -8,4 +8,7 @@ class Piece < ApplicationRecord
   validates :x_position, presence: true
   validates :y_position, presence: true
   validates :game_id, presence: true
+
+  scope :white, -> { where(color: 'white') }
+  scope :black, -> { where(color: 'black') }
 end
