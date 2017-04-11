@@ -27,6 +27,14 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 120
 
+  Metrics/AbcSize:
+  Enabled: false
+
+  Metrics/TrailingWhitespace:
+    Enabled: false
+
+  
+
 RSpec/ExampleLength:
   Exclude:
     - 'spec/views/games/edit.html.erb_spec.rb'
