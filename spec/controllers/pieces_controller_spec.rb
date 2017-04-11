@@ -45,9 +45,15 @@ RSpec.describe PiecesController, type: :controller do
   describe '# obstructed_diagonally?' do
     it 'returns true if the move is obstructed' do
       moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)
-      blocking_piece = FactoryGirl.create(:piece, x_position: 5, y_position: 5)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 5, y_position: 5)
       moving_piece.move(to_x: 5, to_y: 5)
       expect(moving_piece.obstructed_diagonally?).to eq(true)
+    end
+
+    it 'returns false if the move is not obstructed' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)
+      moving_piece.move(to_x: 5, to_y: 5)
+      expect(moving_piece.obstructed_diagonally?).to eq(false)
     end
   end
 
