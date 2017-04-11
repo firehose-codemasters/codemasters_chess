@@ -9,9 +9,7 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
-  # def move_to(piece, to_x, to_y)
-  #   piece.x_position = 
-
-  # end
-
+  def obstructed_diagonally?
+    # Diagonal obstruction logic
+  end
 end

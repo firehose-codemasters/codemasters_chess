@@ -42,6 +42,15 @@ RSpec.describe PiecesController, type: :controller do
 
   let(:valid_session) { {} }
 
+  describe '# obstructed_diagonally?' do
+    it 'returns true if the move is obstructed' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)
+      blocking_piece = FactoryGirl.create(:piece, x_position: 5, y_position: 5)
+      moving_piece.move(to_x: 5, to_y: 5)
+      expect(moving_piece.obstructed_diagonally?).to eq(true)
+    end
+  end
+
   describe 'GET #index' do
     it 'assigns all pieces as @pieces' do
       piece = Piece.create! valid_attributes
