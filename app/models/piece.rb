@@ -8,4 +8,10 @@ class Piece < ApplicationRecord
   validates :x_position, presence: true
   validates :y_position, presence: true
   validates :game_id, presence: true
+
+  # def move_to(piece, to_x, to_y)
+  #   piece.x_position = 
+
+  # end
+
 end
