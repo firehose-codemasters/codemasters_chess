@@ -25,38 +25,28 @@ end
 # Game rules of chess
 def initialize_board
   # white
-  (1..8).each do 
-    Pawn.create(
-      x_position: 1,
-      y_position: 0,
-      color: true,
-      game_id: id
-  				)
+  8.times do 
+    Pawn.create(game_id: id, x_position: 2, y_position: 1, color: true)
   end
   # Other white pieces
   Rook.create(game_id: id, x_position: 1, y_position: 1, color: true)
-  Knight.create(game_id: id, x_position: 2, y_position: 1, color: true)
-  Bishop.create(game_id: id, x_position: 3, y_position: 1, color: true)
-  Queen.create(game_id: id, x_position: 4, y_position: 1, color: true)
-  King.create(game_id: id, x_position: 5, y_position: 1, color: true)
-  Bishop.create(game_id: id, x_position: 6, y_position: 1, color: true)
-  Knight.create(game_id: id, x_position: 7, y_position: 1, color: true)
-  Rook.create(game_id: id, x_position: 8, y_position: 1, color: true)
+  Knight.create(game_id: id, x_position: 1, y_position: 2, color: true)
+  Bishop.create(game_id: id, x_position: 1, y_position: 3, color: true)
+  Queen.create(game_id: id, x_position: 1, y_position: 4, color: true)
+  King.create(game_id: id, x_position: 1, y_position: 5, color: true)
+  Bishop.create(game_id: id, x_position: 1, y_position: 6, color: true)
+  Knight.create(game_id: id, x_position: 1, y_position: 7, color: true)
+  Rook.create(game_id: id, x_position: 1, y_position: 8, color: true)
   # Black pieces
-  (1..8).each do 
-    Pawn.create(
-      x_position: 0,
-      y_position: 6,
-      color: true,
-      game_id: id
-  				)
+  8.times do 
+    Pawn.create(game_id: id, x_position: 7, y_position: 1, color: true)
   end
-  Rook.create(game_id: id, x_position: 7, y_position: 1, color: true)
-  Knight.create(game_id: id, x_position: 7, y_position: 2, color: true)
-  Bishop.create(game_id: id, x_position: 7, y_position: 3, color: true)
-  Queen.create(game_id: id, x_position: 7, y_position: 4, color: true)
-  King.create(game_id: id, x_position: 7, y_position: 5, color: true)
-  Bishop.create(game_id: id, x_position: 7, y_position: 6, color: true)
-  Knight.create(game_id: id, x_position: 7, y_position: 7, color: true)
-  Rook.create(game_id: id, x_position: 7, y_position: 8, color: true)
+  Rook.create(game_id: id, x_position: 8, y_position: 1, color: true)
+  Knight.create(game_id: id, x_position: 8, y_position: 2, color: true)
+  Bishop.create(game_id: id, x_position: 8, y_position: 3, color: true)
+  Queen.create(game_id: id, x_position: 8, y_position: 4, color: true)
+  King.create(game_id: id, x_position: 8, y_position: 5, color: true)
+  Bishop.create(game_id: id, x_position: 8, y_position: 6, color: true)
+  Knight.create(game_id: id, x_position: 8, y_position: 7, color: true)
+  Rook.create(game_id: id, x_position: 8, y_position: 8, color: true)
 end
