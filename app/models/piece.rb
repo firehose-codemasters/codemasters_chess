@@ -51,4 +51,22 @@ class Piece < ApplicationRecord
     end
     false
   end
+
+  def obstructed_vertically?(current_y, target_y)
+    # Initialize current_y to piece's starting 'y' position, then increment or decrement it
+    current_y = y_position
+    target_y = gets
+
+    # The 'target' y_position is 'up' (i.e, in a HIGHER row of) the board
+    while current_y < target_y
+      current_y += 1
+      return true if Piece.where(y_position: current_y, active: true).exists?
+    end
+
+    # The 'target' y_position is 'down' (i.e, in a LOWER row of) the board
+    while current_y > target_y
+      current_y -= 1
+      return true if Piece.where(y_position: current_y, active: true).exists?
+    end
+  end
 end
