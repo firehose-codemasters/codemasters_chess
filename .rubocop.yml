@@ -27,10 +27,13 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 120
 
-  Metrics/AbcSize:
+Metrics/AbcSize:
   Enabled: false
 
-  Metrics/TrailingWhitespace:
+Metrics/TrailingWhitespace:
+    Enabled: false
+
+Metrics/MethodLength:
     Enabled: false
 
   
