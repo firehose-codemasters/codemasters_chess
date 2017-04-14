@@ -31,4 +31,29 @@ RSpec.describe Piece, type: :model do
       expect(moving_piece.obstructed_diagonally?(from_x: 4, from_y: 4, to_x: 8, to_y: 8)).to eq(false)
     end
   end
+
+  # Vertical obstructions:
+  describe '#obstructed_vertically?' do
+    it 'returns true if the move is obstructed vertically going up the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 4) # Use _ for unused variable
+      expect(moving_piece.obstructed_vertically?(to_y: 7)).to eq(true)
+    end
+
+    it 'returns true if the move is obstructed vertically going down the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 6)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 4) # Use _ for unused variable
+      expect(moving_piece.obstructed_vertically?(to_y: 2)).to eq(true)
+    end
+
+    it 'returns false if the move is not obstructed vertically going up the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.obstructed_vertically?(to_y: 7)).to eq(false)
+    end
+
+    it 'returns false if the move is not obstructed vertically going down the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 8)
+      expect(moving_piece.obstructed_vertically?(to_y: 2)).to eq(false)
+    end
+  end
 end
