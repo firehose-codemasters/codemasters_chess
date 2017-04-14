@@ -37,23 +37,23 @@ RSpec.describe Piece, type: :model do
     it 'returns true if the move is obstructed vertically going up the board' do
       moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
       _blocking_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 4) # Use _ for unused variable
-      expect(moving_piece.obstructed_vertically?(current_y: 3, target_y: 7)).to eq(true)
+      expect(moving_piece.obstructed_vertically?(to_y: 7)).to eq(true)
     end
 
     it 'returns true if the move is obstructed vertically going down the board' do
       moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 6)
       _blocking_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 4) # Use _ for unused variable
-      expect(moving_piece.obstructed_vertically?(current_y: 6, target_y: 2)).to eq(true)
+      expect(moving_piece.obstructed_vertically?(to_y: 2)).to eq(true)
     end
 
     it 'returns false if the move is not obstructed vertically going up the board' do
       moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
-      expect(moving_piece.obstructed_vertically?(current_y: 3, target_y: 7)).to eq(false)
+      expect(moving_piece.obstructed_vertically?(to_y: 7)).to eq(false)
     end
 
     it 'returns false if the move is not obstructed vertically going down the board' do
       moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 8)
-      expect(moving_piece.obstructed_vertically?(current_y: 8, target_y: 2)).to eq(false)
+      expect(moving_piece.obstructed_vertically?(to_y: 2)).to eq(false)
     end
   end
 end

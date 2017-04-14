@@ -52,16 +52,15 @@ class Piece < ApplicationRecord
     false
   end
 
-  def obstructed_vertically?(current_y:, target_y:)
-    # Initialize current_y to piece's starting 'y' position, then increment or decrement it
+  def obstructed_vertically?(to_y:)
     current_y = y_position
-    if current_y < target_y
-      while current_y < target_y
+    if current_y < to_y
+      while current_y < to_y
         current_y += 1
         return true if Piece.where(y_position: current_y, active: true).exists?
       end
     else
-      while current_y > target_y
+      while current_y > to_y
         current_y -= 1
         return true if Piece.where(y_position: current_y, active: true).exists?
       end
