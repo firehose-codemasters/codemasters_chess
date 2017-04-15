@@ -12,7 +12,7 @@ class Game < ApplicationRecord
 end
 # Game rules of chess
 def initialize_board_white_pieces
-  8.times do
+  (1..8).each do |_index|
     Pawn.create(game_id: id, x_position: 1, y_position: 2, color: 'white')
   end
   Rook.create(game_id: id, x_position: 1, y_position: 1, color: 'white')
@@ -26,15 +26,15 @@ def initialize_board_white_pieces
 end
 
 def initialize_board_black_pieces
-  8.times do
-    Pawn.create(game_id: id, x_position: 7, y_position: 7, color: 'black')
+  (1..8).each do |_index|
+    Pawn.create(game_id: id, x_position: 1, y_position: 7, color: 'black')
   end
-  Rook.create(game_id: id, x_position: 8, y_position: 2, color: 'black')
-  Knight.create(game_id: id, x_position: 8, y_position: 2, color: 'black')
-  Bishop.create(game_id: id, x_position: 8, y_position: 2, color: 'black')
-  Queen.create(game_id: id, x_position: 8, y_position: 2, color: 'black')
-  King.create(game_id: id, x_position: 8, y_position: 2, color: 'black')
-  Bishop.create(game_id: id, x_position: 8, y_position: 2, color: 'black')
-  Knight.create(game_id: id, x_position: 8, y_position: 2, color: 'black')
-  Rook.create(game_id: id, x_position: 8, y_position: 2, color: 'black')
+  Rook.create(game_id: id, x_position: 1, y_position: 8, color: 'black')
+  Knight.create(game_id: id, x_position: 2, y_position: 8, color: 'black')
+  Bishop.create(game_id: id, x_position: 3, y_position: 8, color: 'black')
+  Queen.create(game_id: id, x_position: 4, y_position: 8, color: 'black')
+  King.create(game_id: id, x_position: 5, y_position: 8, color: 'black')
+  Bishop.create(game_id: id, x_position: 6, y_position: 8, color: 'black')
+  Knight.create(game_id: id, x_position: 7, y_position: 8, color: 'black')
+  Rook.create(game_id: id, x_position: 8, y_position: 8, color: 'black')
 end
