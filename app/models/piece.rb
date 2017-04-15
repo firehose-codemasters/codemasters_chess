@@ -67,4 +67,22 @@ class Piece < ApplicationRecord
     end
     false
   end
+
+  def obstructed_horizontally?(to_x:)
+    current_x = x_position
+    # if method for moving piece to the right
+    if current_x < to_x
+      while current_x < to_x
+        current_x += 1
+        return true if Piece.where(x_position: current_x, active: true).exists?
+      end
+    # else method for movie piece to the left
+    else
+      while current_x > to_x
+        current_x -= 1
+        return true if Piece.where(x_position: current_x, active: true).exists?
+      end
+    end
+    false
+  end
 end
