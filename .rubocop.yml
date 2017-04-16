@@ -19,7 +19,7 @@ AllCops:
   DisplayStyleGuide: true
 
 Metrics/BlockLength:
-  Max: 50
+  Max: 70
   Exclude:
     - 'spec/controllers/**/*'
     - 'spec/routing/**/*'
