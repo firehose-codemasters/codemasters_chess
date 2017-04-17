@@ -10,6 +10,9 @@ RSpec.describe Game, type: :model do
   end 
 end
 
+RSpec.describe Game, type: :model do
+
+end
 
 
 

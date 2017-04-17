@@ -30,7 +30,7 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
-<<<<<<< HEAD
+
 Metrics/TrailingWhitespace:
     Enabled: false
 
@@ -38,7 +38,7 @@ Metrics/MethodLength:
     Enabled: false
 
   
-=======
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
@@ -48,7 +48,7 @@ Metrics/MethodLength:
 
 Metrics/PerceivedComplexity:
   Enabled: false
->>>>>>> 84a9702991c5cedb433bffc17648644719416369
+
 
 RSpec/ExampleLength:
   Exclude:
