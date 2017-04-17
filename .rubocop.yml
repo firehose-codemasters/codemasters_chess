@@ -30,6 +30,7 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
+<<<<<<< HEAD
 
 Metrics/TrailingWhitespace:
     Enabled: false
@@ -39,6 +40,8 @@ Metrics/MethodLength:
 
   
 
+=======
+>>>>>>> 84a9702991c5cedb433bffc17648644719416369
 Metrics/CyclomaticComplexity:
   Enabled: false
 
@@ -49,7 +52,10 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 84a9702991c5cedb433bffc17648644719416369
 RSpec/ExampleLength:
   Exclude:
     - 'spec/views/games/edit.html.erb_spec.rb'
