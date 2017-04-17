@@ -1,5 +1,84 @@
 require 'rails_helper'
 
-# RSpec.describe Piece, type: :model do
-#   pending "add some examples to (or delete) #{__FILE__}"
-# end
+RSpec.describe Piece, type: :model do
+  describe '#obstructed_diagonally?' do
+    it 'returns true if the move is obstructed in the up-right direction' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 6)
+      expect(moving_piece.obstructed_diagonally?(to_x: 8, to_y: 8)).to eq(true)
+    end
+
+    it 'returns true if the move is obstructed in the down-left direction' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
+      expect(moving_piece.obstructed_diagonally?(to_x: 1, to_y: 1)).to eq(true)
+    end
+
+    it 'returns true if the move is obstructed in the up-left direction' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 6)
+      expect(moving_piece.obstructed_diagonally?(to_x: 1, to_y: 7)).to eq(true)
+    end
+
+    it 'returns true if the move is obstructed in the down-right direction' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2)
+      expect(moving_piece.obstructed_diagonally?(to_x: 7, to_y: 1)).to eq(true)
+    end
+
+    it 'returns false if the move is not obstructed' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)
+      expect(moving_piece.obstructed_diagonally?(to_x: 8, to_y: 8)).to eq(false)
+    end
+  end
+
+  # Vertical obstructions:
+  describe '#obstructed_vertically?' do
+    it 'returns true if the move is obstructed vertically going up the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 4) # Use _ for unused variable
+      expect(moving_piece.obstructed_vertically?(to_y: 7)).to eq(true)
+    end
+
+    it 'returns true if the move is obstructed vertically going down the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 6)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 4) # Use _ for unused variable
+      expect(moving_piece.obstructed_vertically?(to_y: 2)).to eq(true)
+    end
+
+    it 'returns false if the move is not obstructed vertically going up the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.obstructed_vertically?(to_y: 7)).to eq(false)
+    end
+
+    it 'returns false if the move is not obstructed vertically going down the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 8)
+      expect(moving_piece.obstructed_vertically?(to_y: 2)).to eq(false)
+    end
+  end
+
+  # Horizontal obstructions:
+  describe '#obstructed_horizontally?' do
+    it 'returns true if the move is obstructed horizontally going right on the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 3) # Use _ for unused variable
+      expect(moving_piece.obstructed_horizontally?(to_x: 7)).to eq(true)
+    end
+
+    it 'returns true if the move is obstructed horizontally going left on the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 5, y_position: 6)
+      _blocking_piece = FactoryGirl.create(:piece, x_position: 3, y_position: 6) # Use _ for unused variable
+      expect(moving_piece.obstructed_horizontally?(to_x: 2)).to eq(true)
+    end
+
+    it 'returns false if the move is not obstructed horizontally going right on the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.obstructed_horizontally?(to_x: 7)).to eq(false)
+    end
+
+    it 'returns false if the move is not obstructed horizontally going left on the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 8, y_position: 1)
+      expect(moving_piece.obstructed_horizontally?(to_x: 2)).to eq(false)
+    end
+  end
+end

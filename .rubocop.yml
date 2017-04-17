@@ -19,7 +19,7 @@ AllCops:
   DisplayStyleGuide: true
 
 Metrics/BlockLength:
-  Max: 29
+  Max: 70
   Exclude:
     - 'spec/controllers/**/*'
     - 'spec/routing/**/*'
@@ -30,6 +30,7 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
+<<<<<<< HEAD
 Metrics/TrailingWhitespace:
     Enabled: false
 
@@ -37,6 +38,17 @@ Metrics/MethodLength:
     Enabled: false
 
   
+=======
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 65
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+>>>>>>> 84a9702991c5cedb433bffc17648644719416369
 
 RSpec/ExampleLength:
   Exclude:
