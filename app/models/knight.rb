@@ -1,2 +1,4 @@
-class Knight < ApplicationRecord
+class Knight < Piece
+
+
 end
