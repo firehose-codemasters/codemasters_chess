@@ -41,7 +41,7 @@ Metrics/MethodLength:
   
 
 
->>>>>>> 84a9702991c5cedb433bffc17648644719416369
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
@@ -53,7 +53,7 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 
->>>>>>> 84a9702991c5cedb433bffc17648644719416369
+
 RSpec/ExampleLength:
   Exclude:
     - 'spec/views/games/edit.html.erb_spec.rb'
@@ -79,6 +79,9 @@ Style/FirstParameterIndentation:
   EnforcedStyle: consistent
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/IndentationConsistency:
   Enabled: false
 
 Style/IndentArray:
