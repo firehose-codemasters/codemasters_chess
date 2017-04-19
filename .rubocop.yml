@@ -89,3 +89,6 @@ Style/IndentArray:
 
 Style/IndentHash:
   EnforcedStyle: consistent
+
+RSpec/MultipleDescribes:
+  Enabled: false

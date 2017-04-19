@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Game, type: :model do
   describe 'initialize_board_white_pieces' do
-    it 'should create 16 pieces in the database' do
+    it 'will create 16 pieces in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_white_pieces
       expect(game.pieces.count).to eq(16)  
@@ -76,12 +76,12 @@ RSpec.describe Game, type: :model do
 end
 RSpec.describe Game, type: :model do
   describe 'initialize_board_black_pieces' do
-    it 'should create 16 pieces in the database' do
+    it 'will create 16 pieces in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_black_pieces
       expect(Piece.where(game_id: game.id).length).to eq(16)
     end
-     it 'will create a active back pawn at coordinates(1,7) in the database' do
+    it 'will create a active back pawn at coordinates(1,7) in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_black_pieces
       expect(Pawn.where(x_position: 1, y_position: 7, color: 'black', active: true).exists?).to eq(true)
@@ -92,18 +92,17 @@ RSpec.describe Game, type: :model do
       game.initialize_board_black_pieces
       expect(Pawn.where(color: 'black', active: true).size).to eq(8)
     end
-     it 'will create a active black rook at coordinates(1,8) in the database' do
+    it 'will create a active black rook at coordinates(1,8) in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_black_pieces
       expect(Rook.where(x_position: 1, y_position: 8, color: 'black', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
     end
     it 'will create 2 black rooks' do
       game = FactoryGirl.create(:game)
       game.initialize_board_black_pieces
       expect(Rook.where(color: 'black', active: true).size).to eq(2)
     end
-     it 'will create a active black knight at coordinates(2,8) in the database' do
+    it 'will create a active black knight at coordinates(2,8) in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_black_pieces
       expect(Knight.where(x_position: 2, y_position: 8, color: 'black', active: true).exists?).to eq(true)
@@ -114,7 +113,7 @@ RSpec.describe Game, type: :model do
       game.initialize_board_black_pieces
       expect(Knight.where(color: 'black', active: true).size).to eq(2)
     end
-     it 'will create a active black bishop at coordinates(3,8) in the database' do
+    it 'will create a active black bishop at coordinates(3,8) in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_black_pieces
       expect(Bishop.where(x_position: 3, y_position: 8, color: 'black', active: true).exists?).to eq(true)
@@ -125,7 +124,7 @@ RSpec.describe Game, type: :model do
       game.initialize_board_black_pieces
       expect(Bishop.where(color: 'black', active: true).size).to eq(2)
     end
-     it 'will create a active black queen at coordinates(4,8) in the database' do
+    it 'will create a active black queen at coordinates(4,8) in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_black_pieces
       expect(Queen.where(x_position: 4, y_position: 8, color: 'black', active: true).exists?).to eq(true)
@@ -136,7 +135,7 @@ RSpec.describe Game, type: :model do
       game.initialize_board_black_pieces
       expect(Queen.where(color: 'black', active: true).size).to eq(1)
     end
-     it 'will create a active black king at coordinates(5,8) in the database' do
+    it 'will create a active black king at coordinates(5,8) in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_black_pieces
       expect(King.where(x_position: 5, y_position: 8, color: 'black', active: true).exists?).to eq(true)
