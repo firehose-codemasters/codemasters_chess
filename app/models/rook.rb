@@ -1,2 +1,2 @@
-class Rook < ApplicationRecord
+class Rook < Piece
 end
