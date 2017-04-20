@@ -30,6 +30,18 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
+
+
+Metrics/TrailingWhitespace:
+    Enabled: false
+
+Metrics/MethodLength:
+    Enabled: false
+
+  
+
+
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
@@ -39,6 +51,8 @@ Metrics/MethodLength:
 
 Metrics/PerceivedComplexity:
   Enabled: false
+
+
 
 RSpec/ExampleLength:
   Exclude:
@@ -67,8 +81,14 @@ Style/FirstParameterIndentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/IndentationConsistency:
+  Enabled: false
+
 Style/IndentArray:
   EnforcedStyle: consistent
 
 Style/IndentHash:
   EnforcedStyle: consistent
+
+RSpec/MultipleDescribes:
+  Enabled: false
