@@ -21,7 +21,7 @@ FactoryGirl.define do
     color 'white'
     active true
     x_position 1
-    y_position 1
+    y_position 3
     type 'Rook'
     association :game
   end
