@@ -9,6 +9,24 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
+  # These methods help to define the prototypical Piece concept/object
+  def valid_move?(to_x:, to_y:)
+    return false if # distance_traveled > max_move_distance 
+    return false if # move goes off the board
+    # Should check that distance traveled is at least 1
+    true # default 
+  end
+
+  def distance_traveled(to_x:, to_y:)
+    # Checks to see how far a piece moves
+    # 
+  end
+
+  def maximum_move_distance
+    return 8 # Could RAISE "not implemented" error - this should be overridden by 
+    # each Type's max move distance. Not really implemented for generic class "Piece"
+  end
+
   def obstructed_diagonally?(to_x:, to_y:)
     # Current_x and current_y are used as incrementer variables
     current_x = x_position
