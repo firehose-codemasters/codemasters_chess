@@ -63,7 +63,8 @@ Style/Documentation:
 
 Style/EndOfLine:
   Exclude:
-    - 'app/models/king.rb'  
+    - 'app/models/king.rb'
+    - 'spec/models/king_spec.rb'  
 
 Style/FirstParameterIndentation:
   EnforcedStyle: consistent
