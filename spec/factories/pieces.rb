@@ -11,8 +11,8 @@ FactoryGirl.define do
   factory :king do
     color 'white'
     active true
-    x_position 5
-    y_position 1
+    x_position 4
+    y_position 4
     type 'King'
     association :game
   end
