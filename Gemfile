@@ -17,6 +17,7 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_girl_rails', '~> 4.0' # Use Factory Girl for testing
+  gem 'pry-byebug' # Use pry-byebug for debugging, call 'binding.pry' to put a debugging point in the code
   gem 'rails-controller-testing' # Use rails-controller-testing gem to support scaffolded test suites
   gem 'rspec', '~> 3.5.0' # Use RSpec for testing
   gem 'rspec-rails', '~> 3.5.0' # Use RSpec for testing
