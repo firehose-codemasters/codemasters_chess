@@ -2,35 +2,27 @@ class Pawn < Piece
 	attr_accessor :to_x, :to_y
 
 def starting_point_and_move_directions
-	{ white: 2, black: 7}
-	{ white: 1, black: -1 }
+	{ white: 2, black: 7} # starting point
+	{ white: 1, black: -1 } # move direction
 end
 
 def valid_move_and_no_way_jose_move?
 	if color == "white" to_y < y_position && to_y > y_position return false#checking for obstructions
-	if color == "white" && to_y > y_position return true	
+	if color == "white" && to_y > y_position return true
+	if color == "black" to_y < y_position && to_y > y_position return true#checking for obstructions
+	if color == "black" && to_y > y_position return false
 end
 
-def board_space_occupied?(x,y)
-	unless game.piece_at(x,y)
+def board_space_occupied?(to_x,to_y)
+	unless game.piece_at(to_x,to_y)
 		return true
 end
 
 def first_move
- self.first_move to_y > y_position + 1 || self.first_move to_y > y_position + 2 
+ self.first_move to_y > y_position + 1 || self.first_move to_y > y_position + 2 if color == "white"
+ self.first_move to_y > y_position - 1 || self.first_move to_y > y_position - 2 if color == "black"
 end
 
-
-return false if obstructed_vertically(to_x, to_y)
-
-	#should be checking for obstructions also
-
-
-end
-
-def first_move #will not have an obstruction
-
-end
 
 #possible moves
 	#to_y + 2
@@ -43,8 +35,7 @@ end
 
 
 
-#define what you can't do
-	#forwards? backwards? sideways? diagonally?
+
 
 
 #define what you can do
