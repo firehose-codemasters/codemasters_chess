@@ -52,7 +52,7 @@ class Piece < ApplicationRecord
     false
   end
 
-  def obstructed_vertically?(to_y:)
+  def obstructed_vertically?(to_y:) # Not passing y_position as an argument; instead it is pulled from the object
     current_y = y_position
     if current_y < to_y
       while current_y < to_y

@@ -1,5 +1,5 @@
 require: rubocop-rspec
-inherit_from: .rubocop_todo.yml
+# inherit_from: .rubocop_todo.yml
 
 Rails:
   Enabled: true
@@ -74,6 +74,11 @@ RSpec/MultipleExpectations:
 
 Style/Documentation:
   Enabled: false
+
+Style/EndOfLine:
+  Exclude:
+    - 'app/models/king.rb'
+    - 'spec/models/king_spec.rb'  
 
 Style/FirstParameterIndentation:
   EnforcedStyle: consistent
