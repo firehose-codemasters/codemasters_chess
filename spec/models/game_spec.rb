@@ -5,7 +5,7 @@ RSpec.describe Game, type: :model do
     it 'will create 16 pieces in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_white_pieces
-      expect(game.pieces.count).to eq(16)  
+      expect(game.pieces.count).to eq(16)
     end
     it 'will create a active white pawn at coordinates(1,2) in the database' do
       game = FactoryGirl.create(:game)
@@ -72,7 +72,7 @@ RSpec.describe Game, type: :model do
       game.initialize_board_white_pieces
       expect(King.where(color: 'white', active: true).size).to eq(1)
     end
-  end 
+  end
 end
 RSpec.describe Game, type: :model do
   describe 'initialize_board_black_pieces' do
@@ -148,4 +148,3 @@ RSpec.describe Game, type: :model do
     end
   end
 end
- 
