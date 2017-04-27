@@ -1,22 +1,31 @@
 class Pawn < Piece
 	
-def valid_move_and_no_way_jose_move?
-	straight_ahead = (to_y - y_position).abs 
-	return true if straight_ahead != 0 && (to_y - y_position).abs == 1
+def valid_move?
+	return true if normal_move?(to_x, to_y)
+	return true if first_move?(first_move, to_y) #how do we keep track of first move
+	return true if capture move?(to_piece, to_y)
+	return true if en_passant?(to_x, to_y)
+	false
 end
 
-def first_move
+
+	private
+
+def normal_move(to_x, to_y)
+	return (to_x - x_position == 0) && (to_y - y_position == 1)
+end
+
+
+def first_move(first_move, to_y)
  first_move = (to_y - y_position).abs == 1 || (to_y - y_position).abs == 2
 end
 
-def enpassant
+def capture_piece(to_piece, to_x, to_y)
+	to_piece = (to_y - y_position).abs == 1 && (to_x - x_position).abs = 
 end
 
-
-#possible moves
-	#to_y + 2
-	#to_y + 1
-	#to_y + 1 && to_x + 1
+#need to know there is an enemy piece/opposite color piece present piece.where
+#need to 
 
 
 
