@@ -2,21 +2,33 @@ class Pawn < Piece
 	
 def valid_move?
 	return true if normal_move?(to_x, to_y)
+	return false if backwards_move(to_x, to_y)
 	return true if first_move?(first_move, to_y) #how do we keep track of first move
 	return true if pawn_diagonal?(to_x, to_y)
-	#return true if capture move?(to_piece, to_y)
-	#return true if en_passant?(to_x, to_y)
+	return true if capture_piece?(to_x, to_y)
+	return true if en_passant?(to_x, to_y)
 	false
 end
+
+
+
+#how are we defining the good guys vs. the bad guys? by color
+
+#need to have something that addresses the white moving one way and the black moving the other
 
 private
 
 def normal_move?(to_x, to_y)
-	return (to_x - x_position == 0) && (to_y - y_position == 1)
+	return (to_x - x_position).abs == 0 && (to_y - y_position).abs == 1
 end
 
+def backwards_move?(to_x, to_y)
+	#color ? to_y > y_position || y_position > to_x
+end 
+
+
 def pawn_diagonal?(to_x, to_y)
- 	return (to_x - x_position == 1) && (to_y - y_position == 1)
+ 	return (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1
 end
 
 
@@ -27,9 +39,15 @@ end
 # Capture logic here
 
 
-def capture_piece(to_piece, to_x, to_y)
-	
+def capture_piece(to_x, to_y)	
+	to_x == (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1 && #enemy_at(to_x, to_y)
 end
+
+def enpassant
+	
+
+end
+
 
 
 #need many methods for capture
