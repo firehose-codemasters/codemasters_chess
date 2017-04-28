@@ -34,4 +34,13 @@ FactoryGirl.define do
     type 'Rook'
     association :game
   end
+
+  factory :knight do
+    color 'white'
+    active true
+    x_position 4
+    y_position 4
+    type 'Knight'
+    association :game
+  end
 end

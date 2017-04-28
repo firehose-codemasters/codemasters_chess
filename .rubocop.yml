@@ -25,7 +25,7 @@ Metrics/BlockLength:
     - 'spec/routing/**/*'
 
 Metrics/LineLength:
-  Max: 120
+  Max: 130
 
 Metrics/AbcSize:
   Enabled: false
@@ -78,7 +78,8 @@ Style/Documentation:
 Style/EndOfLine:
   Exclude:
     - 'app/models/king.rb'
-    - 'spec/models/king_spec.rb'  
+    - 'spec/models/king_spec.rb'
+    - 'spec/models/knight_spec.rb'
 
 Style/FirstParameterIndentation:
   EnforcedStyle: consistent
