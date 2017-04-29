@@ -85,4 +85,11 @@ class Piece < ApplicationRecord
     end
     false
   end
+
+  def remains_on_board?(to_x:, to_y:)
+    if to_x >= 1 && to_x <= 8 && to_y >= 1 && to_y <= 8
+    else
+      false
+    end
+  end
 end
