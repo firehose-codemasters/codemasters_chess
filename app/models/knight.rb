@@ -1,5 +1,5 @@
 class Knight < Piece
-  def obstructed_diagonally?
+  def obstructed_diagonally?(*)
     false
   end
 
