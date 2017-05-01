@@ -16,6 +16,22 @@ RSpec.describe Knight, type: :model do
     end
   end
 
+  describe '#obstructed_horizontally?' do
+    it 'returns false in a knight-style move' do
+      knight = FactoryGirl.create(:knight)
+      _blocking_piece = FactoryGirl.create(:king, x_position: 5, y_position: 4)
+      expect(knight.obstructed_diagonally?(to_x: 6, to_y: 5)).to eq(false)
+    end
+  end
+
+  describe '#obstructed_vertically?' do
+    it 'returns false in a knight-style move' do
+      knight = FactoryGirl.create(:knight)
+      _blocking_piece = FactoryGirl.create(:king, x_position: 4, y_position: 5)
+      expect(knight.obstructed_diagonally?(to_x: 5, to_y: 6)).to eq(false)
+    end
+  end
+
   describe '#valid_move?' do
     it 'returns true if the move is 2 up and 1 to the right' do
       knight = FactoryGirl.create(:knight)
