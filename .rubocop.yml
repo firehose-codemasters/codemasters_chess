@@ -32,7 +32,7 @@ Metrics/AbcSize:
 
 
 
-Metrics/TrailingWhitespace:
+Style/TrailingWhitespace:
     Enabled: false
 
 Metrics/MethodLength:
@@ -73,6 +73,9 @@ RSpec/MultipleExpectations:
   Max: 6
 
 Style/Documentation:
+  Enabled: false
+
+Style/NumericPredicate:
   Enabled: false
 
 Style/FirstParameterIndentation:

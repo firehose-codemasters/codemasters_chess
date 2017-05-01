@@ -9,6 +9,8 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
+  
+
   def obstructed_diagonally?(to_x:, to_y:)
     # Current_x and current_y are used as incrementer variables
     current_x = x_position
