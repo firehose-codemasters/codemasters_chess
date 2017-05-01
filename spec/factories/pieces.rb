@@ -26,6 +26,15 @@ FactoryGirl.define do
     association :game
   end
 
+  factory :bishop do
+    color 'black'
+    active true
+    x_position 5
+    y_position 5
+    type 'Bishop'
+    association :game
+  end
+
   factory :rook do
     color 'white'
     active true

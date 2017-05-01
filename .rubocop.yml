@@ -1,5 +1,4 @@
 require: rubocop-rspec
-# inherit_from: .rubocop_todo.yml
 
 Rails:
   Enabled: true
@@ -30,17 +29,8 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
-
-
-Metrics/TrailingWhitespace:
-    Enabled: false
-
 Metrics/MethodLength:
     Enabled: false
-
-  
-
-
 
 Metrics/CyclomaticComplexity:
   Enabled: false
@@ -51,8 +41,6 @@ Metrics/MethodLength:
 
 Metrics/PerceivedComplexity:
   Enabled: false
-
-
 
 RSpec/ExampleLength:
   Exclude:
