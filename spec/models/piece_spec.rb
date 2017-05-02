@@ -102,6 +102,6 @@ RSpec.describe Piece, type: :model do
     it 'returns false if the moving piece has an x_position and a y_position off the board' do
       moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
       expect(moving_piece.remains_on_board?(to_x: 0, to_y: 13)).to eq(false)
-    end    
+    end
   end
 end
