@@ -3,11 +3,11 @@ class Knight < Piece
     false
   end
 
-  def obstructed_vertically?
+  def obstructed_vertically?(*)
     false
   end
 
-  def obstructed_horizontally?
+  def obstructed_horizontally?(*)
     false
   end
 
