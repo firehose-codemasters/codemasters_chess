@@ -1,5 +1,5 @@
 require: rubocop-rspec
-inherit_from: .rubocop_todo.yml
+# inherit_from: .rubocop_todo.yml
 
 Rails:
   Enabled: true
@@ -92,6 +92,10 @@ Style/IndentArray:
 
 Style/IndentHash:
   EnforcedStyle: consistent
+
+Style/MultilineOperationIndentation:
+  Exclude:
+    - 'app/models/pawn.rb'
 
 RSpec/MultipleDescribes:
   Enabled: false
