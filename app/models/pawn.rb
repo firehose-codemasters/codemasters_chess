@@ -8,8 +8,11 @@ class Pawn < Piece
 
   private
 
+  # Returns true if the pawn advances one space from its origin
   def normal_move?(to_x, to_y)
-    (to_x - x_position).abs == 0 && (to_y - y_position).abs == 1
+    return true if color == 'black' && to_y - y_position == -1 && to_x == x_position
+    return true if color == 'white' && to_y - y_position == 1 && to_x == x_position
+    false
   end
 
   def pawn_diagonal?(to_x, to_y)
