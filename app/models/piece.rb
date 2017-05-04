@@ -52,7 +52,7 @@ class Piece < ApplicationRecord
     false
   end
 
-  def obstructed_vertically?(to_y:)
+  def obstructed_vertically?(to_y:) # Not passing y_position as an argument; instead it is pulled from the object
     current_y = y_position
     if current_y < to_y
       while current_y < to_y
@@ -84,5 +84,13 @@ class Piece < ApplicationRecord
       end
     end
     false
+  end
+
+  def remains_on_board?(to_x:, to_y:)
+    if to_x >= 1 && to_x <= 8 && to_y >= 1 && to_y <= 8
+      true
+    else
+      false
+    end
   end
 end

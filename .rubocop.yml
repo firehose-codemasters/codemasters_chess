@@ -1,4 +1,5 @@
 require: rubocop-rspec
+
 # inherit_from: .rubocop_todo.yml
 
 Rails:
@@ -19,23 +20,19 @@ AllCops:
   DisplayStyleGuide: true
 
 Metrics/BlockLength:
-  Max: 70
+  Max: 85
   Exclude:
     - 'spec/controllers/**/*'
     - 'spec/routing/**/*'
 
 Metrics/LineLength:
-  Max: 120
+  Max: 130
 
 Metrics/AbcSize:
   Enabled: false
 
 Metrics/MethodLength:
     Enabled: false
-
-  
-
-
 
 Metrics/CyclomaticComplexity:
   Enabled: false
@@ -46,8 +43,6 @@ Metrics/MethodLength:
 
 Metrics/PerceivedComplexity:
   Enabled: false
-
-
 
 RSpec/ExampleLength:
   Exclude:
@@ -70,8 +65,15 @@ RSpec/MultipleExpectations:
 Style/Documentation:
   Enabled: false
 
+
 Style/NumericPredicate:
   Enabled: false
+
+Style/EndOfLine:
+  Exclude:
+    - 'app/models/king.rb'
+    - 'spec/models/king_spec.rb'
+    - 'spec/models/knight_spec.rb'
 
 Style/FirstParameterIndentation:
   EnforcedStyle: consistent

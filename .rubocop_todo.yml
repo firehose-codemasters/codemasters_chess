@@ -7,9 +7,15 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
+
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
 # SupportedStyles: aligned, indented
 Style/MultilineOperationIndentation:
   Exclude:
     - 'app/models/pawn.rb'
+
+Style/EndOfLine:
+  Exclude:
+    - 'app/models/king.rb'
+
