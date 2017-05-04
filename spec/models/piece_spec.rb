@@ -81,4 +81,27 @@ RSpec.describe Piece, type: :model do
       expect(moving_piece.obstructed_horizontally?(to_x: 2)).to eq(false)
     end
   end
+
+  # Off board check:
+  describe '#remains_on_board' do
+    it 'returns true if the move is to a square on the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.remains_on_board?(to_x: 7, to_y: 3)).to eq(true)
+    end
+
+    it 'returns false if the moving piece has an x_position off the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.remains_on_board?(to_x: 11, to_y: 3)).to eq(false)
+    end
+
+    it 'returns false if the moving piece has a y_position off the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.remains_on_board?(to_x: 1, to_y: -1)).to eq(false)
+    end
+
+    it 'returns false if the moving piece has an x_position and a y_position off the board' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.remains_on_board?(to_x: 0, to_y: 13)).to eq(false)
+    end
+  end
 end
