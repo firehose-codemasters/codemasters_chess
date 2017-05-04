@@ -12,12 +12,12 @@ RSpec.describe Pawn, type: :model do
     it 'returns true if the white pawn successfully has a normal move' do
       pawn = FactoryGirl.create(:pawn, x_position: 2, y_position: 3, color: 'white')
       expect(pawn.valid_pawn_move?(to_x: 2, to_y: 4)).to eq(true)
-    end  
+    end
 
     it 'returns true if the black pawn successfully has a normal move' do
       pawn = FactoryGirl.create(:pawn, x_position: 4, y_position: 6, color: 'black')
       expect(pawn.valid_pawn_move?(to_x: 4, to_y: 5)).to eq(true)
-    end  
+    end
 
     it 'returns true if the white pawn moves successfully one space on the first move' do
       pawn = FactoryGirl.create(:pawn, x_position: 1, y_position: 2, color: 'white')

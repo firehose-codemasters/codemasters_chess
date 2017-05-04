@@ -30,11 +30,6 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
-
-
-Style/TrailingWhitespace:
-    Enabled: false
-
 Metrics/MethodLength:
     Enabled: false
 

@@ -1,2 +1,2 @@
-class Bishop < Piece	
+class Bishop < Piece
 end

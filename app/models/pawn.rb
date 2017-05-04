@@ -1,6 +1,6 @@
 class Pawn < Piece
   def valid_pawn_move?(to_x:, to_y:)
-    return true if direction_of_white_and_black_pawns(to_y) && 
+    return true if direction_of_white_and_black_pawns(to_y) &&
       (
         normal_move?(to_x, to_y) ||
         first_move?(to_x, to_y) ||
@@ -33,7 +33,7 @@ class Pawn < Piece
 
   # Returns true if it's the pawn's first move
   def first_move?(to_x, to_y)
-    if color == 'black' && y_position == 7 || color == 'white' && y_position == 2 
+    if color == 'black' && y_position == 7 || color == 'white' && y_position == 2
       return true if ((to_y - y_position).abs == 1 || (to_y - y_position).abs == 2) && to_x == x_position
     else
       false

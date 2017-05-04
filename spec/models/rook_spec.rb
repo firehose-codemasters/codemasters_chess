@@ -12,12 +12,12 @@ RSpec.describe Rook, type: :model do
     it 'returns true if the rook successfully moves to the right along a horizontal pathway' do
       rook = FactoryGirl.create(:rook)
       expect(rook.piece_rules?(to_x: 7, to_y: 3)).to eq(true)
-    end  
+    end
 
     it 'returns true if the rook successfully moves to the left along a horizontal pathway' do
       rook = FactoryGirl.create(:rook, x_position: 7, y_position: 3)
       expect(rook.piece_rules?(to_x: 1, to_y: 3)).to eq(true)
-    end 
+    end
 
     it 'returns true if the rook successfully moves up along a vertical pathway' do
       rook = FactoryGirl.create(:rook)
