@@ -98,7 +98,8 @@ class Piece < ApplicationRecord
     return false if obstructed_diagonally?(to_x:, to_y:)
     return false if obstructed_vertically?(to_x:, to_y:)
     return false if obstructed_horizontally?(to_x:, to_y:)
-    target_piece = Piece.where(x_position: to_x, y_position: to_y, active: true, color: )  # Add requirement that target MUST be opponent's color
+    current_color = current_piece.color
+    target_piece = Piece.where(x_position: to_x, y_position: to_y, active: true, color: !current_color)  # Add requirement that target MUST be opponent's color
     if target_piece.exists?
       return false if target_piece == king  # King can't be captured, only checkmated
       target_piece.active == false
