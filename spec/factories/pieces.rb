@@ -44,6 +44,15 @@ FactoryGirl.define do
     association :game
   end
 
+  factory :pawn do
+    color 'white'
+    active true
+    x_position 1
+    y_position 2
+    type 'Pawn'
+    association :game
+  end
+
   factory :knight do
     color 'white'
     active true
