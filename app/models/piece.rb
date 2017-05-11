@@ -11,14 +11,13 @@ class Piece < ApplicationRecord
 
   # Moving piece logic
   def move(to_x:, to_y:)
-    return 'success' if valid_move?(to_x: to_x, to_y: to_y) && 
-                        !obstructed_diagonally(to_x: to_x, to_y: to_y) && 
-                        !obstructed_horizontally(to_x: to_x, to_y: to_y) &&
-                        !obstructed_vertically(to_x: to_x, to_y: to_y) &&
+    return 'success' if valid_move?(to_x: to_x, to_y: to_y) &&
+                        !obstructed_diagonally?(to_x: to_x, to_y: to_y) &&
+                        !obstructed_horizontally?(to_x: to_x) &&
+                        !obstructed_vertically?(to_y: to_y) &&
                         remains_on_board?(to_x: to_x, to_y: to_y)
-    return 'failed' 
+    'failed'
   end
-
 
   def obstructed_diagonally?(to_x:, to_y:)
     # Current_x and current_y are used as incrementer variables
