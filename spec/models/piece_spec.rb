@@ -42,6 +42,8 @@ RSpec.describe Piece, type: :model do
     end
 
     it 'returns failed if a knight move does not follow the knight rules' do
+      piece = FactoryGirl.create(:knight)
+      expect(piece.move(to_x: 5, to_y: 5)).to eq('failed')
     end
 
     it 'returns success if a bishop move follows the bishop rules' do
