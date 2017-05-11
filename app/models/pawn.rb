@@ -4,7 +4,7 @@ class Pawn < Piece
       (
         normal_move?(to_x, to_y) ||
         first_move?(to_x, to_y) ||
-        pawn_diagonal?(to_x, to_y)
+        pawn_diagonal_capture?(to_x, to_y)
       )
     false
   end
@@ -27,8 +27,11 @@ class Pawn < Piece
   end
 
   # Returns true if the move is diagonal one space.
-  def pawn_diagonal?(to_x, to_y)
-    (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1
+  def pawn_diagonal_capture?(to_x, to_y)
+    captured_piece = (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1
+    return true if pawn_diagonal_capture && obstructed_diagonally?(to_x, to_y) != current_piece.color
+    return false if pawn_diagonal_capture == current_piece.color && obstructed_diagonally?(to_x, to_y)
+    return false if captured_piece.blank?
   end
 
   # Returns true if it's the pawn's first move
