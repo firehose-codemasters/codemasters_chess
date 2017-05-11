@@ -1,16 +1,6 @@
 class PiecesController < ApplicationController
   before_action :set_piece, only: [:show, :edit, :update, :destroy]
 
-  # Moving piece logic
-  def move_piece(to_x:, to_y:)
-    if valid_move?(to_x, to_y)
-      current_piece(x_position) = to_x
-      current_piece(y_position) = to_y
-    else
-      return "Invalid move, please try again"
-    end
-  end
-
   # GET /pieces
   # GET /pieces.json
   def index

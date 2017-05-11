@@ -1,6 +1,68 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
+  describe '#move' do
+    it 'returns success if the move is not obstructed diagonally' do
+    end
+
+    it 'returns failed if the move is obstructed diagonally' do
+    end
+
+    it 'returns success if the move is not obstructed vertically' do
+    end
+
+    it 'returns failed if the move is obstructed vertically' do
+    end
+
+    it 'returns success if the move not obstructed horizontally' do
+    end
+
+    it 'returns failed if the move is obstructed horizontally' do
+    end
+
+    it 'returns success if the move is on the board' do
+    end
+
+    it 'returns failed if the move is off the board' do
+    end
+
+    it 'returns success if a king move follows the king rules' do
+    end
+
+    it 'returns failed if a king move does not follow the king rules' do
+    end
+
+    it 'returns success if a queen move follows the queen rules' do
+    end
+
+    it 'returns failed if a queen move does not follow the queen rules' do
+    end
+
+    it 'returns success if a knight move follows the knight rules' do
+    end
+
+    it 'returns failed if a knight move does not follow the knight rules' do
+    end
+
+    it 'returns success if a bishop move follows the bishop rules' do
+    end
+
+    it 'returns failed if a bishop move does not follow the bishop rules' do
+    end
+
+    it 'returns success if a rook move follows the rook rules' do
+    end
+
+    it 'returns failed if a rook move does not follow the rook rules' do
+    end
+
+    it 'returns success if a pawn move follows the pawn rules' do
+    end
+
+    it 'returns failed if a pawn move does not follow the pawn rules' do
+    end
+  end
+
   describe '#obstructed_diagonally?' do
     it 'returns true if the move is obstructed in the up-right direction' do
       moving_piece = FactoryGirl.create(:piece, x_position: 4, y_position: 4)

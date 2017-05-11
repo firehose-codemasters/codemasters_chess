@@ -9,6 +9,17 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
+  # Moving piece logic
+  def move_piece(to_x:, to_y:)
+    if valid_move?(to_x, to_y)
+      current_piece(x_position) = to_x
+      current_piece(y_position) = to_y
+    else
+      return "Invalid move, please try again"
+    end
+  end
+
+  
   def obstructed_diagonally?(to_x:, to_y:)
     # Current_x and current_y are used as incrementer variables
     current_x = x_position
