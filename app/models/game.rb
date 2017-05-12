@@ -9,6 +9,13 @@ class Game < ApplicationRecord
   }
   validates :white_player, presence: true
   validates :black_player, presence: true
+  attr_reader :current_color, :resting_color
+
+    def initialize_game_colors(current_color = 'white', resting_color = 'black')
+      @current_color = current_color
+      @resting_color = resting_color
+    end
+
     # Game rules of chess
     def initialize_board_white_pieces
       (1..8).each do |index|
@@ -36,5 +43,9 @@ class Game < ApplicationRecord
       Bishop.create(game_id: id, x_position: 6, y_position: 8, color: 'black', active: true)
       Knight.create(game_id: id, x_position: 7, y_position: 8, color: 'black', active: true)
       Rook.create(game_id: id, x_position: 8, y_position: 8, color: 'black', active: true)
+    end
+
+    def switch_colors
+      @current_color, @resting_color = @resting_color, @current_color
     end
 end
