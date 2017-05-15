@@ -38,14 +38,22 @@ class PiecesController < ApplicationController
   # PATCH/PUT /pieces/1
   # PATCH/PUT /pieces/1.json
   def update
-    respond_to do |format|
-      if @piece.update(piece_params)
-        format.html { redirect_to @piece, notice: 'Piece was successfully updated.' }
-        format.json { render :show, status: :ok, location: @piece }
-      else
-        format.html { render :edit }
-        format.json { render json: @piece.errors, status: :unprocessable_entity }
+    @piece = Piece.find(params[:id])
+    to_x = params[:x_position].to_i
+    to_y = params[:y_position].to_i
+    # The update method will change the x_position and y_position of a piece in the database.
+    if @piece.move(to_x, to_y) # This checks if the move is valid by using the mvoe method in the model
+      respond_to do |format|
+        if @piece.update(piece_params)
+          format.html { redirect_to @piece, notice: 'Piece was successfully updated.' }
+          format.json { render :show, status: :ok, location: @piece }
+        else
+          format.html { render :edit }
+          format.json { render json: @piece.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      # Render an error because the move is invalid
     end
   end
 
