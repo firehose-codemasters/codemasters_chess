@@ -19,6 +19,12 @@ class Piece < ApplicationRecord
     'failed'
   end
 
+  # Default move check to ensure that the piece moves
+  def valid_move?(to_x:, to_y:)
+    return true if to_x != x_position && to_y != y_position
+    false
+  end
+
   def obstructed_diagonally?(to_x:, to_y:)
     # Current_x and current_y are used as incrementer variables
     current_x = x_position
