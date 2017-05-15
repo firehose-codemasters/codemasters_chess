@@ -29,8 +29,8 @@ class Pawn < Piece
   # Returns true if the move is diagonal one space.
   def pawn_diagonal_capture?(to_x, to_y)
     captured_piece = (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1
-    return true if pawn_diagonal_capture && obstructed_diagonally?(to_x, to_y) != current_piece.color
-    return false if pawn_diagonal_capture == current_piece.color && obstructed_diagonally?(to_x, to_y)
+    return true if pawn_diagonal_capture && obstructed_diagonally?(to_x, to_y) != Piece.current_color
+    return false if pawn_diagonal_capture == Piece.current_color && obstructed_diagonally?(to_x, to_y)
     return false if captured_piece.blank?
   end
 
