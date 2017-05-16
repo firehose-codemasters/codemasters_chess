@@ -45,7 +45,7 @@ class Game < ApplicationRecord
       Rook.create(game_id: id, x_position: 8, y_position: 8, color: 'black', active: true)
     end
 
-    def switch_colors
+    def next_turn
       @current_color, @resting_color = @resting_color, @current_color
     end
 end
