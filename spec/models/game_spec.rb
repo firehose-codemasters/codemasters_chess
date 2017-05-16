@@ -167,13 +167,13 @@ RSpec.describe Game, type: :model do
     it 'will switch current_color from white to black' do
       game = FactoryGirl.create(:game)
       game.initialize_game_colors
-      game.switch_colors
+      game.next_turn
       expect(game.current_color).to eq('black')
     end
     it 'will switch resting_color from black to white' do
       game = FactoryGirl.create(:game)
       game.initialize_game_colors
-      game.switch_colors
+      game.next_turn
       expect(game.resting_color).to eq('white')
     end
   end
