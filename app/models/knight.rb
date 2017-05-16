@@ -1,14 +1,14 @@
 class Knight < Piece
   def obstructed_diagonally?(*)
-    false
+    false   # Because a knight can "jump over" any piece in its path
   end
 
   def obstructed_vertically?(*)
-    false
+    false   # Because a knight can "jump over" any piece in its path
   end
 
   def obstructed_horizontally?(*)
-    false
+    false   # Because a knight can "jump over" any piece in its path
   end
 
   def valid_move?(to_x:, to_y:)
