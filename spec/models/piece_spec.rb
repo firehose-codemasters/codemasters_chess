@@ -104,4 +104,39 @@ RSpec.describe Piece, type: :model do
       expect(moving_piece.remains_on_board?(to_x: 0, to_y: 13)).to eq(false)
     end
   end
+
+  # Testing of is_attacker method for piece
+  describe 'is_attacker' do
+    it 'returns true if piece has the same color as the current_color in a particular game' do
+      game = FactoryGirl.create(:game)
+      moving_piece = FactoryGirl.create(:piece, color: 'white', game_id: game.id)
+      game.initialize_game_colors
+      #binding.pry
+      expect(moving_piece.is_attacker).to eq('true')
+    end
+
+    # it 'returns false if piece has a different color as the current_color in a particular game' do
+    #   game = FactoryGirl.create(:game)
+    #   moving_piece = FactoryGirl.create(:piece, color: 'white')
+    #   game.initialize_game_colors
+    #   expect(moving_piece.is_attacker && (game.current_color == 'black')).to eq(false)
+    # end
+  end
+
+  # # Testing of is_defender method for piece
+  # describe 'is_defender' do
+  #   it 'returns true if the piece has the same color as the resting_color in a particular game' do
+  #     game = FactoryGirl.create(:game)
+  #     resting_piece = FactoryGirl.create(:piece, color: 'black')
+  #     game.initialize_game_colors
+  #     expect(resting_piece.is_defender && (game.resting_color == 'black')).to eq(true)
+  #   end
+
+  #   it 'returns false if the piece has a different color as the resting_color in a particular game' do
+  #     game = FactoryGirl.create(:game)
+  #     resting_piece = FactoryGirl.create(:piece, color: 'black')
+  #     game.initialize_game_colors
+  #     expect(resting_piece.is_defender && (game.resting_color == 'white')).to eq(false)
+  #   end
+  # end
 end

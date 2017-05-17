@@ -163,7 +163,7 @@ RSpec.describe Game, type: :model do
   end
 end
 RSpec.describe Game, type: :model do
-  describe 'switch_colors' do
+  describe 'next_turn' do
     it 'will switch current_color from white to black' do
       game = FactoryGirl.create(:game)
       game.initialize_game_colors
