@@ -104,4 +104,25 @@ RSpec.describe Piece, type: :model do
       expect(moving_piece.remains_on_board?(to_x: 0, to_y: 13)).to eq(false)
     end
   end
+
+  # Capture checks:
+  describe '#capture' do
+    it 'returns false if the capture attempt is obstructed diagonally' do
+    end
+
+    it 'returns false if the capture attempt is obstructed horizontally' do
+    end
+
+    it 'returns false if the capture attempt is obstructed diagonally' do
+    end
+
+    it 'returns false if there is no target piece to capture at to_x, to_y' do
+    end
+
+    it 'returns false if target_piece.color is the same as current_color' do
+    end
+
+    it 'returns true if the capture attempt is not obstructed and there is an target (opposing) piece at to_x, to_y.' do
+    end
+  end
 end
