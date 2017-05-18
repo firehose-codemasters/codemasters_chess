@@ -110,19 +110,20 @@ RSpec.describe PiecesController, type: :controller do
     context 'with valid params' do
       it 'updates the requested piece' do
         piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
-        # piece = Piece.create! valid_attributes
-        put :update, params: { id: piece.to_param, piece:     {
-                color: 'white',
-                active: true,
-                x_position: 4,
-                y_position: 4,
-                # # Type needs to be implemented when first piece is created:
-                # type: 'rook',
-                game_id: game2.id
-              }
-               }, session: valid_session
+        put :update, params:
+            {
+              id: piece.to_param, piece:
+                {
+                  color: 'white',
+                  active: true,
+                  x_position: 4,
+                  y_position: 4,
+                  # # Type needs to be implemented when first piece is created:
+                  # type: 'rook',
+                  game_id: game2.id
+                }
+            }, session: valid_session
         piece.reload
-        # binding.pry
         expect(piece.x_position).to eq(4)
       end
     end
@@ -130,47 +131,22 @@ RSpec.describe PiecesController, type: :controller do
     context 'with invalid params' do
       it 'updates the requested piece' do
         piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
-        # piece = Piece.create! valid_attributes
-        put :update, params: { id: piece.to_param, piece:     {
-                color: 'white',
-                active: true,
-                x_position: 9,
-                y_position: 4,
-                # # Type needs to be implemented when first piece is created:
-                # type: 'rook',
-                game_id: game2.id
-              }
-               }, session: valid_session
+        put :update, params:
+            {
+              id: piece.to_param, piece:
+                {
+                  color: 'white',
+                  active: true,
+                  x_position: 9,
+                  y_position: 4,
+                  # # Type needs to be implemented when first piece is created:
+                  # type: 'rook',
+                  game_id: game2.id
+                }
+            }, session: valid_session
         piece.reload
-        # binding.pry
         expect(piece.x_position).to eq(2)
       end
-
-    #   it 'assigns the requested piece as @piece' do
-    #     piece = Piece.create! valid_attributes
-    #     put :update, params: { id: piece.to_param, piece: valid_attributes }, session: valid_session
-    #     expect(assigns(:piece)).to eq(piece)
-    #   end
-
-    #   it 'redirects to the piece' do
-    #     piece = Piece.create! valid_attributes
-    #     put :update, params: { id: piece.to_param, piece: valid_attributes }, session: valid_session
-    #     expect(response).to redirect_to(piece)
-    #   end
-    # end
-
-    # context 'with invalid params' do
-    #   it 'assigns the piece as @piece' do
-    #     piece = Piece.create! valid_attributes
-    #     put :update, params: { id: piece.to_param, piece: invalid_attributes }, session: valid_session
-    #     expect(assigns(:piece)).to eq(piece)
-    #   end
-
-    #   it "re-renders the 'edit' template" do
-    #     piece = Piece.create! valid_attributes
-    #     put :update, params: { id: piece.to_param, piece: invalid_attributes }, session: valid_session
-    #     expect(response).to render_template('edit')
-    #   end
     end
   end
 

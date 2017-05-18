@@ -12,12 +12,13 @@ class Piece < ApplicationRecord
   # Moving piece logic
   def move_tests(to_x:, to_y:)
     return true if valid_move?(to_x: to_x, to_y: to_y) &&
-                        !obstructed_diagonally?(to_x: to_x, to_y: to_y) &&
-                        !obstructed_horizontally?(to_x: to_x) &&
-                        !obstructed_vertically?(to_y: to_y) &&
-                        remains_on_board?(to_x: to_x, to_y: to_y)
+                   !obstructed_diagonally?(to_x: to_x, to_y: to_y) &&
+                   !obstructed_horizontally?(to_x: to_x) &&
+                   !obstructed_vertically?(to_y: to_y) &&
+                   remains_on_board?(to_x: to_x, to_y: to_y)
     false
   end
+
   ### NOTE: DOESN'T WORK FOR PIECE WITH TYPE ###
   # Default move check to ensure that the piece moves
   def valid_move?(to_x:, to_y:)

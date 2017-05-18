@@ -53,6 +53,7 @@ RSpec/ExampleLength:
     - 'spec/views/pieces/index.html.erb_spec.rb'
     - 'spec/views/pieces/new.html.erb_spec.rb'
     - 'spec/views/pieces/show.html.erb_spec.rb'
+    - 'spec/controllers/pieces_controller_spec.rb'
 
 RSpec/InstanceVariable:
   Exclude:
