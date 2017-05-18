@@ -9,12 +9,6 @@ class Game < ApplicationRecord
   }
   validates :white_player, presence: true
   validates :black_player, presence: true
-  attr_reader :current_color, :resting_color
-
-    def initialize_game_colors(current_color = 'white', resting_color = 'black')
-      @current_color = current_color
-      @resting_color = resting_color
-    end
 
     # Game rules of chess
     def initialize_board_white_pieces
@@ -46,6 +40,9 @@ class Game < ApplicationRecord
     end
 
     def next_turn
-      @current_color, @resting_color = @resting_color, @current_color
+      cc_stager = current_color
+      rc_stager = resting_color
+      update(current_color: rc_stager)
+      update(resting_color: cc_stager)
     end
 end

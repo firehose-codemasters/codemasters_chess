@@ -94,20 +94,9 @@ class Piece < ApplicationRecord
     end
   end
 
-  #This isn't working. calling current_color on an instance of a game from here results in nil
-  def is_attacker
+  def pieces_turn?
     game_of_piece = Game.find(game_id)
     return true if color == game_of_piece.current_color
     false
   end
-
-  # def is_defender
-  #   piece_game = Game.find(game_id)
-  #   if color == piece_game.resting_color
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
-
 end

@@ -24,6 +24,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/controllers/**/*'
     - 'spec/routing/**/*'
+    - 'spec/models/piece_spec.rb'
 
 Metrics/LineLength:
   Max: 130
