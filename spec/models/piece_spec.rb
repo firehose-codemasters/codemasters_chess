@@ -114,13 +114,13 @@ RSpec.describe Piece, type: :model do
 
     it 'returns success if there is an enemy ("target") piece at to_x, to_y' do
       moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
-      target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2, color: 'black')
+      _target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2, color: 'black')
       expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('success')
     end
 
     it 'returns failed if there is a teammate (same-color-as-moving) piece at to_x, to_y' do
       moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
-      target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2)
+      _target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2)
       expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('failed')
     end
   end

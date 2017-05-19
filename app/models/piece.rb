@@ -9,7 +9,6 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
-
   def obstructed_diagonally?(to_x:, to_y:)
     # Current_x and current_y are used as incrementer variables
     current_x = x_position
@@ -17,13 +16,13 @@ class Piece < ApplicationRecord
     # distance_travelled for 'y' is always == distance travelled for 'x'
     distance_travelled = (to_y - y_position).abs - 1
     distance_travelled.times do
-      if to_y > y_position && to_x > x_position  # Move up and to the right
+      if to_y > y_position && to_x > x_position # Move up and to the right
         current_y += 1
         current_x += 1
-      elsif to_y > y_position && to_x < x_position  # Move up and to the left
+      elsif to_y > y_position && to_x < x_position # Move up and to the left
         current_y += 1
         current_x -= 1
-      elsif to_y < y_position && to_x > x_position  # Move down and to the right
+      elsif to_y < y_position && to_x > x_position # Move down and to the right
         current_y -= 1
         current_x += 1
       else
@@ -39,7 +38,7 @@ class Piece < ApplicationRecord
     current_y = y_position
     distance_travelled = (to_y - y_position).abs - 1
     distance_travelled.times do
-      if to_y > y_position 
+      if to_y > y_position
         current_y += 1
       else
         current_y -= 1
@@ -53,7 +52,7 @@ class Piece < ApplicationRecord
     current_x = x_position
     distance_travelled = (to_x - x_position).abs - 1
     distance_travelled.times do
-      if to_x > x_position 
+      if to_x > x_position
         current_x += 1
       else
         current_x -= 1
@@ -72,15 +71,16 @@ class Piece < ApplicationRecord
   end
 
   def capture(to_x:, to_y:)
-    target_piece = Piece.where(x_position: to_x, y_position: to_y, active: true)
-    if !target_piece.exists?
-      return 'success'  # Valid move: destination square is open
-    elsif target_piece.exists? && !target_piece.pieces_turn?
+    target_piece = Piece.find_by(x_position: to_x, y_position: to_y, active: true)
+    # Valid move: destination square is open
+    return 'success' if target_piece.nil?
+
+    # Valid move with enemy piece captured at destination
+    return 'success' if !target_piece.nil? && !target_piece.pieces_turn?
       target_piece.active = false
-      return 'success'  # Valid move with enemy piece captured at destination
-    else
-      return 'failed'   # Invalid move: teammate piece is at destination
-    end
+
+    # Invalid move: teammate piece is at destination
+    return 'failed' if !target_piece.nil? && target_piece.pieces_turn?
   end
 
   def pieces_turn?
