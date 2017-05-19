@@ -75,7 +75,7 @@ RSpec.describe Knight, type: :model do
 
     it 'returns false if the move is not L-shaped, covering a total of 3 squares' do
       knight = FactoryGirl.create(:knight)
-      expect(knight.valid_move?(to_x: 1, to_y: 1)).to eq('Knight may move only in an L shape, a total of 3 squares. Try again.')
+      expect(knight.valid_move?(to_x: 1, to_y: 1)).to eq(false)
     end
   end
 end

@@ -8,80 +8,80 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
-  describe '#valid_pawn_move?' do
+  describe '#valid_move?' do
     it 'returns true if the white pawn successfully has a normal move' do
       pawn = FactoryGirl.create(:pawn, x_position: 2, y_position: 3, color: 'white')
-      expect(pawn.valid_pawn_move?(to_x: 2, to_y: 4)).to eq(true)
+      expect(pawn.valid_move?(to_x: 2, to_y: 4)).to eq(true)
     end
 
     it 'returns true if the black pawn successfully has a normal move' do
       pawn = FactoryGirl.create(:pawn, x_position: 4, y_position: 6, color: 'black')
-      expect(pawn.valid_pawn_move?(to_x: 4, to_y: 5)).to eq(true)
+      expect(pawn.valid_move?(to_x: 4, to_y: 5)).to eq(true)
     end
 
     it 'returns true if the white pawn moves successfully one space on the first move' do
       pawn = FactoryGirl.create(:pawn, x_position: 1, y_position: 2, color: 'white')
-      expect(pawn.valid_pawn_move?(to_x: 1, to_y: 3)).to eq(true)
+      expect(pawn.valid_move?(to_x: 1, to_y: 3)).to eq(true)
     end
 
     it 'returns true if the white pawn moves successfully two spaces on the first move' do
       pawn = FactoryGirl.create(:pawn, x_position: 1, y_position: 2, color: 'white')
-      expect(pawn.valid_pawn_move?(to_x: 1, to_y: 4)).to eq(true)
+      expect(pawn.valid_move?(to_x: 1, to_y: 4)).to eq(true)
     end
 
     it 'returns true if the black pawn moves successfully one space on the first move' do
       pawn = FactoryGirl.create(:pawn, x_position: 1, y_position: 7, color: 'black')
-      expect(pawn.valid_pawn_move?(to_x: 1, to_y: 6)).to eq(true)
+      expect(pawn.valid_move?(to_x: 1, to_y: 6)).to eq(true)
     end
 
     it 'returns true if the black pawn moves successfully two spaces on the first move' do
       pawn = FactoryGirl.create(:pawn, x_position: 1, y_position: 7, color: 'black')
-      expect(pawn.valid_pawn_move?(to_x: 1, to_y: 5)).to eq(true)
+      expect(pawn.valid_move?(to_x: 1, to_y: 5)).to eq(true)
     end
 
     it 'returns true if the white piece moves successfully diagonally forward to the left' do
       pawn = FactoryGirl.create(:pawn, x_position: 5, y_position: 3, color: 'white')
-      expect(pawn.valid_pawn_move?(to_x: 4, to_y: 4)).to eq(true)
+      expect(pawn.valid_move?(to_x: 4, to_y: 4)).to eq(true)
     end
 
     it 'returns true if the white piece moves successfully diagonally forward to the right' do
       pawn = FactoryGirl.create(:pawn, x_position: 7, y_position: 5, color: 'white')
-      expect(pawn.valid_pawn_move?(to_x: 8, to_y: 6)).to eq(true)
+      expect(pawn.valid_move?(to_x: 8, to_y: 6)).to eq(true)
     end
 
     it 'returns true if the black piece moves successfully diagonally forward to the left' do
       pawn = FactoryGirl.create(:pawn, x_position: 5, y_position: 6, color: 'black')
-      expect(pawn.valid_pawn_move?(to_x: 4, to_y: 5)).to eq(true)
+      expect(pawn.valid_move?(to_x: 4, to_y: 5)).to eq(true)
     end
 
     it 'returns true if the black piece moves successfully diagonally forward to the right' do
       pawn = FactoryGirl.create(:pawn, x_position: 7, y_position: 5, color: 'black')
-      expect(pawn.valid_pawn_move?(to_x: 8, to_y: 4)).to eq(true)
+      expect(pawn.valid_move?(to_x: 8, to_y: 4)).to eq(true)
     end
 
     it 'returns false if the white pawn moves backwards' do
       pawn = FactoryGirl.create(:pawn, x_position: 7, y_position: 5, color: 'white')
-      expect(pawn.valid_pawn_move?(to_x: 7, to_y: 4)).to eq(false)
+      expect(pawn.valid_move?(to_x: 7, to_y: 4)).to eq(false)
     end
 
     it 'returns false if the black pawn moves backwards' do
       pawn = FactoryGirl.create(:pawn, x_position: 7, y_position: 5, color: 'black')
-      expect(pawn.valid_pawn_move?(to_x: 7, to_y: 6)).to eq(false)
+      expect(pawn.valid_move?(to_x: 7, to_y: 6)).to eq(false)
     end
 
     it 'returns false if the black pawn moves sideways' do
       pawn = FactoryGirl.create(:pawn, x_position: 7, y_position: 5, color: 'black')
-      expect(pawn.valid_pawn_move?(to_x: 3, to_y: 5)).to eq(false)
+      expect(pawn.valid_move?(to_x: 3, to_y: 5)).to eq(false)
     end
 
     it 'returns true if the white pawns first move is diagonal up and to the right' do
       pawn = FactoryGirl.create(:pawn, x_position: 7, y_position: 2, color: 'white')
-      expect(pawn.valid_pawn_move?(to_x: 8, to_y: 3)).to eq(true)
+      expect(pawn.valid_move?(to_x: 8, to_y: 3)).to eq(true)
     end
 
     it 'returns true if the black pawns first move is diagonal down and to the right' do
       pawn = FactoryGirl.create(:pawn, x_position: 7, y_position: 7, color: 'black')
-      expect(pawn.valid_pawn_move?(to_x: 8, to_y: 6)).to eq(true)
+      expect(pawn.valid_move?(to_x: 8, to_y: 6)).to eq(true)
     end
   end
 end
