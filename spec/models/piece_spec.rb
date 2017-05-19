@@ -124,4 +124,19 @@ RSpec.describe Piece, type: :model do
       expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('failed')
     end
   end
+
+  # Testing of is_pieces_turn? method for piece
+  describe 'pieces_turn?' do
+    it 'returns true if piece has the same color as the current_color in a particular game' do
+      game = FactoryGirl.create(:game)
+      moving_piece = FactoryGirl.create(:piece, color: 'white', game_id: game.id)
+      expect(moving_piece.pieces_turn?).to eq(true)
+    end
+
+    it 'returns false if piece has a different color as the current_color in a particular game' do
+      game = FactoryGirl.create(:game)
+      moving_piece = FactoryGirl.create(:piece, color: 'black', game_id: game.id)
+      expect(moving_piece.pieces_turn?).to eq(false)
+    end
+  end
 end
