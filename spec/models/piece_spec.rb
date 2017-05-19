@@ -107,22 +107,21 @@ RSpec.describe Piece, type: :model do
 
   # Capture checks:
   describe '#capture' do
-    it 'returns false if the capture attempt is obstructed diagonally' do
+    it 'returns success if there is no piece (of either color) at to_x, to_y' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
+      expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('success')
     end
 
-    it 'returns false if the capture attempt is obstructed horizontally' do
+    it 'returns success if there is an enemy ("target") piece at to_x, to_y' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
+      target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2, color: 'black')
+      expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('success')
     end
 
-    it 'returns false if the capture attempt is obstructed diagonally' do
-    end
-
-    it 'returns false if there is no target piece to capture at to_x, to_y' do
-    end
-
-    it 'returns false if target_piece.color is the same as current_color' do
-    end
-
-    it 'returns true if the capture attempt is not obstructed and there is an target (opposing) piece at to_x, to_y.' do
+    it 'returns failed if there is a teammate (same-color-as-moving) piece at to_x, to_y' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
+      target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2)
+      expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('failed')
     end
   end
 end

@@ -73,12 +73,19 @@ class Piece < ApplicationRecord
 
   def capture(to_x:, to_y:)
     target_piece = Piece.where(x_position: to_x, y_position: to_y, active: true)
-    if target_piece.exists? && !target_piece.pieces_turn?  # 
+    if !target_piece.exists?
+      return 'success'  # Valid move: destination square is open
+    elsif target_piece.exists? && !target_piece.pieces_turn?
       target_piece.active = false
-      x_position: to_x, y_position: to_y
-      # Add logic to record in database which piece captured the target piece?
+      return 'success'  # Valid move with enemy piece captured at destination
     else
-      false
+      return 'failed'   # Invalid move: teammate piece is at destination
     end
+  end
+
+  def pieces_turn?
+    game_of_piece = Game.find(game_id)
+    return true if color == game_of_piece.current_color
+    false
   end
 end
