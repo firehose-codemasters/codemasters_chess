@@ -110,4 +110,10 @@ class Piece < ApplicationRecord
       false
     end
   end
+
+  def pieces_turn?
+    game_of_piece = Game.find(game_id)
+    return true if color == game_of_piece.current_color
+    false
+  end
 end
