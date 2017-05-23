@@ -30,7 +30,7 @@ class Pawn < Piece
   def pawn_diagonal_capture?(to_x, to_y)
     #need a valid capture method
     capture_move = (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1
-    return false unless piece.obstructed_diagonally?(to_x:, to_y:)
+    return false unless piece.obstructed_diagonally?(to_x, to_y)
     return false if capture_move #does not grab resting_color
     return false if capture_move == piece.current_color && obstructed_diagonally?(to_x, to_y)
     
