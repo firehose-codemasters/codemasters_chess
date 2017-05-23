@@ -1,5 +1,5 @@
 class Pawn < Piece
-  def valid_move?(to_x:, to_y:)
+  def valid_pawn_move?(to_x:, to_y:)
     return true if direction_of_white_and_black_pawns(to_y) &&
       (
         normal_move?(to_x, to_y) ||
@@ -28,17 +28,16 @@ class Pawn < Piece
 
   # Returns true if the move is diagonal one space.
   def pawn_diagonal_capture?(to_x, to_y)
-    #need a valid capture method
-    capture_move = (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1
-    return false unless piece.obstructed_diagonally?(to_x, to_y)
-    return false if capture_move #does not grab resting_color
-    return false if capture_move == piece.current_color && obstructed_diagonally?(to_x, to_y)
-    
-    return true
+    target_piece = Piece.find_by(x_position: to_x, y_position: to_y, active:true)
+    if (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1 && !target_piece.nil? &&  !target_piece.pieces_turn?
+      return 'success'
+      target_piece.update(active: false)
+    else
+      return 'failed'
+    end
   end
 
 
-  # Returns true if it's the pawn's first move
   def first_move?(to_x, to_y)
     if color == 'black' && y_position == 7 || color == 'white' && y_position == 2
       return true if ((to_y - y_position).abs == 1 || (to_y - y_position).abs == 2) && to_x == x_position
