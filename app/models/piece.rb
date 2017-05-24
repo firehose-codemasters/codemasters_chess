@@ -73,9 +73,11 @@ class Piece < ApplicationRecord
     return 'success' if target_piece.nil?
 
     # Valid move with enemy piece captured at destination
-    return 'success' if !target_piece.nil? && !target_piece.pieces_turn?
-    target_piece.active = false
-    
+    if !target_piece.nil? && !target_piece.pieces_turn?
+      target_piece.update(active: false)
+      return 'success'
+    end
+
     # Invalid move: teammate piece is at destination
     return 'failed' if !target_piece.nil? && target_piece.pieces_turn?
   end
