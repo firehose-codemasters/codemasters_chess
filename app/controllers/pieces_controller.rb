@@ -39,13 +39,16 @@ class PiecesController < ApplicationController
   # PATCH/PUT /pieces/1.json
   def update
     @piece = Piece.find(params[:id])
+    @pieces_game = Game.find(@piece.game_id)
     to_y = params[:piece][:y_position].to_i
     to_x = params[:piece][:x_position].to_i
 
     # The update method will change the x_position and y_position of a piece in the database.
     # This checks if the move is valid by using the #move_tests method in the model
+    return if !@piece.move_tests(to_x: to_x, to_y: to_y)
+    @piece.update(piece_params)
+    @pieces_game.next_turn
 
-    @piece.update(piece_params) if @piece.move_tests(to_x: to_x, to_y: to_y)
     ### Below is the scaffolding that we'll need to fool with to make the UI go ###
     # respond_to do |format|
     #   format.html { redirect_to @piece, notice: 'Piece was successfully updated.' }
