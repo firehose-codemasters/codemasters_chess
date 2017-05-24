@@ -117,7 +117,6 @@ RSpec.describe Piece, type: :model do
       FactoryGirl.create(:bishop, color: 'white')
       expect(white_queen.move_tests(to_x: 5, to_y: 5)).to eq(false)
     end
-
   end
 
   # Diagonal obstruction logic
