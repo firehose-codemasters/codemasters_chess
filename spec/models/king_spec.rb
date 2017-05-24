@@ -51,7 +51,7 @@ RSpec.describe King, type: :model do
 
     it 'returns false if the move is not one square horiz, vert, or diag' do
       king = FactoryGirl.create(:king)
-      expect(king.valid_move?(to_x: 1, to_y: 1)).to eq('King may move only one square per turn! Please try again.')
+      expect(king.valid_move?(to_x: 1, to_y: 1)).to eq(false)
     end
   end
 end

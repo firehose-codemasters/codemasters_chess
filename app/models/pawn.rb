@@ -1,5 +1,5 @@
 class Pawn < Piece
-  def valid_pawn_move?(to_x:, to_y:)
+  def valid_move?(to_x:, to_y:)
     return true if direction_of_white_and_black_pawns(to_y) &&
       (
         normal_move?(to_x, to_y) ||

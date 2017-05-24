@@ -109,36 +109,81 @@ RSpec.describe PiecesController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       it 'updates the requested piece' do
-        piece = Piece.create! valid_attributes
-        put :update, params: { id: piece.to_param, piece: new_attributes }, session: valid_session
+        piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
+        put :update, params:
+            {
+              id: piece.to_param, piece:
+                {
+                  color: 'white',
+                  active: true,
+                  x_position: 4,
+                  y_position: 4,
+                  # # Type needs to be implemented when first piece is created:
+                  # type: 'rook',
+                  game_id: game2.id
+                }
+            }, session: valid_session
         piece.reload
-        expect(piece.color).to eq(new_attributes[:color])
+        expect(piece.x_position).to eq(4)
       end
 
-      it 'assigns the requested piece as @piece' do
-        piece = Piece.create! valid_attributes
-        put :update, params: { id: piece.to_param, piece: valid_attributes }, session: valid_session
-        expect(assigns(:piece)).to eq(piece)
-      end
-
-      it 'redirects to the piece' do
-        piece = Piece.create! valid_attributes
-        put :update, params: { id: piece.to_param, piece: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(piece)
+      it 'advances the game to the next turn' do
+        piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2, game_id: game2.id)
+          put :update, params:
+            {
+              id: piece.to_param, piece:
+                {
+                  color: 'white',
+                  active: true,
+                  x_position: 4,
+                  y_position: 4,
+                  # # Type needs to be implemented when first piece is created:
+                  # type: 'rook',
+                  game_id: game2.id
+                }
+            }, session: valid_session
+        game2.reload
+        expect(game2.current_color).to eq('black')
       end
     end
 
     context 'with invalid params' do
-      it 'assigns the piece as @piece' do
-        piece = Piece.create! valid_attributes
-        put :update, params: { id: piece.to_param, piece: invalid_attributes }, session: valid_session
-        expect(assigns(:piece)).to eq(piece)
+      it 'does not update the requested piece' do
+        piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
+        put :update, params:
+            {
+              id: piece.to_param, piece:
+                {
+                  color: 'white',
+                  active: true,
+                  x_position: 9,
+                  y_position: 4,
+                  # # Type needs to be implemented when first piece is created:
+                  # type: 'rook',
+                  game_id: game2.id
+                }
+            }, session: valid_session
+        piece.reload
+        expect(piece.x_position).to eq(2)
       end
 
-      it "re-renders the 'edit' template" do
-        piece = Piece.create! valid_attributes
-        put :update, params: { id: piece.to_param, piece: invalid_attributes }, session: valid_session
-        expect(response).to render_template('edit')
+      it 'does not advance the game to the next turn' do
+        piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2, game_id: game2.id)
+          put :update, params:
+            {
+              id: piece.to_param, piece:
+                {
+                  color: 'white',
+                  active: true,
+                  x_position: 9,
+                  y_position: 13,
+                  # # Type needs to be implemented when first piece is created:
+                  # type: 'rook',
+                  game_id: game2.id
+                }
+            }, session: valid_session
+        game2.reload
+        expect(game2.current_color).to eq('white')
       end
     end
   end
