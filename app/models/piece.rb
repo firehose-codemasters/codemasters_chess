@@ -63,11 +63,8 @@ class Piece < ApplicationRecord
   end
 
   def remains_on_board?(to_x:, to_y:)
-    if to_x >= 1 && to_x <= 8 && to_y >= 1 && to_y <= 8
-      true
-    else
-      false
-    end
+    return true if to_x >= 1 && to_x <= 8 && to_y >= 1 && to_y <= 8
+    false
   end
 
   def capture(to_x:, to_y:)
@@ -77,8 +74,8 @@ class Piece < ApplicationRecord
 
     # Valid move with enemy piece captured at destination
     return 'success' if !target_piece.nil? && !target_piece.pieces_turn?
-      target_piece.active = false
-
+    target_piece.active = false
+    
     # Invalid move: teammate piece is at destination
     return 'failed' if !target_piece.nil? && target_piece.pieces_turn?
   end

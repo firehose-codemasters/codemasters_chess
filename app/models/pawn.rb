@@ -26,9 +26,12 @@ class Pawn < Piece
     false
   end
 
-  # Returns true if the move is diagonal one space.
+  # Returns true if the move is a valid capture by a pawn (i.e, diagonal one space):
   def pawn_diagonal?(to_x, to_y)
-    (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1
+    target_piece = Piece.find_by(x_position: to_x, y_position: to_y, active: true)
+    return 'failed' if (to_x - x_position).abs != 1 || (to_y - y_position).abs != 1 || target_piece.nil? || target_piece.pieces_turn?
+    return 'success' if (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1 && !target_piece.nil? && !target_piece.pieces_turn?
+    target_piece.update(active: false)
   end
 
   # Returns true if it's the pawn's first move

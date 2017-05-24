@@ -118,6 +118,14 @@ RSpec.describe Piece, type: :model do
       expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('success')
     end
 
+    it 'sets the active attribute of the captured ("target") piece to false' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
+      target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2, color: 'black')
+      moving_piece.capture(to_x: 6, to_y: 2)
+      target_piece.reload
+      expect(Piece.find(target_piece.id).active).to eq(false)
+    end
+
     it 'returns failed if there is a teammate (same-color-as-moving) piece at to_x, to_y' do
       moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
       _target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2)
