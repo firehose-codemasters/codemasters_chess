@@ -45,7 +45,7 @@ class PiecesController < ApplicationController
 
     # The update method will change the x_position and y_position of a piece in the database.
     # This checks if the move is valid by using the #move_tests method in the model
-    return if !@piece.move_tests(to_x: to_x, to_y: to_y)
+    return unless @piece.move_tests(to_x: to_x, to_y: to_y)
     @piece.update(piece_params)
     @pieces_game.next_turn
 
