@@ -9,20 +9,23 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
-  # Moving piece logic
+  # Moving piece logic (possibly add pieces_turn to the end of the return true if statement)
   def move_tests(to_x:, to_y:)
     return true if valid_move?(to_x: to_x, to_y: to_y) &&
                    !obstructed_diagonally?(to_x: to_x, to_y: to_y) &&
                    !obstructed_horizontally?(to_x: to_x) &&
                    !obstructed_vertically?(to_y: to_y) &&
-                   remains_on_board?(to_x: to_x, to_y: to_y)
+                   remains_on_board?(to_x: to_x, to_y: to_y) &&
+                   did_it_move?(to_x: to_x, to_y: to_y)
     false
   end
 
-  ### NOTE: DOESN'T WORK FOR PIECE WITH TYPE ###
-  # Default move check to ensure that the piece moves
-  def valid_move?(to_x:, to_y:)
-    return true if to_x != x_position && to_y != y_position
+  def valid_move?
+    true
+  end
+
+  def did_it_move?(to_x:, to_y:)
+    return true if to_x != x_position || to_y != y_position
     false
   end
 

@@ -226,4 +226,27 @@ RSpec.describe Piece, type: :model do
       expect(moving_piece.pieces_turn?).to eq(false)
     end
   end
+
+  # Testing of did_it_move? method for piece
+  describe 'did_it_move?' do
+    it 'returns true if moved piece has a different y coordinate than when first moved' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.did_it_move?(to_x: 1, to_y: 4)).to eq(true)
+    end
+
+    it 'returns true if moved piece has a different x coordinate than when first moved' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.did_it_move?(to_x: 2, to_y: 3)).to eq(true)
+    end
+
+    it 'returns true if moved piece has different x & y coordinates than when first moved' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.did_it_move?(to_x: 3, to_y: 5)).to eq(true)
+    end
+
+    it 'returns false if moved piece has the same coordinates as when first moved' do
+      moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
+      expect(moving_piece.did_it_move?(to_x: 1, to_y: 3)).to eq(false)
+    end
+  end
 end
