@@ -5,6 +5,7 @@ RSpec.describe Game, type: :model do
     it 'will create 16 pieces in the database' do
       game = FactoryGirl.create(:game)
       game.initialize_board_white_pieces
+      binding.pry
       expect(game.pieces.count).to eq(16)
     end
     it 'will create a active white pawn at coordinates(1,2) in the database' do
