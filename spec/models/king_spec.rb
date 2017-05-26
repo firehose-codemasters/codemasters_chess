@@ -82,6 +82,8 @@ RSpec.describe King, type: :model do
     it 'tests all possible moves for a piece on the kings team' do
       king = FactoryGirl.create(:king, color: 'white')
       pawn = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
+      king.kings_team
+      king.possible_moves
       binding.pry
     end
   end
