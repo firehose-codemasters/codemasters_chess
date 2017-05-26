@@ -6,4 +6,8 @@ class King < Piece
     return true if (to_x - x_position).abs == 1 && (to_y - y_position).abs == 1
     false
   end
+
+  def kings_team
+    kings_pieces =Piece.where(color: color, game_id: game_id)
+  end
 end

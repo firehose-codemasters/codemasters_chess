@@ -54,4 +54,27 @@ RSpec.describe King, type: :model do
       expect(king.valid_move?(to_x: 1, to_y: 1)).to eq(false)
     end
   end
+
+  describe '#kings_team' do
+    it 'creates an array of all the pieces in the game of the same color as king' do
+      king = FactoryGirl.create(:king, color: 'white')
+      pawn1 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
+      pawn2 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
+      bishop = FactoryGirl.create(:bishop, game_id: king.game_id, color: 'black')
+      expect(king.kings_team).to match_array [king, pawn1, pawn2]
+    end
+
+    it 'creates an array which does not contain pieces not belonging to the kings game' do
+      king = FactoryGirl.create(:king, color: 'white')
+      pawn1 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
+      pawn2 = FactoryGirl.create(:pawn, color: 'white')
+      expect(king.kings_team).to match_array [king, pawn1]
+    end
+    it 'creates an array which does not contain pieces of a different color' do
+      king = FactoryGirl.create(:king, color: 'white')
+      pawn1 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
+      pawn2 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'black')
+      expect(king.kings_team).to match_array [king, pawn1]
+    end
+  end
 end
