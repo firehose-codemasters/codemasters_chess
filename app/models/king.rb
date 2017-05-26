@@ -15,6 +15,7 @@ class King < Piece
 
   def possible_moves
     coords = []
+    possible_moves = []
     8.times do 
       coords << [*1..8]
     end
@@ -23,7 +24,11 @@ class King < Piece
         # t is the x, i[j] is the y
         @kings_pieces.each do |test_piece|
           # Run move validation tests on every piece
-          test_piece.move_tests(to_x: t, to_y: i[j])
+          if test_piece.move_tests(to_x: t, to_y: i[j])
+            # if a move passes validations, push the pieces ID and the
+            # coordinates of a successful move to the possible_moves array
+            possible_moves << [test_piece.id, t, i[j]]
+          end
         end
       end
     end
