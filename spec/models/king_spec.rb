@@ -97,4 +97,20 @@ RSpec.describe King, type: :model do
       ]
     end
   end
+
+  describe '#checkmate?' do
+    it 'returns true if the king is in checkmate' do
+      king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4)
+      _rook1 = FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 5, game_id: king.game_id)
+      _rook2 = FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 3, game_id: king.game_id)
+      _queen = FactoryGirl.create(:queen, color: 'white', x_position: 1, y_position: 4, game_id: king.game_id)
+      # expect(king.checkmate?).to eq(true)
+    end
+
+    it 'returns false if the king is not in checkmate' do
+      king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4)
+      _rook1 = FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 5, game_id: king.game_id)
+      # expect(king.checkmate?).to eq(false)
+    end
+  end
 end
