@@ -60,31 +60,41 @@ RSpec.describe King, type: :model do
       king = FactoryGirl.create(:king, color: 'white')
       pawn1 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
       pawn2 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
-      bishop = FactoryGirl.create(:bishop, game_id: king.game_id, color: 'black')
+      _bishop = FactoryGirl.create(:bishop, game_id: king.game_id, color: 'black')
       expect(king.kings_team).to match_array [king, pawn1, pawn2]
     end
 
     it 'creates an array which does not contain pieces not belonging to the kings game' do
       king = FactoryGirl.create(:king, color: 'white')
       pawn1 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
-      pawn2 = FactoryGirl.create(:pawn, color: 'white')
+      _pawn2 = FactoryGirl.create(:pawn, color: 'white')
       expect(king.kings_team).to match_array [king, pawn1]
     end
     it 'creates an array which does not contain pieces of a different color' do
       king = FactoryGirl.create(:king, color: 'white')
       pawn1 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
-      pawn2 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'black')
+      _pawn2 = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'black')
       expect(king.kings_team).to match_array [king, pawn1]
     end
   end
 
   describe '#possible_moves' do
-    it 'tests all possible moves for a piece on the kings team' do
+    it 'returns an array of all valid moves' do
       king = FactoryGirl.create(:king, color: 'white')
       pawn = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
       king.kings_team
-      king.possible_moves
-      binding.pry
+      expect(king.possible_moves).to match_array [
+        [pawn.id, 1, 3],
+        [king.id, 3, 3],
+        [king.id, 4, 3],
+        [king.id, 5, 3],
+        [pawn.id, 1, 4],
+        [king.id, 3, 4],
+        [king.id, 5, 4],
+        [king.id, 3, 5],
+        [king.id, 4, 5],
+        [king.id, 5, 5]
+      ]
     end
   end
 end
