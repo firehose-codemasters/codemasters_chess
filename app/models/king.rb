@@ -31,4 +31,20 @@ class King < Piece
     end
     possible_moves
   end
+
+  def checkmate?
+    ## Run a test to see if the king is in check for each of the
+    # moves listed in the "possible_moves" array.
+    # This method should return 'true' if every single one of those
+    # possible moves comes back as "king is still in check", because that means
+    # that no matter what moves the player who is in check makes, they cannot
+    # get out of check.
+    #
+    # Possible approach to test once check method is done:
+    #
+    # possible_moves.each do |move|
+    #   return false unless check?(piece_id: move[0], to_x: move[1], to_y: move[2])}
+    #   true
+    # end
+  end
 end
