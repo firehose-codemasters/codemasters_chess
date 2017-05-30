@@ -9,20 +9,24 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
-  # Moving piece logic
+  # Moving piece logic (possibly add pieces_turn to the end of the return true if statement)
   def move_tests(to_x:, to_y:)
     return true if valid_move?(to_x: to_x, to_y: to_y) &&
                    !obstructed_diagonally?(to_x: to_x, to_y: to_y) &&
                    !obstructed_horizontally?(to_x: to_x) &&
                    !obstructed_vertically?(to_y: to_y) &&
-                   remains_on_board?(to_x: to_x, to_y: to_y)
+                   remains_on_board?(to_x: to_x, to_y: to_y) &&
+                   did_it_move?(to_x: to_x, to_y: to_y) &&
+                   capture(to_x: to_x, to_y: to_y) == 'success'
     false
   end
 
-  ### NOTE: DOESN'T WORK FOR PIECE WITH TYPE ###
-  # Default move check to ensure that the piece moves
-  def valid_move?(to_x:, to_y:)
-    return true if to_x != x_position && to_y != y_position
+  def valid_move?
+    true
+  end
+
+  def did_it_move?(to_x:, to_y:)
+    return true if to_x != x_position || to_y != y_position
     false
   end
 
@@ -30,85 +34,73 @@ class Piece < ApplicationRecord
     # Current_x and current_y are used as incrementer variables
     current_x = x_position
     current_y = y_position
-    #
-    # Use this IF when destination is up-right
-    if to_x > x_position && to_y > y_position
-      until current_x == to_x && current_y == to_y
-        current_x += 1
+    # distance_travelled for 'y' is always == distance travelled for 'x'
+    distance_travelled = (to_y - y_position).abs - 1
+    distance_travelled.times do
+      if to_y > y_position && to_x > x_position # Move up and to the right
         current_y += 1
-        return true if Piece.where(x_position: current_x, y_position: current_y, active: true).exists?
-      end
-    end
-    #
-    # Use this IF when destination is down-left
-    if to_x < x_position && to_y < y_position
-      until current_x == to_x && current_y == to_y
+        current_x += 1
+      elsif to_y > y_position && to_x < x_position # Move up and to the left
+        current_y += 1
         current_x -= 1
+      elsif to_y < y_position && to_x > x_position # Move down and to the right
         current_y -= 1
-        return true if Piece.where(x_position: current_x, y_position: current_y, active: true).exists?
+        current_x += 1
+      else
+        current_y -= 1
+        current_x -= 1
       end
-    end
-    #
-    # Use this IF when destination is up-left
-    if to_x < x_position && to_y > y_position
-      until current_y == to_y && current_x == to_x
-        current_x -= 1 if current_x != to_x
-        current_y += 1 if current_y != to_y
-        return true if Piece.where(x_position: current_x, y_position: current_y, active: true).exists?
-      end
-    end
-    #
-    # Use this IF when destination is down-right
-    if to_x > x_position && to_y < y_position
-      until current_y == to_y && current_x == to_x
-        current_x += 1 if current_x != to_x
-        current_y -= 1 if current_y != to_y
-        return true if Piece.where(x_position: current_x, y_position: current_y, active: true).exists?
-      end
+      return true if Piece.where(x_position: current_x, y_position: current_y, active: true).exists?
     end
     false
   end
 
   def obstructed_vertically?(to_y:) # Not passing y_position as an argument; instead it is pulled from the object
     current_y = y_position
-    if current_y < to_y
-      while current_y < to_y
+    distance_travelled = (to_y - y_position).abs - 1
+    distance_travelled.times do
+      if to_y > y_position
         current_y += 1
-        return true if Piece.where(y_position: current_y, active: true).exists?
-      end
-    else
-      while current_y > to_y
+      else
         current_y -= 1
-        return true if Piece.where(y_position: current_y, active: true).exists?
       end
+      return true if Piece.where(y_position: current_y, active: true).exists?
     end
     false
   end
 
   def obstructed_horizontally?(to_x:)
     current_x = x_position
-    # if method for moving piece to the right
-    if current_x < to_x
-      while current_x < to_x
+    distance_travelled = (to_x - x_position).abs - 1
+    distance_travelled.times do
+      if to_x > x_position
         current_x += 1
-        return true if Piece.where(x_position: current_x, active: true).exists?
-      end
-    # else method for movie piece to the left
-    else
-      while current_x > to_x
+      else
         current_x -= 1
-        return true if Piece.where(x_position: current_x, active: true).exists?
       end
+      return true if Piece.where(x_position: current_x, active: true).exists?
     end
     false
   end
 
   def remains_on_board?(to_x:, to_y:)
-    if to_x >= 1 && to_x <= 8 && to_y >= 1 && to_y <= 8
-      true
-    else
-      false
+    return true if to_x >= 1 && to_x <= 8 && to_y >= 1 && to_y <= 8
+    false
+  end
+
+  def capture(to_x:, to_y:)
+    target_piece = Piece.find_by(x_position: to_x, y_position: to_y, active: true)
+    # Valid move: destination square is open
+    return 'success' if target_piece.nil?
+
+    # Valid move with enemy piece captured at destination
+    if !target_piece.nil? && !target_piece.pieces_turn?
+      target_piece.update(active: false)
+      return 'success'
     end
+
+    # Invalid move: teammate piece is at destination
+    return 'failed' if !target_piece.nil? && target_piece.pieces_turn?
   end
 
   def pieces_turn?
