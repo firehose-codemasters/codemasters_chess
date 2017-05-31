@@ -21,7 +21,7 @@ class Piece < ApplicationRecord
     false
   end
 
-  def valid_move?
+  def valid_move?(*)
     true
   end
 
@@ -94,7 +94,7 @@ class Piece < ApplicationRecord
     return 'success' if target_piece.nil?
 
     # Valid move with enemy piece captured at destination
-    if !target_piece.nil? && !target_piece.pieces_turn?
+    if type != 'pawn' && !target_piece.nil? && !target_piece.pieces_turn?
       target_piece.update(active: false)
       return 'success'
     end
