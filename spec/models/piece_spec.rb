@@ -117,6 +117,12 @@ RSpec.describe Piece, type: :model do
       FactoryGirl.create(:bishop, color: 'white')
       expect(white_queen.move_tests(to_x: 5, to_y: 5)).to eq(false)
     end
+
+    it 'returns false if a pawn tries to capture a piece one square in front of it' do
+      moving_piece = FactoryGirl.create(:piece, type: 'pawn', color: 'white', x_position: 4, y_position: 4)
+      FactoryGirl.create(:piece, color: 'black', x_position: 4, y_position: 5)
+      expect(moving_piece.move_tests(to_x: 4, to_y: 5)).to eq(false)
+    end
   end
 
   # Diagonal obstruction logic
