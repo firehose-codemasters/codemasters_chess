@@ -108,23 +108,33 @@ RSpec.describe PiecesController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
-      it 'updates the requested piece' do
+      it 'successfully moves the piece' do
         piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
         put :update, params:
             {
               id: piece.to_param, piece:
                 {
-                  color: 'white',
-                  active: true,
                   x_position: 4,
-                  y_position: 4,
-                  # # Type needs to be implemented when first piece is created:
-                  # type: 'rook',
-                  game_id: game2.id
+                  y_position: 4
                 }
             }, session: valid_session
         piece.reload
         expect(piece.x_position).to eq(4)
+      end
+
+      it 'kills the enemy if the moving piece is making a capture' do
+        queen = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
+        bishop = FactoryGirl.create(:bishop, game_id: queen.game_id)
+        put :update, params:
+            {
+              id: queen.to_param, piece:
+                {
+                  x_position: 5,
+                  y_position: 5
+                }
+            }, session: valid_session
+        bishop.reload
+        expect(bishop.active).to eq(false)
       end
 
       it 'advances the game to the next turn' do
@@ -165,6 +175,23 @@ RSpec.describe PiecesController, type: :controller do
             }, session: valid_session
         piece.reload
         expect(piece.x_position).to eq(2)
+      end
+
+      it 'doesnt kill in a friendly fire scenario' do
+        queen = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
+        bishop = FactoryGirl.create(:bishop, color: 'white', game_id: queen.game_id)
+        put :update, params:
+            {
+              id: queen.to_param, piece:
+                {
+                  x_position: 5,
+                  y_position: 5
+                }
+            }, session: valid_session
+        bishop.reload
+        queen.reload
+        expect(bishop.active).to eq(true)
+        expect(queen.x_position).to eq(2)
       end
 
       it 'does not advance the game to the next turn' do

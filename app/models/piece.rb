@@ -17,7 +17,8 @@ class Piece < ApplicationRecord
                    !obstructed_vertically?(to_y: to_y) &&
                    remains_on_board?(to_x: to_x, to_y: to_y) &&
                    did_it_move?(to_x: to_x, to_y: to_y) &&
-                   capture(to_x: to_x, to_y: to_y) == 'success'
+                   move_result(to_x: to_x, to_y: to_y) == 'success' ||
+                   move_result(to_x: to_x, to_y: to_y) == 'kill'
     false
   end
 
@@ -88,24 +89,35 @@ class Piece < ApplicationRecord
     false
   end
 
-  def capture(to_x:, to_y:)
-    target_piece = Piece.find_by(x_position: to_x, y_position: to_y, active: true)
+  def move_result(to_x:, to_y:)
     # Valid move: destination square is open
-    return 'success' if target_piece.nil?
+    return 'success' if target_piece(to_x: to_x, to_y: to_y).nil?
 
     # Valid move with enemy piece captured at destination
-    if type != 'pawn' && !target_piece.nil? && !target_piece.pieces_turn?
-      target_piece.update(active: false)
-      return 'success'
+    if type != 'pawn' && !target_piece(to_x: to_x, to_y: to_y).nil? && !target_piece(to_x: to_x, to_y: to_y).pieces_turn?
+      return 'kill'
     end
 
     # Invalid move: teammate piece is at destination
-    return 'failed' if !target_piece.nil? && target_piece.pieces_turn?
+    return 'failed' if !target_piece(to_x: to_x, to_y: to_y).nil? && target_piece(to_x: to_x, to_y: to_y).pieces_turn?
   end
 
+  ### private
+
   def pieces_turn?
-    game_of_piece = Game.find(game_id)
     return true if color == game_of_piece.current_color
     false
+  end
+
+  def game_of_piece
+    Game.find(game_id)
+  end
+
+  def target_piece(to_x:, to_y:)
+    Piece.find_by(x_position: to_x, y_position: to_y, game_id: game_id, active: true)
+  end
+
+  def kill
+    update(active: false)
   end
 end
