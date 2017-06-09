@@ -124,18 +124,28 @@ class Piece < ApplicationRecord
   # I need to figure out how to create a possible moves array for each color
 # either by adding color to kings team (kings_team(color)) or by focusing on 
 # the possible moves array.
-  def kings_team
-    Piece.where(color: color, game_id: game_id, active: true) 
+  # def kings_team
+  #   Piece.where(color: color, game_id: game_id, active: true) 
+  # end
+
+  def active_offense
+    offensive_players = Piece.where(game.current_color, game_id: game_id, active: true)
+    offensive_players 
   end
 
-  def possible_moves
+  def active_defense
+    defensive_players = Piece.where(game.resting_color, game_id: game_id, active: true)
+    defensive_players 
+  end
+
+  def possible_moves(side)
     possible_moves = []
       # initialize an 8x8 array of coordinates 1-8
     coords = Array.new(8) { [*1..8] }
     coords.each_with_index do |i, j|
       i.each do |t|
         # t is the x, i[j] is the y
-        kings_team.each do |test_piece|
+        side.each do |test_piece|
           # Run move validation tests on every piece
           next unless test_piece.move_tests(to_x: t, to_y: i[j])
             # if a move passes validations, push the pieces ID and the
@@ -174,14 +184,16 @@ class Piece < ApplicationRecord
     bx =black_king_coords[0]
     by =black_king_coords[1]
     is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
-    unless is_check == nil return true
+    return true if is_check != nil 
+    false
   end
 
   def white_king_check
     wx =white_king_coords[0]
     wy =white_king_coords[1]
-    is_check = possible_moves.find_all { |foo| kng[1] == bx && kng[2] == by }
-    unless is_check == nil return true
+    is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
+    return true if is_check != nil 
+    false
   end
     # May need to be a separate method: Only move allowed is one that gets out of check if 
     # above test returns true.
