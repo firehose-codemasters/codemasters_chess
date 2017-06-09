@@ -305,4 +305,36 @@ RSpec.describe Piece, type: :model do
       expect(piece.active).to eq(false)
     end
   end
+
+    # test to see if I can grab x y coordinates of white king
+  describe 'white_king_coords' do
+    it 'returns the x and y coordinates of the white king' do
+      king = FactoryGirl.create(:king)
+      expect(king.white_king_coords).to eq([4, 4])
+    end
+  end
+
+  #test to see if wrong x y coordinates of white are detected
+  describe 'white_king_coords' do
+    it 'returns the x and y coordinates of the white king' do
+      king = FactoryGirl.create(:king)
+      expect(king.white_king_coords).not_to eq([4, 5])
+    end
+  end
+
+  #test to see if I can grab x y coordinates of king
+  describe 'black_king_coords' do
+    it 'returns the x and y coordinates of the black king' do
+      king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3)
+      expect(king.black_king_coords).to eq([3, 3])
+    end
+  end
+
+  #test to see if wrong x y coordinates of black king are detected
+  describe 'black_king_coords' do
+    it 'returns the x and y coordinates of the black king' do
+      king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3)
+      expect(king.black_king_coords).not_to eq([4, 4])
+    end
+  end
 end

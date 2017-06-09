@@ -120,4 +120,69 @@ class Piece < ApplicationRecord
   def kill
     update(active: false)
   end
+
+  # I need to figure out how to create a possible moves array for each color
+# either by adding color to kings team (kings_team(color)) or by focusing on 
+# the possible moves array.
+  def kings_team
+    Piece.where(color: color, game_id: game_id, active: true) 
+  end
+
+  def possible_moves
+    possible_moves = []
+      # initialize an 8x8 array of coordinates 1-8
+    coords = Array.new(8) { [*1..8] }
+    coords.each_with_index do |i, j|
+      i.each do |t|
+        # t is the x, i[j] is the y
+        kings_team.each do |test_piece|
+          # Run move validation tests on every piece
+          next unless test_piece.move_tests(to_x: t, to_y: i[j])
+            # if a move passes validations, push the pieces ID and the
+            # coordinates of a successful move to the possible_moves array
+            possible_moves << [test_piece.id, t, i[j]]
+        end
+      end
+    end
+    possible_moves
+  end
+
+  def black_king
+    Piece.find_by(type: 'King', color: 'black')
+  end
+
+  def white_king
+    Piece.find_by(type: 'King', color: 'white')
+  end
+
+  def coord_builder(piece)
+    coords = []
+    coords << piece.x_position
+    coords << piece.y_position
+    coords
+  end 
+
+  def black_king_coords
+    coord_builder(black_king) 
+  end
+
+  def white_king_coords
+    coord_builder(white_king) 
+  end
+
+  def black_king_check
+    bx =black_king_coords[0]
+    by =black_king_coords[1]
+    is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
+    unless is_check == nil return true
+  end
+
+  def white_king_check
+    wx =white_king_coords[0]
+    wy =white_king_coords[1]
+    is_check = possible_moves.find_all { |foo| kng[1] == bx && kng[2] == by }
+    unless is_check == nil return true
+  end
+    # May need to be a separate method: Only move allowed is one that gets out of check if 
+    # above test returns true.
 end
