@@ -129,13 +129,19 @@ class Piece < ApplicationRecord
   # end
 
   def active_offense
-    offensive_players = Piece.where(game.current_color, game_id: game_id, active: true)
-    offensive_players 
+    if game_of_piece.current_color == 'white'
+      Piece.where(color: 'white', game_id: game_id, active: true)
+    else
+      Piece.where(color: 'black', game_id: game_id, active: true)
+    end
   end
 
   def active_defense
-    defensive_players = Piece.where(game.resting_color, game_id: game_id, active: true)
-    defensive_players 
+    if game_of_piece.resting_color == 'white'
+      Piece.where(color: 'white', game_id: game_id, active: true)
+    else
+      Piece.where(color: 'black', game_id: game_id, active: true)
+    end
   end
 
   def possible_moves(side)
@@ -157,13 +163,30 @@ class Piece < ApplicationRecord
     possible_moves
   end
 
-  def black_king
-    Piece.find_by(type: 'King', color: 'black')
+  # def black_king
+  #   Piece.find_by(type: 'King', color: 'black')
+  # end
+
+  # def white_king
+  #   Piece.find_by(type: 'King', color: 'white')
+  # end
+
+  def offensive_king
+    if game_of_piece.current_color == 'white'
+      Piece.find_by(type: 'King', color: 'white')
+    else
+      Piece.find_by(type: 'King', color: 'black')
+    end
   end
 
-  def white_king
-    Piece.find_by(type: 'King', color: 'white')
+  def defensive_king
+    if game_of_piece.resting_color == 'white'
+      Piece.find_by(type: 'King', color: 'white')
+    else
+      Piece.find_by(type: 'King', color: 'black')
+    end
   end
+
 
   def coord_builder(piece)
     coords = []
@@ -172,29 +195,55 @@ class Piece < ApplicationRecord
     coords
   end 
 
-  def black_king_coords
-    coord_builder(black_king) 
+  # def black_king_coords
+  #   coord_builder(black_king) 
+  # end
+
+  # def white_king_coords
+  #   coord_builder(white_king) 
+  # end
+
+  def offensive_king_coords
+    coord_builder(offensive_king) 
   end
 
-  def white_king_coords
-    coord_builder(white_king) 
+  def defensive_king_coords
+    coord_builder(defensive_king) 
   end
 
-  def black_king_check
-    bx =black_king_coords[0]
-    by =black_king_coords[1]
-    is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
+
+  # def black_king_check
+  #   bx =black_king_coords[0]
+  #   by =black_king_coords[1]
+  #   is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
+  #   return true if is_check != nil 
+  #   false
+  # end
+
+  # def white_king_check
+  #   wx =white_king_coords[0]
+  #   wy =white_king_coords[1]
+  #   is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
+  #   return true if is_check != nil 
+  #   false
+  # end
+
+  def offensive_king_check
+    ox =offensive_king_coords[0]
+    oy =offensive_king_coords[1]
+    is_check = possible_moves.find_all { |kng| kng[1] == ox && kng[2] == oy }
     return true if is_check != nil 
     false
   end
 
-  def white_king_check
-    wx =white_king_coords[0]
-    wy =white_king_coords[1]
-    is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
+  def defensive_king_check
+    dx =defensive_king_coords[0]
+    dy =defensive_king_coords[1]
+    is_check = possible_moves.find_all { |kng| kng[1] == dx && kng[2] == dy }
     return true if is_check != nil 
     false
   end
-    # May need to be a separate method: Only move allowed is one that gets out of check if 
-    # above test returns true.
+  
+  # May need to be a separate method: Only move allowed is one that gets out of check if 
+  # above test returns true.
 end
