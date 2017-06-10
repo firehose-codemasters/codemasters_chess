@@ -50,7 +50,7 @@ class Piece < ApplicationRecord
         current_y -= 1
         current_x -= 1
       end
-      return true if Piece.where(x_position: current_x, y_position: current_y, active: true).exists?
+      return true if piece_seeker(current_x, current_y).exists?
     end
     false
   end
@@ -64,7 +64,7 @@ class Piece < ApplicationRecord
       else
         current_y -= 1
       end
-      return true if Piece.where(y_position: current_y, active: true).exists?
+      return true if piece_seeker(x_position, current_y).exists?
     end
     false
   end
@@ -78,7 +78,7 @@ class Piece < ApplicationRecord
       else
         current_x -= 1
       end
-      return true if Piece.where(x_position: current_x, active: true).exists?
+      return true if piece_seeker(current_x, y_position).exists?
     end
     false
   end
@@ -89,22 +89,28 @@ class Piece < ApplicationRecord
   end
 
   def capture(to_x:, to_y:)
-    target_piece = Piece.find_by(x_position: to_x, y_position: to_y, active: true)
     # Valid move: destination square is open
-    return 'success' if target_piece.nil?
+    return 'success' if piece_seeker(to_x, to_y).empty?
 
     # Valid move with enemy piece captured at destination
-    if type != 'pawn' && !target_piece.nil? && !target_piece.pieces_turn?
-      target_piece.update(active: false)
+    if type != 'pawn' && !piece_seeker(to_x, to_y).nil? && !piece_seeker(to_x, to_y)[0].pieces_turn?
+      piece_seeker(to_x, to_y)[0].update(active: false)
       return 'success'
     end
 
     # Invalid move: teammate piece is at destination
-    return 'failed' if !target_piece.nil? && target_piece.pieces_turn?
+    return 'failed' if !piece_seeker(to_x, to_y).nil? && piece_seeker(to_x, to_y)[0].pieces_turn?
+  end
+
+  def game_of_piece
+    Game.find(game_id)
+  end
+
+  def piece_seeker(x, y)
+    game_of_piece.pieces.where(x_position: x, y_position: y, active: true)
   end
 
   def pieces_turn?
-    game_of_piece = Game.find(game_id)
     return true if color == game_of_piece.current_color
     false
   end
