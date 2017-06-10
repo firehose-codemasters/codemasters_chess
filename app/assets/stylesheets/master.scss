@@ -3,30 +3,38 @@
 body {
   background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/97/Chess_Set.jpg');
   background-size:100%;
+  font-family: 'IM Fell DW Pica', serif !important;
 }
 
 #topieces {
-  margin:0 auto 15px auto;
+  margin:0 auto 22px auto;
   font-size:233%;
   text-align:center;
 }
 
-h1, h2, h3, h4, h5{
+#topcredit {
+  font-size:200%;
+  color: #d9d9d9;
+  text-shadow:1px 1px 0.5px #444;
+}
+
+h1, h2, h3, h4, h5 {
   text-align:center;
 }
 
-h1 {
+#title {
   color:white;
-  text-shadow: 2px 2px 2px #444444;
+  text-shadow: 2px 2px 3px #222;
+  font-size:400%;
 }
 
 #start {
   display:block;
   margin:13% auto 0 auto;
-  width:18%;
+  width:28%;
   background:green;
   color:#fff;
-  font-size:185%;
+  font-size:2.7vw;
   text-align:center;
   line-height:1.3em;
   padding:10px 2%;
