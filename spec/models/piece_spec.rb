@@ -233,7 +233,7 @@ RSpec.describe Piece, type: :model do
   # Capture checks:
   describe '#capture' do
     it 'returns success if there is no piece (of either color) at to_x, to_y' do
-      moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
+      moving_piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
       expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('success')
     end
 

@@ -50,7 +50,7 @@ class Piece < ApplicationRecord
         current_y -= 1
         current_x -= 1
       end
-      return true if piece_seeker(current_x, current_y).exists?
+      return true if piece_at(current_x, current_y).present?
     end
     false
   end
@@ -64,7 +64,7 @@ class Piece < ApplicationRecord
       else
         current_y -= 1
       end
-      return true if piece_seeker(x_position, current_y).exists?
+      return true if piece_at(x_position, current_y).present?
     end
     false
   end
@@ -78,7 +78,7 @@ class Piece < ApplicationRecord
       else
         current_x -= 1
       end
-      return true if piece_seeker(current_x, y_position).exists?
+      return true if piece_at(current_x, y_position).present?
     end
     false
   end
@@ -90,24 +90,26 @@ class Piece < ApplicationRecord
 
   def capture(to_x:, to_y:)
     # Valid move: destination square is open
-    return 'success' if piece_seeker(to_x, to_y).empty?
+    return 'success' if piece_at(to_x, to_y).nil?
 
     # Valid move with enemy piece captured at destination
-    if type != 'pawn' && !piece_seeker(to_x, to_y).nil? && !piece_seeker(to_x, to_y)[0].pieces_turn?
-      piece_seeker(to_x, to_y)[0].update(active: false)
+    if type != 'pawn' && piece_at(to_x, to_y).present? && !piece_at(to_x, to_y).pieces_turn?
+      piece_at(to_x, to_y).update(active: false)
       return 'success'
     end
 
     # Invalid move: teammate piece is at destination
-    return 'failed' if !piece_seeker(to_x, to_y).nil? && piece_seeker(to_x, to_y)[0].pieces_turn?
+    return 'failed' if piece_at(to_x, to_y).present? && piece_at(to_x, to_y).pieces_turn?
   end
 
+  # Finds the game that the piece is associated with
   def game_of_piece
     Game.find(game_id)
   end
 
-  def piece_seeker(x, y)
-    game_of_piece.pieces.where(x_position: x, y_position: y, active: true)
+  # Returns
+  def piece_at(x, y)
+    game_of_piece.pieces.find_by(x_position: x, y_position: y, active: true)
   end
 
   def pieces_turn?
