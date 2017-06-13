@@ -7,3 +7,7 @@ class King < Piece
     false
   end
 end
+
+# move validation for check... not a valid move if the king remains in check
+# doesn't let another piece move if the king is in check and the moving piece
+# doesn't block

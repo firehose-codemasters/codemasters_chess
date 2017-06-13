@@ -17,8 +17,9 @@ class Piece < ApplicationRecord
                    !obstructed_vertically?(to_y: to_y) &&
                    remains_on_board?(to_x: to_x, to_y: to_y) &&
                    did_it_move?(to_x: to_x, to_y: to_y) &&
-                   move_result(to_x: to_x, to_y: to_y) == 'success' ||
-                   move_result(to_x: to_x, to_y: to_y) == 'kill'
+                   # edited: this version for conflicts
+                   (move_result(to_x: to_x, to_y: to_y) == 'success' ||
+                   move_result(to_x: to_x, to_y: to_y) == 'kill')
     false
   end
 
@@ -93,21 +94,24 @@ class Piece < ApplicationRecord
     # Valid move: destination square is open
     return 'success' if target_piece(to_x: to_x, to_y: to_y).nil?
 
+    # this version for conflict
     # Valid move with enemy piece captured at destination
-    if type != 'pawn' && !target_piece(to_x: to_x, to_y: to_y).nil? && !target_piece(to_x: to_x, to_y: to_y).pieces_turn?
+    if type != 'pawn' && !target_piece(to_x: to_x, to_y: to_y).nil? && target_piece(to_x: to_x, to_y: to_y).color != color
       return 'kill'
     end
 
+    # this version for conflict
     # Invalid move: teammate piece is at destination
-    return 'failed' if !target_piece(to_x: to_x, to_y: to_y).nil? && target_piece(to_x: to_x, to_y: to_y).pieces_turn?
+    return 'failed' if !target_piece(to_x: to_x, to_y: to_y).nil? && target_piece(to_x: to_x, to_y: to_y).color == color
   end
 
   ### private
 
-  def pieces_turn?
-    return true if color == game_of_piece.current_color
-    false
-  end
+  # delete for conflict
+  # def pieces_turn?
+  #   return true if color == game_of_piece.current_color
+  #   false
+  # end
 
   def game_of_piece
     Game.find(game_id)
@@ -121,29 +125,27 @@ class Piece < ApplicationRecord
     update(active: false)
   end
 
-  # I need to figure out how to create a possible moves array for each color
-# either by adding color to kings team (kings_team(color)) or by focusing on 
-# the possible moves array.
-  # def kings_team
-  #   Piece.where(color: color, game_id: game_id, active: true) 
-  # end
+  # begin check methods 
 
-  def active_offense
+  def offense
     if game_of_piece.current_color == 'white'
-      Piece.where(color: 'white', game_id: game_id, active: true)
-    else
-      Piece.where(color: 'black', game_id: game_id, active: true)
+      offensive_pieces = Piece.where(color: 'white', game_id: game_id, active: true)
+    else 
+      offensive_pieces = Piece.where(color: 'black', game_id: game_id, active: true)
     end
+    offensive_pieces
   end
 
-  def active_defense
-    if game_of_piece.resting_color == 'white'
-      Piece.where(color: 'white', game_id: game_id, active: true)
-    else
-      Piece.where(color: 'black', game_id: game_id, active: true)
+ def defense
+    if game_of_piece.current_color == 'white'
+      defensive_pieces = Piece.where(color: 'black', game_id: game_id, active: true)
+    else 
+      defensive_pieces = Piece.where(color: 'white', game_id: game_id, active: true) 
     end
+    defensive_pieces
   end
 
+  # passing either offense or defense
   def possible_moves(side)
     possible_moves = []
       # initialize an 8x8 array of coordinates 1-8
@@ -163,86 +165,68 @@ class Piece < ApplicationRecord
     possible_moves
   end
 
-  # def black_king
-  #   Piece.find_by(type: 'King', color: 'black')
+  # def offensive_king
+  #   if game_of_piece.current_color == 'white'
+  #     game_of_piece.pieces.find_by(type: 'King', color: 'white')
+  #   else
+  #     game_of_piece.pieces.find_by(type: 'King', color: 'black')
+  #   end
   # end
 
-  # def white_king
-  #   Piece.find_by(type: 'King', color: 'white')
+  # def defensive_king
+  #   if game_of_piece.resting_color == 'white'
+  #     game_of_piece.pieces.find_by(type: 'King', color: 'white')
+  #   else
+  #     game_of_piece.pieces.find_by(type: 'King', color: 'black')
+  #   end
   # end
 
-  def offensive_king
-    if game_of_piece.current_color == 'white'
-      Piece.find_by(type: 'King', color: 'white')
-    else
-      Piece.find_by(type: 'King', color: 'black')
-    end
+  # passing current_color or resting_color
+  def king_coords(side)
+    king = game_of_piece.pieces.find_by(type: 'King', color: side)
+    [king.x_position, king.y_position]
   end
 
-  def defensive_king
-    if game_of_piece.resting_color == 'white'
-      Piece.find_by(type: 'King', color: 'white')
-    else
-      Piece.find_by(type: 'King', color: 'black')
-    end
-  end
+  # def in_check?(current_color, resting_color)
+  #   possible_moves(current_color).each do |move| 
+  #     next if king_coords(resting_color)[0] != move[1] && king_coords(resting_color)[1] != move[2]
+  #     return true if king_coords(resting_color)[0] == move[1] && king_coords(resting_color)[1] == move[2]
+  #   end
 
-
-  def coord_builder(piece)
-    coords = []
-    coords << piece.x_position
-    coords << piece.y_position
-    coords
-  end 
-
-  # def black_king_coords
-  #   coord_builder(black_king) 
+  #   false
   # end
 
-  # def white_king_coords
-  #   coord_builder(white_king) 
-  # end
-
-  def offensive_king_coords
-    coord_builder(offensive_king) 
+  # passing current_color or resting_color
+  def in_check?(side)
+    if side == game_of_piece.resting_color
+      possible_moves(offense).each do |move| 
+        next if king_coords(game_of_piece.resting_color)[0] != move[1] && king_coords(game_of_piece.resting_color)[1] != move[2]
+        return true if king_coords(game_of_piece.resting_color)[0] == move[1] && king_coords(game_of_piece.resting_color)[1] == move[2]
+      end
+    elsif side == game_of_piece.current_color
+      possible_moves(defense).each do |move| 
+        next if king_coords(game_of_piece.current_color)[0] != move[1] && king_coords(game_of_piece.current_color)[1] != move[2]
+        return true if king_coords(game_of_piece.current_color)[0] == move[1] && king_coords(game_of_piece.current_color)[1] == move[2]
+      end
+    end    
+    false
   end
 
-  def defensive_king_coords
-    coord_builder(defensive_king) 
-  end
-
-
-  # def black_king_check
-  #   bx =black_king_coords[0]
-  #   by =black_king_coords[1]
-  #   is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
+  # def offensive_static_king_check
+  #   ox = offensive_king_coords[0]
+  #   oy = offensive_king_coords[1]
+  #   is_check = possible_moves(defense).find_all { |kng| kng[1] == ox && kng[2] == oy }
   #   return true if is_check != nil 
   #   false
   # end
 
-  # def white_king_check
-  #   wx =white_king_coords[0]
-  #   wy =white_king_coords[1]
-  #   is_check = possible_moves.find_all { |kng| kng[1] == bx && kng[2] == by }
+  # def defensive_static_king_check
+  #   dx = defensive_king_coords[0]
+  #   dy = defensive_king_coords[1]
+  #   is_check = possible_moves.find_all { |kng| kng[1] == dx && kng[2] == dy }
   #   return true if is_check != nil 
   #   false
   # end
-
-  def offensive_king_check
-    ox =offensive_king_coords[0]
-    oy =offensive_king_coords[1]
-    is_check = possible_moves.find_all { |kng| kng[1] == ox && kng[2] == oy }
-    return true if is_check != nil 
-    false
-  end
-
-  def defensive_king_check
-    dx =defensive_king_coords[0]
-    dy =defensive_king_coords[1]
-    is_check = possible_moves.find_all { |kng| kng[1] == dx && kng[2] == dy }
-    return true if is_check != nil 
-    false
-  end
   
   # May need to be a separate method: Only move allowed is one that gets out of check if 
   # above test returns true.
