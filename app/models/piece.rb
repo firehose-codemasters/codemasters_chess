@@ -17,7 +17,8 @@ class Piece < ApplicationRecord
                    !obstructed_vertically?(to_y: to_y) &&
                    remains_on_board?(to_x: to_x, to_y: to_y) &&
                    did_it_move?(to_x: to_x, to_y: to_y) &&
-                   capture(to_x: to_x, to_y: to_y) == 'success'
+                   move_result(to_x: to_x, to_y: to_y) == 'success' ||
+                   move_result(to_x: to_x, to_y: to_y) == 'kill'
     false
   end
 
@@ -88,32 +89,33 @@ class Piece < ApplicationRecord
     false
   end
 
-  def capture(to_x:, to_y:)
+  def move_result(to_x:, to_y:)
     # Valid move: destination square is open
-    return 'success' if piece_at(to_x, to_y).nil?
+    return 'success' if target_piece(to_x: to_x, to_y: to_y).nil?
 
     # Valid move with enemy piece captured at destination
-    if type != 'pawn' && piece_at(to_x, to_y).present? && !piece_at(to_x, to_y).pieces_turn?
-      piece_at(to_x, to_y).update(active: false)
-      return 'success'
+    if type != 'pawn' && !target_piece(to_x: to_x, to_y: to_y).nil? && !target_piece(to_x: to_x, to_y: to_y).pieces_turn?
+      return 'kill'
     end
 
     # Invalid move: teammate piece is at destination
-    return 'failed' if piece_at(to_x, to_y).present? && piece_at(to_x, to_y).pieces_turn?
-  end
-
-  # Finds the game that the piece is associated with
-  def game_of_piece
-    Game.find(game_id)
-  end
-
-  # Returns
-  def piece_at(x, y)
-    game_of_piece.pieces.find_by(x_position: x, y_position: y, active: true)
+    return 'failed' if !target_piece(to_x: to_x, to_y: to_y).nil? && target_piece(to_x: to_x, to_y: to_y).pieces_turn?
   end
 
   def pieces_turn?
     return true if color == game_of_piece.current_color
     false
+  end
+
+  def game_of_piece
+    Game.find(game_id)
+  end
+
+  def target_piece(to_x:, to_y:)
+    game_of_piece.pieces.find_by(x_position: x, y_position: y, active: true)
+  end
+
+  def kill
+    update(active: false)
   end
 end

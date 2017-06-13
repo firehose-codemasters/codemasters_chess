@@ -230,35 +230,27 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  # Capture checks:
-  describe '#capture' do
+  # Testing of move_result method for piece
+  describe '#move_result' do
     it 'returns success if there is no piece (of either color) at to_x, to_y' do
-      moving_piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
-      expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('success')
+      moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
+      expect(moving_piece.move_result(to_x: 6, to_y: 2)).to eq('success')
     end
 
-    it 'returns success if there is an enemy ("target") piece at to_x, to_y' do
+    it 'returns kill if there is an enemy ("target") piece at to_x, to_y' do
       moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
       _target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2, color: 'black', game_id: moving_piece.game_id)
-      expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('success')
-    end
-
-    it 'sets the active attribute of the captured ("target") piece to false' do
-      moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
-      target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2, color: 'black', game_id: moving_piece.game_id)
-      moving_piece.capture(to_x: 6, to_y: 2)
-      target_piece.reload
-      expect(Piece.find(target_piece.id).active).to eq(false)
+      expect(moving_piece.move_result(to_x: 6, to_y: 2)).to eq('kill')
     end
 
     it 'returns failed if there is a teammate (same-color-as-moving) piece at to_x, to_y' do
       moving_piece = FactoryGirl.create(:piece, x_position: 2, y_position: 2)
       _target_piece = FactoryGirl.create(:piece, x_position: 6, y_position: 2, game_id: moving_piece.game_id)
-      expect(moving_piece.capture(to_x: 6, to_y: 2)).to eq('failed')
+      expect(moving_piece.move_result(to_x: 6, to_y: 2)).to eq('failed')
     end
   end
 
-  # Testing of is_pieces_turn? method for piece
+  # Testing of pieces_turn? method for piece
   describe 'pieces_turn?' do
     it 'returns true if piece has the same color as the current_color in a particular game' do
       game = FactoryGirl.create(:game)
@@ -293,6 +285,24 @@ RSpec.describe Piece, type: :model do
     it 'returns false if moved piece has the same coordinates as when first moved' do
       moving_piece = FactoryGirl.create(:piece, x_position: 1, y_position: 3)
       expect(moving_piece.did_it_move?(to_x: 1, to_y: 3)).to eq(false)
+    end
+  end
+
+  # Testing of game_ofpiece method for piece
+  describe 'game_of_piece' do
+    it 'returns the game that the piece belongs to' do
+      piece = FactoryGirl.create(:queen, color: 'white')
+      expect(piece.game_of_piece).to eq(Game.find(piece.game_id))
+    end
+  end
+
+  # Testing of kill method for piece
+  describe 'kill' do
+    it 'updates the attribute of the piece it is called on to active: false' do
+      piece = FactoryGirl.create(:bishop)
+      piece.kill
+      piece.reload
+      expect(piece.active).to eq(false)
     end
   end
 end
