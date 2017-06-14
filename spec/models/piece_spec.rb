@@ -250,20 +250,20 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  # Testing of pieces_turn? method for piece
-  describe 'pieces_turn?' do
-    it 'returns true if piece has the same color as the current_color in a particular game' do
-      game = FactoryGirl.create(:game)
-      moving_piece = FactoryGirl.create(:piece, color: 'white', game_id: game.id)
-      expect(moving_piece.pieces_turn?).to eq(true)
-    end
+  # # Testing of pieces_turn? method for piece
+  # describe 'pieces_turn?' do
+  #   it 'returns true if piece has the same color as the current_color in a particular game' do
+  #     game = FactoryGirl.create(:game)
+  #     moving_piece = FactoryGirl.create(:piece, color: 'white', game_id: game.id)
+  #     expect(moving_piece.pieces_turn?).to eq(true)
+  #   end
 
-    it 'returns false if piece has a different color as the current_color in a particular game' do
-      game = FactoryGirl.create(:game)
-      moving_piece = FactoryGirl.create(:piece, color: 'black', game_id: game.id)
-      expect(moving_piece.pieces_turn?).to eq(false)
-    end
-  end
+  #   it 'returns false if piece has a different color as the current_color in a particular game' do
+  #     game = FactoryGirl.create(:game)
+  #     moving_piece = FactoryGirl.create(:piece, color: 'black', game_id: game.id)
+  #     expect(moving_piece.pieces_turn?).to eq(false)
+  #   end
+  # end
 
   # Testing of did_it_move? method for piece
   describe 'did_it_move?' do
@@ -339,44 +339,33 @@ RSpec.describe Piece, type: :model do
   # end
 
   # test to see if I can grab x y coordinates of offensive king
-  describe 'offensive_king_coords' do
+  describe 'king_coords' do
     it 'returns the x and y coordinates of the offensive king' do
       game = FactoryGirl.create(:game)
       game.next_turn
       king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3, game_id: game.id)
-      expect(king.offensive_king_coords).to eq([3, 3])
+      expect(king.king_coords(game.current_color)).to eq([3, 3])
     end
-  end
 
-  #test to see if wrong x y coordinates of offensive are detected
-  describe 'offensive_king_coords' do
-    it 'returns the x and y coordinates of the offensive king' do
+    it 'rejects the wrong x and y coordinates of the offensive king' do
       game = FactoryGirl.create(:game)
       game.next_turn
-      black_king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3, game_id: game.id)
-      white_king = FactoryGirl.create(:king, color: 'white', x_position: 4, y_position: 4, game_id: game.id)
-      binding.pry
-      expect(king.offensive_king_coords).not_to eq([4, 5])
+      king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3, game_id: game.id)
+      expect(king.king_coords(game.current_color)).not_to eq([4, 5])
     end
-  end
 
-  #test to see if I can grab x y coordinates of defensive king
-  describe 'defensive_king_coords' do
     it 'returns the x and y coordinates of the defensive king' do
       game = FactoryGirl.create(:game)
       game.next_turn
       king = FactoryGirl.create(:king, color: 'white', x_position: 3, y_position: 3, game_id: game.id)
-      expect(king.defensive_king_coords).to eq([3, 3])
+      expect(king.king_coords(game.resting_color)).to eq([3, 3])
     end
-  end
 
-  #test to see if wrong x y coordinates of defensive king are detected
-  describe 'defensive_king_coords' do
-    it 'returns the x and y coordinates of the defensive king' do
+    it 'rejects the wrong x and y coordinates of the defensive king' do
       game = FactoryGirl.create(:game)
       game.next_turn
       king = FactoryGirl.create(:king, color: 'white', x_position: 3, y_position: 3, game_id: game.id)
-      expect(king.defensive_king_coords).not_to eq([4, 4])
+      expect(king.king_coords(game.resting_color)).not_to eq([4, 4])
     end
   end
 
@@ -386,7 +375,7 @@ RSpec.describe Piece, type: :model do
       # king = FactoryGirl.create(:king, color: 'white', x_position: 8, y_position: 4, game_id: game.id)
       pawn = FactoryGirl.create(:pawn, color: 'white', x_position: 7, y_position: 5, game_id: game.id)
       this_side = pawn.offense
-      expect(pawn.possible_moves(this_side)).to eq([[pawn.id, 7,6]])
+      expect(pawn.possible_moves(this_side)).to eq([[pawn.id, 7, 6]])
       # need to add in some more pieces and add a second test for defense
     end
   end
