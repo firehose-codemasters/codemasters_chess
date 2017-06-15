@@ -1,4 +1,4 @@
-<div class="booyah-box col-10 offset-1">
+<div class="booyah-box col-xs-10 col-xs-offset-1 text-center">
 <%= simple_form_for(game) do |f| %>
   <% if game.errors.any? %>
     <div id="error_explanation">
@@ -11,31 +11,18 @@
       </ul>
     </div>
   <% end %>
-
-
-
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+<br />
+  <div class="form-columns col-xs-6 col-xs-offset-1 text-center">
+  <%= f.input :name %>
+  <br />
+  <%= f.input :result %>
+  <br />
+  <%= f.input :white_player_id %> 
+  <br />
+  <%= f.input :black_player_id %>
+  <br />
+  <%= f.submit 'Create', class: 'btn btn-primary' %>
   </div>
-
-  <div class="field">
-    <%= f.label :result %>
-    <%= f.text_field :result %>
-  </div>
-
-  <div class="field">
-    <%= f.label :white_player_id %>
-    <%= f.text_field :white_player_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :black_player_id %>
-    <%= f.text_field :black_player_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit 'Create', class: 'btn btn-primary' %>
-  </div>
-<% end %>
 </div>
+<% end %>
+
