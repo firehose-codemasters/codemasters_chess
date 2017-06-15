@@ -24,3 +24,18 @@
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
+
+
+<h1 class="text-center">Chessboard</h1>
+
+<br />
+
+<div class="col-xs-6 col-xs-offset-3">
+  <table id="chessboard">
+    <%= 7.downto(0) do |row| %>
+      <tr>
+        <%= 0.upto(7) do |col| %>
+      </tr>
+    <% end %>
+  </table>
+  <% end %>

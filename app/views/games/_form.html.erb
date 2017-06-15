@@ -1,5 +1,5 @@
 <div class="booyah-box col-xs-10 col-xs-offset-1 text-center">
-<%= simple_form_for(game) do |f| %>
+<%= simple_form_for(game)  do |f| %>
   <% if game.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
