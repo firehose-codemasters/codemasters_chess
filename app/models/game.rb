@@ -45,4 +45,5 @@ class Game < ApplicationRecord
       update(current_color: rc_stager)
       update(resting_color: cc_stager)
     end
+    
 end

@@ -1,36 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-
-
-<p>
-  <strong>Name:</strong>
-  <%= @game.name %>
-</p>
-
-<p>
-  <strong>Result:</strong>
-  <%= @game.result %>
-</p>
-
-<p>
-  <strong>White player:</strong>
-  <%= @game.white_player %>
-</p>
-
-<p>
-  <strong>Black player:</strong>
-  <%= @game.black_player %>
-</p>
-
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
-
-
-<h1 class="text-center">Chessboard</h1>
+<div class="booyah-box col-xs-10 col-xs-offset-1">
+  <h1><%= @game.name %></h1>
+   <p> <%= @game.result %></p>
+   <p> <%= @game.white_player %></p>
+   <p> <%= @game.black_player %></p>
+</div>
 
 <br />
 
-<div class="col-xs-6 col-xs-offset-3">
+<div class="booyah-box col-xs-6 col-xs-offset-3">
   <table id="chessboard">
     <%= 7.downto(0) do |row| %>
       <tr>
@@ -38,4 +17,11 @@
       </tr>
     <% end %>
   </table>
+  
+
   <% end %>
+</div>
+
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
+
