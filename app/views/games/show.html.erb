@@ -5,22 +5,15 @@
    <p> <%= @game.result %></p>
    <p> <%= @game.white_player %></p>
    <p> <%= @game.black_player %></p>
+
 </div>
+	
+
+
 
 <br />
 
-<div class="booyah-box col-xs-6 col-xs-offset-3">
-  <table id="chessboard">
-    <%= 7.downto(0) do |row| %>
-      <tr>
-        <%= 0.upto(7) do |col| %>
-      </tr>
-    <% end %>
-  </table>
-  
 
-  <% end %>
-</div>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+get '/chessboard', to: 'chessboard#chessboard'
   root 'static_pages#index'
   resources :pieces
   resources :games
