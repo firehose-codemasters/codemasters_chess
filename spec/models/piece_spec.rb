@@ -125,6 +125,45 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  # Secondary move tests
+  describe '#secondary_move_tests' do
+    it 'returns true if the move passes all move_tests and offense not in check' do
+      game = FactoryGirl.create(:game)
+      white_king = FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 8, y_position: 3, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, game_id: game.id)
+      expect(pawn.secondary_move_tests(to_x: 1, to_y: 3)).to eq(true)
+    end
+
+    it 'returns false if the move does not pass all move_tests and offense not in check' do
+      game = FactoryGirl.create(:game)
+      white_king = FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 8, y_position: 3, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, game_id: game.id)
+      expect(pawn.secondary_move_tests(to_x: 1, to_y: 5)).to eq(false)
+    end
+
+    it 'returns false if the move passes all move_tests but the king is in check' do
+      game = FactoryGirl.create(:game)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:queen, color: 'black', x_position: 2, y_position: 8, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, game_id: game.id)
+      expect(pawn.secondary_move_tests(to_x: 1, to_y: 4)).to eq(false)
+    end
+
+    it 'returns false if the move does not pass all move_tests and the king is in check' do
+      game = FactoryGirl.create(:game)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 2, y_position: 8, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, game_id: game.id)
+      expect(pawn.secondary_move_tests(to_x: 1, to_y: 6)).to eq(false)
+    end    
+  end
+
   # Diagonal obstruction logic
   describe '#obstructed_diagonally?' do
     it 'returns true if the move is obstructed in the up-right direction' do
@@ -306,38 +345,6 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  #   # test to see if I can grab x y coordinates of white king
-  # describe 'white_king_coords' do
-  #   it 'returns the x and y coordinates of the white king' do
-  #     king = FactoryGirl.create(:king)
-  #     expect(king.white_king_coords).to eq([4, 4])
-  #   end
-  # end
-
-  # #test to see if wrong x y coordinates of white are detected
-  # describe 'white_king_coords' do
-  #   it 'returns the x and y coordinates of the white king' do
-  #     king = FactoryGirl.create(:king)
-  #     expect(king.white_king_coords).not_to eq([4, 5])
-  #   end
-  # end
-
-  # #test to see if I can grab x y coordinates of king
-  # describe 'black_king_coords' do
-  #   it 'returns the x and y coordinates of the black king' do
-  #     king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3)
-  #     expect(king.black_king_coords).to eq([3, 3])
-  #   end
-  # end
-
-  # #test to see if wrong x y coordinates of black king are detected
-  # describe 'black_king_coords' do
-  #   it 'returns the x and y coordinates of the black king' do
-  #     king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3)
-  #     expect(king.black_king_coords).not_to eq([4, 4])
-  #   end
-  # end
-
   # test to see if I can grab x y coordinates of offensive king
   describe 'king_coords' do
     it 'returns the x and y coordinates of the offensive king' do
@@ -376,6 +383,14 @@ RSpec.describe Piece, type: :model do
       pawn = FactoryGirl.create(:pawn, color: 'white', x_position: 7, y_position: 5, game_id: game.id)
       this_side = pawn.offense
       expect(pawn.possible_moves(this_side)).to eq([[pawn.id, 7, 6]])
+      # need to add in some more pieces and add a second test for defense
+    end
+
+    it 'returns 21 moves for a queen at 2, 8' do
+      game = FactoryGirl.create(:game)
+      queen = FactoryGirl.create(:queen, color: 'white', x_position: 2, y_position: 8, game_id: game.id)
+      this_side = queen.offense
+      expect(queen.possible_moves(this_side).length).to eq(21)
       # need to add in some more pieces and add a second test for defense
     end
   end

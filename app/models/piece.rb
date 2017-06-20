@@ -9,7 +9,6 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
-  # Moving piece logic (possibly add pieces_turn to the end of the return true if statement)
   def move_tests(to_x:, to_y:)
     return true if valid_move?(to_x: to_x, to_y: to_y) &&
                    !obstructed_diagonally?(to_x: to_x, to_y: to_y) &&
@@ -23,7 +22,12 @@ class Piece < ApplicationRecord
     false
   end
 
-  # final move aggregator... return true if move tests and not in check pass, reference in controller
+  # final move aggregator
+  def secondary_move_tests(to_x:, to_y:)
+    return true if move_tests(to_x: to_x, to_y: to_y) == true && 
+                   in_check?(game_of_piece.current_color) == false
+    false
+  end
 
   def valid_move?(*)
     true
@@ -68,7 +72,7 @@ class Piece < ApplicationRecord
       else
         current_y -= 1
       end
-      return true if Piece.where(y_position: current_y, active: true).exists?
+      return true if Piece.where(y_position: current_y, x_position: x_position, active: true).exists?
     end
     false
   end
@@ -82,7 +86,7 @@ class Piece < ApplicationRecord
       else
         current_x -= 1
       end
-      return true if Piece.where(x_position: current_x, active: true).exists?
+      return true if Piece.where(x_position: current_x, y_position: y_position, active: true).exists?
     end
     false
   end
