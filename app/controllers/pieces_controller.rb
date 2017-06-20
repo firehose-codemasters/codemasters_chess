@@ -44,8 +44,9 @@ class PiecesController < ApplicationController
     to_x = params[:piece][:x_position].to_i
 
     # The update method will change the x_position and y_position of a piece in the database.
+
     # This checks if the move is valid by using the #move_tests method in the model
-    return unless @piece.move_tests(to_x: to_x, to_y: to_y)
+    return unless @piece.secondary_move_tests(to_x: to_x, to_y: to_y)
     @piece.piece_at(to_x, to_y).kill if @piece.move_result(to_x: to_x, to_y: to_y) == 'kill'
     @piece.update(piece_params)
     @pieces_game.next_turn

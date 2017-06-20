@@ -9,7 +9,6 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
-  # Moving piece logic (possibly add pieces_turn to the end of the return true if statement)
   def move_tests(to_x:, to_y:)
     return true if valid_move?(to_x: to_x, to_y: to_y) &&
                    !obstructed_diagonally?(to_x: to_x, to_y: to_y) &&
@@ -17,8 +16,16 @@ class Piece < ApplicationRecord
                    !obstructed_vertically?(to_y: to_y) &&
                    remains_on_board?(to_x: to_x, to_y: to_y) &&
                    did_it_move?(to_x: to_x, to_y: to_y) &&
-                   move_result(to_x: to_x, to_y: to_y) == 'success' ||
-                   move_result(to_x: to_x, to_y: to_y) == 'kill'
+                   # edited: this version for conflicts
+                   (move_result(to_x: to_x, to_y: to_y) == 'success' ||
+                   move_result(to_x: to_x, to_y: to_y) == 'kill')
+    false
+  end
+
+  # final move aggregator... could be moved to the controller as two separate calls
+  def secondary_move_tests(to_x:, to_y:)
+    return true if move_tests(to_x: to_x, to_y: to_y) == true &&
+                   in_check?(game_of_piece.current_color) == false
     false
   end
 
@@ -118,4 +125,75 @@ class Piece < ApplicationRecord
   def kill
     update(active: false)
   end
+
+  # begin methods needed for check
+
+  # could be moved to game model
+  def offense
+    offensive_pieces = if game_of_piece.current_color == 'white'
+                         Piece.where(color: 'white', game_id: game_id, active: true)
+                       else
+                         Piece.where(color: 'black', game_id: game_id, active: true)
+                       end
+    offensive_pieces
+  end
+
+  # could be moved to game model
+  def defense
+    defensive_pieces = if game_of_piece.current_color == 'white'
+                         Piece.where(color: 'black', game_id: game_id, active: true)
+                       else
+                         Piece.where(color: 'white', game_id: game_id, active: true)
+                       end
+    defensive_pieces
+  end
+
+  # passing either offense or defense... could be moved to game model
+  def possible_moves(side)
+    possible_moves = []
+    # initialize an 8x8 array of coordinates 1-8
+    coords = Array.new(8) { [*1..8] }
+    coords.each_with_index do |i, j|
+      i.each do |t|
+        # t is the x, i[j] is the y
+        side.each do |test_piece|
+          # Run move validation tests on every piece
+          next unless test_piece.move_tests(to_x: t, to_y: i[j])
+            # if a move passes validations, push the pieces ID and the
+            # coordinates of a successful move to the possible_moves array
+            possible_moves << [test_piece.id, t, i[j]]
+        end
+      end
+    end
+    possible_moves
+  end
+
+  # passing current_color or resting_color...  could be moved to king model
+  def king_coords(side)
+    king = game_of_piece.pieces.find_by(type: 'King', color: side)
+    [king.x_position, king.y_position]
+  end
+
+  # passing current_color or resting_color
+  def in_check?(side)
+    if side == game_of_piece.resting_color
+      possible_moves(offense).each do |move|
+        next if king_coords(game_of_piece.resting_color)[0] != move[1] &&
+                king_coords(game_of_piece.resting_color)[1] != move[2]
+        return true if king_coords(game_of_piece.resting_color)[0] == move[1] &&
+                       king_coords(game_of_piece.resting_color)[1] == move[2]
+      end
+    elsif side == game_of_piece.current_color
+      possible_moves(defense).each do |move|
+        next if king_coords(game_of_piece.current_color)[0] != move[1] &&
+                king_coords(game_of_piece.current_color)[1] != move[2]
+        return true if king_coords(game_of_piece.current_color)[0] == move[1] &&
+                       king_coords(game_of_piece.current_color)[1] == move[2]
+      end
+    end
+    false
+  end
+
+  # May need to be a separate method: Only move allowed is one that gets out of check if
+  # above test returns true.
 end

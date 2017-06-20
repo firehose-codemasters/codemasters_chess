@@ -31,6 +31,11 @@ Metrics/LineLength:
   Exclude:
     - 'app/models/pawn.rb'
 
+Metrics/ClassLength:
+  Max: 100
+  Exclude:
+    - 'app/models/piece.rb'
+
 Metrics/AbcSize:
   Enabled: false
 
