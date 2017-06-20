@@ -125,6 +125,7 @@ RSpec.describe PiecesController, type: :controller do
       it 'kills the enemy if the moving piece is making a capture' do
         queen = FactoryGirl.create(:queen, x_position: 2, y_position: 2)
         bishop = FactoryGirl.create(:bishop, game_id: queen.game_id)
+        FactoryGirl.create(:king, color: 'white', x_position: 7, y_position: 8, game_id: queen.game_id)
         put :update, params:
             {
               id: queen.to_param, piece:

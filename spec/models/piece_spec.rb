@@ -125,6 +125,45 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  # Secondary move tests
+  describe '#secondary_move_tests' do
+    it 'returns true if the move passes all move_tests and offense not in check' do
+      game = FactoryGirl.create(:game)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 8, y_position: 3, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, game_id: game.id)
+      expect(pawn.secondary_move_tests(to_x: 1, to_y: 3)).to eq(true)
+    end
+
+    it 'returns false if the move does not pass all move_tests and offense not in check' do
+      game = FactoryGirl.create(:game)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 8, y_position: 3, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, game_id: game.id)
+      expect(pawn.secondary_move_tests(to_x: 1, to_y: 5)).to eq(false)
+    end
+
+    it 'returns false if the move passes all move_tests but the king is in check' do
+      game = FactoryGirl.create(:game)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:queen, color: 'black', x_position: 2, y_position: 8, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, game_id: game.id)
+      expect(pawn.secondary_move_tests(to_x: 1, to_y: 4)).to eq(false)
+    end
+
+    it 'returns false if the move does not pass all move_tests and the king is in check' do
+      game = FactoryGirl.create(:game)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 2, y_position: 8, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, game_id: game.id)
+      expect(pawn.secondary_move_tests(to_x: 1, to_y: 6)).to eq(false)
+    end
+  end
+
   # Diagonal obstruction logic
   describe '#obstructed_diagonally?' do
     it 'returns true if the move is obstructed in the up-right direction' do
@@ -250,20 +289,20 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  # Testing of pieces_turn? method for piece
-  describe 'pieces_turn?' do
-    it 'returns true if piece has the same color as the current_color in a particular game' do
-      game = FactoryGirl.create(:game)
-      moving_piece = FactoryGirl.create(:piece, color: 'white', game_id: game.id)
-      expect(moving_piece.pieces_turn?).to eq(true)
-    end
+  # # Testing of pieces_turn? method for piece
+  # describe 'pieces_turn?' do
+  #   it 'returns true if piece has the same color as the current_color in a particular game' do
+  #     game = FactoryGirl.create(:game)
+  #     moving_piece = FactoryGirl.create(:piece, color: 'white', game_id: game.id)
+  #     expect(moving_piece.pieces_turn?).to eq(true)
+  #   end
 
-    it 'returns false if piece has a different color as the current_color in a particular game' do
-      game = FactoryGirl.create(:game)
-      moving_piece = FactoryGirl.create(:piece, color: 'black', game_id: game.id)
-      expect(moving_piece.pieces_turn?).to eq(false)
-    end
-  end
+  #   it 'returns false if piece has a different color as the current_color in a particular game' do
+  #     game = FactoryGirl.create(:game)
+  #     moving_piece = FactoryGirl.create(:piece, color: 'black', game_id: game.id)
+  #     expect(moving_piece.pieces_turn?).to eq(false)
+  #   end
+  # end
 
   # Testing of did_it_move? method for piece
   describe 'did_it_move?' do
@@ -303,6 +342,90 @@ RSpec.describe Piece, type: :model do
       piece.kill
       piece.reload
       expect(piece.active).to eq(false)
+    end
+  end
+
+  # test to see if I can grab x y coordinates of offensive king
+  describe 'king_coords' do
+    it 'returns the x and y coordinates of the offensive king' do
+      game = FactoryGirl.create(:game)
+      game.next_turn
+      king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3, game_id: game.id)
+      expect(king.king_coords(game.current_color)).to eq([3, 3])
+    end
+
+    it 'rejects the wrong x and y coordinates of the offensive king' do
+      game = FactoryGirl.create(:game)
+      game.next_turn
+      king = FactoryGirl.create(:king, color: 'black', x_position: 3, y_position: 3, game_id: game.id)
+      expect(king.king_coords(game.current_color)).not_to eq([4, 5])
+    end
+
+    it 'returns the x and y coordinates of the defensive king' do
+      game = FactoryGirl.create(:game)
+      game.next_turn
+      king = FactoryGirl.create(:king, color: 'white', x_position: 3, y_position: 3, game_id: game.id)
+      expect(king.king_coords(game.resting_color)).to eq([3, 3])
+    end
+
+    it 'rejects the wrong x and y coordinates of the defensive king' do
+      game = FactoryGirl.create(:game)
+      game.next_turn
+      king = FactoryGirl.create(:king, color: 'white', x_position: 3, y_position: 3, game_id: game.id)
+      expect(king.king_coords(game.resting_color)).not_to eq([4, 4])
+    end
+  end
+
+  describe 'possible_moves' do
+    it 'returns all possible moves of the called sides pieces' do
+      game = FactoryGirl.create(:game)
+      # king = FactoryGirl.create(:king, color: 'white', x_position: 8, y_position: 4, game_id: game.id)
+      pawn = FactoryGirl.create(:pawn, color: 'white', x_position: 7, y_position: 5, game_id: game.id)
+      this_side = pawn.offense
+      expect(pawn.possible_moves(this_side)).to eq([[pawn.id, 7, 6]])
+      # need to add in some more pieces and add a second test for defense
+    end
+
+    it 'returns 21 moves for a queen at 2, 8' do
+      game = FactoryGirl.create(:game)
+      queen = FactoryGirl.create(:queen, color: 'white', x_position: 2, y_position: 8, game_id: game.id)
+      this_side = queen.offense
+      expect(queen.possible_moves(this_side).length).to eq(21)
+      # need to add in some more pieces and add a second test for defense
+    end
+  end
+
+  describe 'in_check?' do
+    it 'when passed current_color, returns true if offensive king is in check' do
+      game = FactoryGirl.create(:game)
+      white_king = FactoryGirl.create(:king, color: 'white', x_position: 8, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 1, y_position: 1, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 8, y_position: 2, game_id: game.id)
+      expect(white_king.in_check?(game.current_color)).to eq(true)
+    end
+
+    it 'when passed resting_color, returns true if defensive king is in check' do
+      game = FactoryGirl.create(:game)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      black_king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'white', x_position: 8, y_position: 4, game_id: game.id)
+      expect(black_king.in_check?(game.resting_color)).to eq(true)
+    end
+
+    it 'when passed current_color, returns false if offensive king is not in check' do
+      game = FactoryGirl.create(:game)
+      white_king = FactoryGirl.create(:king, color: 'white', x_position: 8, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 1, y_position: 1, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 7, y_position: 1, game_id: game.id)
+      expect(white_king.in_check?(game.current_color)).to eq(false)
+    end
+
+    it 'when passed resting_color, returns false if defensive king is not in check' do
+      game = FactoryGirl.create(:game)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      black_king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'white', x_position: 8, y_position: 3, game_id: game.id)
+      expect(black_king.in_check?(game.resting_color)).to eq(false)
     end
   end
 end
