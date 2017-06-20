@@ -129,7 +129,7 @@ RSpec.describe Piece, type: :model do
   describe '#secondary_move_tests' do
     it 'returns true if the move passes all move_tests and offense not in check' do
       game = FactoryGirl.create(:game)
-      white_king = FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
       FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
       FactoryGirl.create(:rook, color: 'black', x_position: 8, y_position: 3, game_id: game.id)
       pawn = FactoryGirl.create(:pawn, game_id: game.id)
@@ -138,7 +138,7 @@ RSpec.describe Piece, type: :model do
 
     it 'returns false if the move does not pass all move_tests and offense not in check' do
       game = FactoryGirl.create(:game)
-      white_king = FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:king, color: 'white', x_position: 2, y_position: 2, game_id: game.id)
       FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
       FactoryGirl.create(:rook, color: 'black', x_position: 8, y_position: 3, game_id: game.id)
       pawn = FactoryGirl.create(:pawn, game_id: game.id)
@@ -161,7 +161,7 @@ RSpec.describe Piece, type: :model do
       FactoryGirl.create(:rook, color: 'black', x_position: 2, y_position: 8, game_id: game.id)
       pawn = FactoryGirl.create(:pawn, game_id: game.id)
       expect(pawn.secondary_move_tests(to_x: 1, to_y: 6)).to eq(false)
-    end    
+    end
   end
 
   # Diagonal obstruction logic

@@ -24,7 +24,7 @@ class Piece < ApplicationRecord
 
   # final move aggregator
   def secondary_move_tests(to_x:, to_y:)
-    return true if move_tests(to_x: to_x, to_y: to_y) == true && 
+    return true if move_tests(to_x: to_x, to_y: to_y) == true &&
                    in_check?(game_of_piece.current_color) == false
     false
   end
