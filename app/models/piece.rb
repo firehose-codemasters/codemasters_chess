@@ -22,7 +22,7 @@ class Piece < ApplicationRecord
     false
   end
 
-  # final move aggregator
+  # final move aggregator... could be moved to the controller as two separate calls
   def secondary_move_tests(to_x:, to_y:)
     return true if move_tests(to_x: to_x, to_y: to_y) == true &&
                    in_check?(game_of_piece.current_color) == false
@@ -133,7 +133,7 @@ class Piece < ApplicationRecord
 
   # begin methods needed for check
 
-  # this looks weird due to rubocop enforced styling
+  # could be moved to game model
   def offense
     offensive_pieces = if game_of_piece.current_color == 'white'
                          Piece.where(color: 'white', game_id: game_id, active: true)
@@ -143,7 +143,7 @@ class Piece < ApplicationRecord
     offensive_pieces
   end
 
-  # this looks weird due to rubocop enforced styling
+  # could be moved to game model
   def defense
     defensive_pieces = if game_of_piece.current_color == 'white'
                          Piece.where(color: 'black', game_id: game_id, active: true)
@@ -153,7 +153,7 @@ class Piece < ApplicationRecord
     defensive_pieces
   end
 
-  # passing either offense or defense
+  # passing either offense or defense... could be moved to game model
   def possible_moves(side)
     possible_moves = []
     # initialize an 8x8 array of coordinates 1-8
@@ -173,7 +173,7 @@ class Piece < ApplicationRecord
     possible_moves
   end
 
-  # passing current_color or resting_color
+  # passing current_color or resting_color...  could be moved to king model
   def king_coords(side)
     king = game_of_piece.pieces.find_by(type: 'King', color: side)
     [king.x_position, king.y_position]
