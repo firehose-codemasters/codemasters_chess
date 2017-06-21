@@ -101,12 +101,12 @@ class Piece < ApplicationRecord
     return 'success' if piece_at(to_x, to_y).nil?
 
     # Valid move with enemy piece captured at destination
-    if type != 'pawn' && piece_at(to_x, to_y).present? && !piece_at(to_x, to_y).pieces_turn?
+    if type != 'pawn' && piece_at(to_x, to_y).present? && piece_at(to_x, to_y).color != color
       return 'kill'
     end
 
     # Invalid move: teammate piece is at destination
-    return 'failed' if piece_at(to_x, to_y).present? && piece_at(to_x, to_y).pieces_turn?
+    return 'failed' if piece_at(to_x, to_y).present? && piece_at(to_x, to_y).color == color
   end
 
   def pieces_turn?
