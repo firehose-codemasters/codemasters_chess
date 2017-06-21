@@ -58,7 +58,7 @@ class Piece < ApplicationRecord
         current_y -= 1
         current_x -= 1
       end
-      return true if Piece.where(x_position: current_x, y_position: current_y, active: true).exists?
+      return true if piece_at(current_x, current_y).present?
     end
     false
   end
@@ -72,7 +72,7 @@ class Piece < ApplicationRecord
       else
         current_y -= 1
       end
-      return true if Piece.where(y_position: current_y, x_position: x_position, active: true).exists?
+      return true if piece_at(x_position, current_y).present?
     end
     false
   end
@@ -86,7 +86,7 @@ class Piece < ApplicationRecord
       else
         current_x -= 1
       end
-      return true if Piece.where(x_position: current_x, y_position: y_position, active: true).exists?
+      return true if piece_at(current_x, y_position).present?
     end
     false
   end
@@ -98,33 +98,28 @@ class Piece < ApplicationRecord
 
   def move_result(to_x:, to_y:)
     # Valid move: destination square is open
-    return 'success' if target_piece(to_x: to_x, to_y: to_y).nil?
+    return 'success' if piece_at(to_x, to_y).nil?
 
-    # this version for conflict
     # Valid move with enemy piece captured at destination
-    if type != 'pawn' && !target_piece(to_x: to_x, to_y: to_y).nil? && target_piece(to_x: to_x, to_y: to_y).color != color
+    if type != 'pawn' && piece_at(to_x, to_y).present? && piece_at(to_x, to_y).color != color
       return 'kill'
     end
 
-    # this version for conflict
     # Invalid move: teammate piece is at destination
-    return 'failed' if !target_piece(to_x: to_x, to_y: to_y).nil? && target_piece(to_x: to_x, to_y: to_y).color == color
+    return 'failed' if piece_at(to_x, to_y).present? && piece_at(to_x, to_y).color == color
   end
 
-  ### private
-
-  # delete for conflict
-  # def pieces_turn?
-  #   return true if color == game_of_piece.current_color
-  #   false
-  # end
+  def pieces_turn?
+    return true if color == game_of_piece.current_color
+    false
+  end
 
   def game_of_piece
     Game.find(game_id)
   end
 
-  def target_piece(to_x:, to_y:)
-    Piece.find_by(x_position: to_x, y_position: to_y, game_id: game_id, active: true)
+  def piece_at(x, y)
+    game_of_piece.pieces.find_by(x_position: x, y_position: y, active: true)
   end
 
   def kill
