@@ -67,11 +67,10 @@ RSpec/InstanceVariable:
 RSpec/MultipleExpectations:
   Max: 6
 
-Style/Documentation:
+Style/AlignHash:
   Enabled: false
 
-
-Style/NumericPredicate:
+Style/Documentation:
   Enabled: false
 
 Style/EndOfLine:
@@ -98,6 +97,9 @@ Style/IndentHash:
 Style/MultilineOperationIndentation:
   Exclude:
     - 'app/models/pawn.rb'
+
+Style/NumericPredicate:
+  Enabled: false
 
 RSpec/MultipleDescribes:
   Enabled: false

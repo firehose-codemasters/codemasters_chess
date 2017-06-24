@@ -1,5 +1,24 @@
-<div id="board" style="width: 600px"></div>
+<!-- Styles for classes and ids below are in app/assets/stylesheets/master.scss -->
+<!-- <div id="board" style="width: 600px"></div> -->
 
+<h1 class="headline">Welcome to Your Game!</h1>
+<table id="htmlboard">
+  <% i = 0 %>
+  <% row = 8 %>
+  <% 8.times do %>
+    <tr>
+      <% col_letters = ("A".."H").to_a %>
+      <% 8.times do %>
+        <td><div id="<%= col_letters[i] %><%= row %>"></div></td>
+        <% i += 1 %>
+      <% end %>
+    <% i = 0 %>
+    <% row -= 1 %>
+    </tr>
+  <% end %>
+</table>
+
+<!-- To make gem's chessboard appear, uncomment "board" div above + this script tag: 
 <script type="text/javascript">
 	var board = ChessBoard('board');
-</script>
+</script> -->

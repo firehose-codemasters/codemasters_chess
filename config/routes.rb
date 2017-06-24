@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-get '/chessboard', to: 'chessboard#chessboard'
-  root 'static_pages#index'
-  resources :pieces
-  resources :games
-  resources :users
+  get '/chessboard', to: 'chessboard#chessboard'
+    root 'static_pages#index'
+    resources :pieces
+    resources :games
+    resources :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
