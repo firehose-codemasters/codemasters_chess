@@ -77,40 +77,4 @@ RSpec.describe King, type: :model do
       expect(king.kings_team).to match_array [king, pawn1]
     end
   end
-
-  describe '#possible_moves' do
-    it 'returns an array of all valid moves' do
-      king = FactoryGirl.create(:king, color: 'white')
-      pawn = FactoryGirl.create(:pawn, game_id: king.game_id, color: 'white')
-      king.kings_team
-      expect(king.possible_moves).to match_array [
-        [pawn.id, 1, 3],
-        [king.id, 3, 3],
-        [king.id, 4, 3],
-        [king.id, 5, 3],
-        [pawn.id, 1, 4],
-        [king.id, 3, 4],
-        [king.id, 5, 4],
-        [king.id, 3, 5],
-        [king.id, 4, 5],
-        [king.id, 5, 5]
-      ]
-    end
-  end
-
-  describe '#checkmate?' do
-    it 'returns true if the king is in checkmate' do
-      king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4)
-      _rook1 = FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 5, game_id: king.game_id)
-      _rook2 = FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 3, game_id: king.game_id)
-      _queen = FactoryGirl.create(:queen, color: 'white', x_position: 1, y_position: 4, game_id: king.game_id)
-      # expect(king.checkmate?).to eq(true)
-    end
-
-    it 'returns false if the king is not in checkmate' do
-      king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4)
-      _rook1 = FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 5, game_id: king.game_id)
-      # expect(king.checkmate?).to eq(false)
-    end
-  end
 end

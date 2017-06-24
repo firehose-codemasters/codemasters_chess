@@ -194,6 +194,26 @@ class Piece < ApplicationRecord
     false
   end
 
+  def checkmate?
+    ## Run a test to see if the king is in check for each of the
+    # moves listed in the "possible_moves" array.
+    # This method should return 'true' if every single one of those
+    # possible moves comes back as "king is still in check", because that means
+    # that no matter what moves the player who is in check makes, they cannot
+    # get out of check.
+    #
+    # Possible approach to test once check method is done:
+    #
+    defense_moves = possible_moves(defense)
+    offense_moves = possible_moves(offense)
+    all_moves = [*defense_moves, *offense_moves]
+
+    all_moves.each do |move|
+      return false if Piece.find(move[0]).move_tests(to_x: move[1], to_y: move[2]) == true &&
+                      in_check?(color) == false
+    end
+    true
+  end
   # May need to be a separate method: Only move allowed is one that gets out of check if
   # above test returns true.
 end

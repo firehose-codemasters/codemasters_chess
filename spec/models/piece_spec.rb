@@ -428,4 +428,21 @@ RSpec.describe Piece, type: :model do
       expect(black_king.in_check?(game.resting_color)).to eq(false)
     end
   end
+
+  describe '#checkmate?' do
+    it 'returns true if the king is in checkmate' do
+      game = FactoryGirl.create(:game)
+      king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 5, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 3, game_id: game.id)
+      FactoryGirl.create(:queen, color: 'white', x_position: 1, y_position: 4, game_id: game.id)
+      expect(king.checkmate?).to eq(true)
+    end
+
+    it 'returns false if the king is not in checkmate' do
+      king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4)
+      _rook1 = FactoryGirl.create(:rook, color: 'white', x_position: 1, y_position: 5, game_id: king.game_id)
+      expect(king.checkmate?).to eq(false)
+    end
+  end
 end
