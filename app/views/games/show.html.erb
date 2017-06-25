@@ -6,13 +6,100 @@
    <p> <%= @game.white_player %></p>
    <p> <%= @game.black_player %></p>
 </div>
-<div class="booyah-box col-xs-10 col-xs-offset-1">
-[0,0,0,0,0,0,0], 
- [0,0,0,0,0,0,0], #[1,1] need to blur [0,1],[1,0],[1,2],[2,1]
-  [0,0,0,1,0,0,0], #[2,3] need to blur [2,2], [1,3], [3,3], [2,4]
-  [0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0]
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
+
+<div class="booyah-box col-xs-6 col-xs-offset-1">
+
+
+<table border="2" width="700px" height="700px" align="center">
+
+<tr>
+<td height=”100px” width=”100px” > </td>
+<td height=”100px” width=”100px” bgcolor=”#000000”> </td>
+<td height=”100px” width=”100px”  > </td>
+<td height=”10px” width=”100px” bgcolor=”#000000”> </td>
+<td height=”100px” width=”100px” > </td>
+<td height=”100px” width=”100px” bgcolor=”#000000”> </td>
+<td height=”100px” width=”100px” > </td>
+<td height=”100px” width=”100px” bgcolor=”#000000”> </td>
+</tr>
+
+<tr>
+<td height=”100px” width=”100px” bgcolor=”#000000”> </td>
+<td height=”100px” width=”100px” > </td>
+<td height=”100px” width=”100px” bgcolor=”#000000”> </td>
+<td height=”100px” width=”100px” > </td>
+<td height=”100px” width=”100px” bgcolor=”#000000”> </td>
+<td height=”100px” width=”100px” > </td>
+<td height=”100px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”100px” width=”100px” > </td>
+</tr>
+<tr>
+<td height=”100px” width=”100px” > </td>
+<td height=”100px” width=”100px” bgcolor=”#000000”> </td>
+<td height=”100px” width=”100px”  > </td>
+<td height=”100px” width=”100px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+</tr>
+
+<tr>
+<td height=”500px” width=”500px” bgcolor=”#000000”> </td>
+<td height=”500px” width=”500px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+</tr>
+<tr>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px”  > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+</tr>
+
+<tr>
+<td height=”500px” width=”500px” bgcolor=”#000000”> </td>
+<td height=”500px” width=”500px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+</tr>
+<tr>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px”  > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+</tr>
+
+<tr>
+<td height=”500px” width=”500px” bgcolor=”#000000”> </td>
+<td height=”500px” width=”500px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+<td height=”50px” width=”50px” bgcolor=”#000000”> </td>
+<td height=”50px” width=”50px” > </td>
+</tr>
+
+</table>
 
 </div>
 
@@ -24,6 +111,4 @@
 
 
 
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
 
