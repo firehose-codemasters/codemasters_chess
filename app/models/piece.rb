@@ -201,27 +201,27 @@ class Piece < ApplicationRecord
   def checkmate?
     # Create a hash of the initial placement of pieces on the board (initial conditions)
     initial_board_state = [*offense, *defense].index_by(&:id)
-    threat = nil
 
     # Iterate through each move that the current_color can make
     possible_moves(offense).each do |move|
+      piece_id = move[0]
+      to_x = move[1]
+      to_y = move[2]
+      threat = piece_at(to_x, to_y)
       # For each piece in the iteration, update the piece's location to the move's destination and
       # see if the king is still in check
-      Piece.find(move[0]).update(x_position: move[1], y_position: move[2])
+      Piece.find(piece_id).update(x_position: to_x, y_position: to_y)
 
       # In case of a secondary threat, temporarily kill enemy piece
-      if piece_at(move[1], move[2]) && piece_at(move[1], move[2]).color != color
-        threat = piece_at(move[1], move[2])
-        threat.kill
-      end
+      threat&.kill if threat&.color != color
 
       # Not in checkmate if current_color can make a move that doesn't result in check
       return false unless in_check?(game_of_piece.current_color)
 
       ### Restore the board back to its initial condition ###
       # restore the moved piece to its original position
-      Piece.find(move[0]).update(x_position: initial_board_state.fetch(move[0]).x_position,
-                                 y_position: initial_board_state.fetch(move[0]).y_position)
+      Piece.find(piece_id).update(x_position: initial_board_state.fetch(piece_id).x_position,
+                                  y_position: initial_board_state.fetch(piece_id).y_position)
       # If there was a threat that was killed, revive it (the & checks if the threat was nil or not)
       threat&.revive
       ### Board is now back in initial condition
