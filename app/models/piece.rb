@@ -126,6 +126,10 @@ class Piece < ApplicationRecord
     update(active: false)
   end
 
+  def revive
+    update(active: true)
+  end
+
   # begin methods needed for check
 
   # could be moved to game model
@@ -195,25 +199,33 @@ class Piece < ApplicationRecord
   end
 
   def checkmate?
-    ## Run a test to see if the king is in check for each of the
-    # moves listed in the "possible_moves" array.
-    # This method should return 'true' if every single one of those
-    # possible moves comes back as "king is still in check", because that means
-    # that no matter what moves the player who is in check makes, they cannot
-    # get out of check.
-    #
-    # Possible approach to test once check method is done:
-    #
-    defense_moves = possible_moves(defense)
-    offense_moves = possible_moves(offense)
-    all_moves = [*defense_moves, *offense_moves]
+    # Create a hash of the initial placement of pieces on the board (initial conditions)
+    initial_board_state = [*offense, *defense].index_by(&:id)
+    threat = nil
 
-    all_moves.each do |move|
-      return false if Piece.find(move[0]).move_tests(to_x: move[1], to_y: move[2]) == true &&
-                      in_check?(color) == false
+    # Iterate through each move that the current_color can make
+    possible_moves(offense).each do |move|
+      # For each piece in the iteration, update the piece's location to the move's destination and
+      # see if the king is still in check
+      Piece.find(move[0]).update(x_position: move[1], y_position: move[2])
+
+      # In case of a secondary threat, temporarily kill enemy piece
+      if piece_at(move[1], move[2]) && piece_at(move[1], move[2]).color != color
+        threat = piece_at(move[1], move[2])
+        threat.kill
+      end
+
+      # Not in checkmate if current_color can make a move that doesn't result in check
+      return false unless in_check?(game_of_piece.current_color)
+
+      ### Restore the board back to its initial condition ###
+      # restore the moved piece to its original position
+      Piece.find(move[0]).update(x_position: initial_board_state.fetch(move[0]).x_position,
+                                 y_position: initial_board_state.fetch(move[0]).y_position)
+      # If there was a threat that was killed, revive it (the & checks if the threat was nil or not)
+      threat&.revive
+      ### Board is now back in initial condition
     end
     true
   end
-  # May need to be a separate method: Only move allowed is one that gets out of check if
-  # above test returns true.
 end
