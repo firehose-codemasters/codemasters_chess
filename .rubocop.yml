@@ -25,6 +25,7 @@ Metrics/BlockLength:
     - 'spec/controllers/**/*'
     - 'spec/routing/**/*'
     - 'spec/models/piece_spec.rb'
+    - 'spec/models/king_spec.rb'
 
 Metrics/LineLength:
   Max: 130
@@ -106,3 +107,6 @@ Style/MultilineOperationIndentation:
 
 RSpec/MultipleDescribes:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 16
