@@ -121,7 +121,16 @@
 
 <br />
 
+<script>
+$('.style_image').draggable();
+$('.style-image').droppable({
+  accept: '.style_image',
+  drop: function(event,ui) {
+    alert("hola");
+  }
 
+
+</script>
 
 
 
