@@ -28,8 +28,14 @@
     <% end %>
   </tbody>
 </table>
+  <div class="btn-group">
+    <%= link_to 'Edit', edit_game_path(@games), class: 'btn btn-warning' %>
+     <%= link_to 'Back', games_path, class: 'btn btn-info' %>
+     <%= link_to 'New Game', new_game_path, class: 'btn btn-success' %>
+</div>
 </div>
 
 <br>
 
-<%= link_to 'New Game', new_game_path %>
+
+
