@@ -428,4 +428,55 @@ RSpec.describe Piece, type: :model do
       expect(black_king.in_check?(game.resting_color)).to eq(false)
     end
   end
+
+  describe '#checkmate?' do
+    it 'returns true if the king is in checkmate' do
+      # Note: the white king is in front of a firing squad of black pieces.
+      game = FactoryGirl.create(:game)
+      king = FactoryGirl.create(:king, color: 'white', x_position: 4, y_position: 4, game_id: game.id)
+      FactoryGirl.create(:king, color: 'black', x_position: 8, y_position: 8, game_id: king.game_id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 1, y_position: 5, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 1, y_position: 3, game_id: game.id)
+      FactoryGirl.create(:queen, color: 'black', x_position: 1, y_position: 4, game_id: game.id)
+      expect(king.checkmate?).to eq(true)
+    end
+
+    it 'returns true if the king can eliminate a threat but is still in checkmate' do
+      game = FactoryGirl.create(:game)
+      king = FactoryGirl.create(:king, color: 'white', x_position: 7, y_position: 1, game_id: game.id)
+      FactoryGirl.create(:pawn, color: 'black', x_position: 6, y_position: 2, game_id: game.id)
+      FactoryGirl.create(:bishop, color: 'black', x_position: 7, y_position: 3, game_id: game.id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 3, y_position: 1, game_id: game.id)
+      FactoryGirl.create(:bishop, color: 'black', x_position: 5, y_position: 4, game_id: game.id)
+      expect(king.checkmate?).to eq(true)
+    end
+
+    it 'returns false if the king can move out of the way of the threat' do
+      # Note: the king is being threatened by a rook, but can move out of the way.
+      king = FactoryGirl.create(:king, color: 'white', x_position: 4, y_position: 4)
+      FactoryGirl.create(:king, color: 'black', x_position: 8, y_position: 8, game_id: king.game_id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 4, y_position: 8, game_id: king.game_id)
+      expect(king.checkmate?).to eq(false)
+    end
+
+    it 'returns false if the threat can be blocked by a friendly piece' do
+      # Note: the king is being threatened by a rook, but the threat can be blocked by
+      # a friendly bishop.
+      king = FactoryGirl.create(:king, color: 'white', x_position: 4, y_position: 4)
+      FactoryGirl.create(:king, color: 'black', x_position: 8, y_position: 8, game_id: king.game_id)
+      FactoryGirl.create(:rook, color: 'black', x_position: 4, y_position: 8, game_id: king.game_id)
+      FactoryGirl.create(:bishop, color: 'white', x_position: 3, y_position: 4, game_id: king.game_id)
+      expect(king.checkmate?).to eq(false)
+    end
+
+    it 'returns false if the threat can be eliminated by a friendly piece' do
+      # Note: the king is being threatened by a rook, but the threat can be eliminated by
+      # a friendly bishop.
+      king = FactoryGirl.create(:king, color: 'black', x_position: 4, y_position: 4)
+      FactoryGirl.create(:king, color: 'white', x_position: 8, y_position: 8, game_id: king.game_id)
+      FactoryGirl.create(:rook, color: 'white', x_position: 4, y_position: 8, game_id: king.game_id)
+      FactoryGirl.create(:bishop, color: 'black', x_position: 3, y_position: 7, game_id: king.game_id)
+      expect(king.checkmate?).to eq(false)
+    end
+  end
 end

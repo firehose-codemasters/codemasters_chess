@@ -126,6 +126,10 @@ class Piece < ApplicationRecord
     update(active: false)
   end
 
+  def revive
+    update(active: true)
+  end
+
   # begin methods needed for check
 
   # could be moved to game model
@@ -194,6 +198,34 @@ class Piece < ApplicationRecord
     false
   end
 
-  # May need to be a separate method: Only move allowed is one that gets out of check if
-  # above test returns true.
+  def checkmate?
+    # Create a hash of the initial placement of pieces on the board (initial conditions)
+    initial_board_state = [*offense, *defense].index_by(&:id)
+
+    # Iterate through each move that the current_color can make
+    possible_moves(offense).each do |move|
+      piece_id = move[0]
+      to_x = move[1]
+      to_y = move[2]
+      threat = piece_at(to_x, to_y)
+      # For each piece in the iteration, update the piece's location to the move's destination and
+      # see if the king is still in check
+      Piece.find(piece_id).update(x_position: to_x, y_position: to_y)
+
+      # In case of a secondary threat, temporarily kill enemy piece
+      threat&.kill if threat&.color != color
+
+      # Not in checkmate if current_color can make a move that doesn't result in check
+      return false unless in_check?(game_of_piece.current_color)
+
+      ### Restore the board back to its initial condition ###
+      # restore the moved piece to its original position
+      Piece.find(piece_id).update(x_position: initial_board_state.fetch(piece_id).x_position,
+                                  y_position: initial_board_state.fetch(piece_id).y_position)
+      # If there was a threat that was killed, revive it (the & checks if the threat was nil or not)
+      threat&.revive
+      ### Board is now back in initial condition
+    end
+    true
+  end
 end
