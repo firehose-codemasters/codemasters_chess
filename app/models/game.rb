@@ -12,7 +12,8 @@ class Game < ApplicationRecord
   validates :black_player, presence: true
 
     # Game rules of chess
-    def initialize_board_white_pieces
+    def set_pieces
+      # white pieces
       (1..8).each do |index|
         Pawn.create(game_id: id, x_position: index, y_position: 2, color: 'white', active: true)
       end
@@ -24,9 +25,7 @@ class Game < ApplicationRecord
       Bishop.create(game_id: id, x_position: 6, y_position: 1, color: 'white', active: true)
       Knight.create(game_id: id, x_position: 7, y_position: 1, color: 'white', active: true)
       Rook.create(game_id: id, x_position: 8, y_position: 1, color: 'white', active: true)
-    end
-
-    def initialize_board_black_pieces
+      # black pieces
       (1..8).each do |index|
         Pawn.create(game_id: id, x_position: index, y_position: 7, color: 'black', active: true)
       end
