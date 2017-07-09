@@ -1,9 +1,27 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @game.name %>
 </p>
+
+<table id="htmlboard">
+  <% x = 8 %>
+  <% y = 1 %>
+  <% 8.times do %>
+    <tr>
+      <% 8.times do %>
+        <td>
+          <div data-xcoord="<%= x %>" data-ycoord="<%= y %>">
+            <%= render_piece(current_game.id, x, y) %>
+          </div>
+        </td>
+        <% y += 1 %>
+      <% end %>
+    <% y = 1 %>
+    <% x -= 1 %>
+    </tr>
+  <% end %>
+</table>
 
 <p>
   <strong>Result:</strong>
