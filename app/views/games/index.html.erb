@@ -3,8 +3,8 @@
 
 <div class="booyah-box col-xs-10 col-xs-offset-1">
 <h1>Choose a Game</h1>
-<table>
-  <thead>
+<table class="table table-stripped">
+<thead class="thead thead-default">
     <tr>
       <th>Name</th>
       <th>Result</th>
@@ -16,7 +16,8 @@
 
   <tbody>
     <% @games.each do |game| %>
-      <tr>
+    
+      <tr class="form-group">
         <td><%= link_to game.name, game_path(game.id) %></td>
         <td><%= game.result %></td>
         <td><%= game.white_player.id %></td>
@@ -25,6 +26,7 @@
         <td><%= link_to 'Edit', edit_game_path(game) %></td>
         <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      
     <% end %>
   </tbody>
 </table>
