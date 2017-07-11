@@ -61,14 +61,12 @@ RSpec/ExampleLength:
 RSpec/InstanceVariable:
   Exclude:
     - 'spec/views/games/edit.html.erb_spec.rb'
+    - 'spec/views/games/show.html.erb_spec.rb'
     - 'spec/views/pieces/edit.html.erb_spec.rb'
     - 'spec/views/users/edit.html.erb_spec.rb'
 
 RSpec/MultipleExpectations:
   Max: 6
-
-Style/AlignHash:
-  Enabled: false
 
 Style/Documentation:
   Enabled: false

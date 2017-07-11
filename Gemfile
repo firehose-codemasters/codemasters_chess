@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.2'
 
 gem 'bootstrap', '~> 4.0.0.alpha6' # Use Bootstrap 4.0.0 for styling
-gem 'chessboard', '~> 0.1.1'
 gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease.
 gem 'jquery-rails' # Use jquery as the JavaScript library

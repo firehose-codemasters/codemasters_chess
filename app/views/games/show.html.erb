@@ -1,21 +1,28 @@
 <p id="notice"><%= notice %></p>
-
-<div class="booyah-box col-xs-10 col-xs-offset-1">
-  <h1><%= @game.name %></h1>
-   <p> <%= @game.result %></p>
-   <p> <%= @game.white_player %></p>
-   <p> <%= @game.black_player %></p>
-
-   
-
+<h1 class="headline">Welcome to Your Game!</h1>
+<div class="booyah-box col-xs-6 col-xs-offset-1">
+  <h2><%= @game.name %></h2>
+  <p> <%= @game.result %></p>
+  <p> <%= @game.white_player.name %></p>
+  <p> <%= @game.black_player.name %></p>
 </div>
-	
-
-
-
 <br />
-
-
+<table id="htmlboard">
+  <% i = 0 %>
+  <% row = 8 %>
+  <% 8.times do %>
+    <tr>
+      <% col_letters = ("A".."H").to_a %>
+      <% 8.times do %>
+        <td><div id="<%= col_letters[i] %><%= row %>"></div></td>
+        <% i += 1 %>
+      <% end %>
+    <% i = 0 %>
+    <% row -= 1 %>
+    </tr>
+  <% end %>
+</table>
+<br />
 
 
 
