@@ -46,3 +46,32 @@ h1, h2, h3, h4, h5 {
   background:#00c100;
   text-decoration:none;
 }
+
+.headline {
+  color:#fff;
+  text-shadow:2px 2px 2px #444;
+}
+
+#htmlboard {
+  color:#fff;
+  margin:7% auto;
+  box-shadow:4px 4px 6px #333;
+}
+
+#htmlboard tr {
+  background:#444;
+}
+
+#htmlboard tr:nth-child(even) td:nth-child(even) {
+  background:tan;
+}
+#htmlboard tr:nth-child(odd) td:nth-child(odd) {
+  background:tan; 
+}
+
+#htmlboard td {
+  font-size:110%;
+  border:1px solid white;
+  padding:30px;
+  text-align:center;
+}
