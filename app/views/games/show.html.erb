@@ -8,17 +8,16 @@
 </div>
 <br />
 <table id="htmlboard">
-  <% i = 0 %>
-  <% row = 8 %>
+  <% x = 8 %>
+  <% y = 1 %>
   <% 8.times do %>
     <tr>
-      <% col_letters = ("A".."H").to_a %>
       <% 8.times do %>
-        <td><div id="<%= col_letters[i] %><%= row %>"></div></td>
-        <% i += 1 %>
+        <td><div data-xcoord="<%= x %>" data-ycoord="<%= y %>"></div></td>
+        <% y += 1 %>
       <% end %>
-    <% i = 0 %>
-    <% row -= 1 %>
+    <% y = 1 %>
+    <% x -= 1 %>
     </tr>
   <% end %>
 </table>
