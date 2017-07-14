@@ -1,7 +1,7 @@
 module GamesHelper
-  def render_piece(game_id, x, y)
-    piece_color = piece_at(x,y)&.color
-    piece_type = piece_at(x,y)&.type
+  def render_piece(x, y)
+    piece_color = piece_at(x, y)&.color
+    piece_type = piece_at(x, y)&.type
 
     case piece_type
     when 'Pawn'
