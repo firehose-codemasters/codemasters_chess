@@ -1,10 +1,5 @@
 module GamesHelper
-<<<<<<< HEAD
 
-
-
-
-=======
   def render_piece(x, y)
     piece_color = piece_at(x, y)&.color
     piece_type = piece_at(x, y)&.type
@@ -34,5 +29,5 @@ module GamesHelper
   def piece_at(x, y)
     @game.pieces.find_by(x_position: x, y_position: y, active: true)
   end
->>>>>>> 984187e8b73219ef67ab75509beb8ea94b433725
+
 end

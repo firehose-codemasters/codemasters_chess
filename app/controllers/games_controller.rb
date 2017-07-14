@@ -9,14 +9,14 @@ class GamesController < ApplicationController
 
   # GET /games/1
   # GET /games/1.json
-<<<<<<< HEAD
+
   def show
     @game = Game.find(params[:id])
 
   end
-=======
+
   def show; end
->>>>>>> 984187e8b73219ef67ab75509beb8ea94b433725
+
 
   # GET /games/new
   def new
