@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 <div class="booyah-box col-xs-10 col-xs-offset-1">
 
   
@@ -137,3 +138,35 @@ $('.style-image').droppable({
 
 
 
+=======
+<h1 class="headline">Welcome to Your Game!</h1>
+<div class="booyah-box col-xs-6 col-xs-offset-1">
+  <h2><%= @game.name %></h2>
+  <p> <%= @game.result %></p>
+  <p> <%= @game.white_player.name %></p>
+  <p> <%= @game.black_player.name %></p>
+</div>
+<br />
+<table id="htmlboard">
+  <% x = 8 %>
+  <% y = 1 %>
+  <% 8.times do %>
+    <tr>
+      <% 8.times do %>
+        <td>
+          <div data-xcoord="<%= x %>" data-ycoord="<%= y %>" id='square-<%= x %>-<%= y %>'>
+            <%= render_piece(x, y) %>
+          </div>
+        </td>
+        <% y += 1 %>
+      <% end %>
+    <% y = 1 %>
+    <% x -= 1 %>
+    </tr>
+  <% end %>
+</table>
+<br />
+
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
+>>>>>>> 984187e8b73219ef67ab75509beb8ea94b433725

@@ -7,7 +7,6 @@ gem 'bootstrap', '~> 4.0.0.alpha6' # Use Bootstrap 4.0.0 for styling
 gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease.
 gem 'jquery-rails' # Use jquery as the JavaScript library
-gem 'chessboard', '~> 0.1.1'
 gem 'pg', '~> 0.18' # Use postgresql as the database for Active Record
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets

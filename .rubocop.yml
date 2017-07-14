@@ -68,6 +68,7 @@ RSpec/ExampleLength:
 RSpec/InstanceVariable:
   Exclude:
     - 'spec/views/games/edit.html.erb_spec.rb'
+    - 'spec/views/games/show.html.erb_spec.rb'
     - 'spec/views/pieces/edit.html.erb_spec.rb'
     - 'spec/views/users/edit.html.erb_spec.rb'
 
@@ -75,10 +76,6 @@ RSpec/MultipleExpectations:
   Max: 6
 
 Style/Documentation:
-  Enabled: false
-
-
-Style/NumericPredicate:
   Enabled: false
 
 Style/EndOfLine:
@@ -105,6 +102,9 @@ Style/IndentHash:
 Style/MultilineOperationIndentation:
   Exclude:
     - 'app/models/pawn.rb'
+
+Style/NumericPredicate:
+  Enabled: false
 
 RSpec/MultipleDescribes:
   Enabled: false
