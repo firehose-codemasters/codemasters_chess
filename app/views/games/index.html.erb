@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Games</h1>
-
+<div class="booyah-box col-xs-10 col-xs-offset-1">
 <table>
   <thead>
     <tr>
@@ -16,7 +16,7 @@
   <tbody>
     <% @games.each do |game| %>
       <tr>
-        <td><%= game.name %></td>
+        <td><%= link_to game.name, game_path(game.id) %></td>
         <td><%= game.result %></td>
         <td><%= game.white_player %></td>
         <td><%= game.black_player %></td>
@@ -27,6 +27,7 @@
     <% end %>
   </tbody>
 </table>
+</div>
 
 <br>
 
