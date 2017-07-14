@@ -11,7 +11,7 @@
     <tr>
       <% 8.times do %>
         <td>
-          <div data-xcoord="<%= x %>" data-ycoord="<%= y %>">
+          <div data-xcoord="<%= x %>" data-ycoord="<%= y %>" id='square-<%= x %>-<%= y %>'>
             <%= render_piece(@game.id, x, y) %>
           </div>
         </td>
