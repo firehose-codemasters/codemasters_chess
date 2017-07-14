@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+
 <h1 class="headline">Welcome to Your Game!</h1>
 <div class="booyah-box col-xs-6 col-xs-offset-1">
   <h2><%= @game.name %></h2>
@@ -13,7 +14,11 @@
   <% 8.times do %>
     <tr>
       <% 8.times do %>
-        <td><div data-xcoord="<%= x %>" data-ycoord="<%= y %>"></div></td>
+        <td>
+          <div data-xcoord="<%= x %>" data-ycoord="<%= y %>" id='square-<%= x %>-<%= y %>'>
+            <%= render_piece(x, y) %>
+          </div>
+        </td>
         <% y += 1 %>
       <% end %>
     <% y = 1 %>
@@ -23,8 +28,5 @@
 </table>
 <br />
 
-
-
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
-
