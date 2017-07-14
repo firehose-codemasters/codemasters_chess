@@ -5,11 +5,7 @@ module GamesHelper
     # return 'piece!' if Piece.find(game_id: game_id, x_position: x, y_position: y, active: true)
   end
 
-  def current_game
-    @current_game ||= Game.find(params[:id])
-  end
-
   def piece_at(x, y)
-    current_game.pieces.find_by(x_position: x, y_position: y, active: true)
+    @game.pieces.find_by(x_position: x, y_position: y, active: true)
   end
 end

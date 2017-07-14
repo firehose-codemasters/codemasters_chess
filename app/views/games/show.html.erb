@@ -12,7 +12,7 @@
       <% 8.times do %>
         <td>
           <div data-xcoord="<%= x %>" data-ycoord="<%= y %>">
-            <%= render_piece(current_game.id, x, y) %>
+            <%= render_piece(@game.id, x, y) %>
           </div>
         </td>
         <% y += 1 %>
