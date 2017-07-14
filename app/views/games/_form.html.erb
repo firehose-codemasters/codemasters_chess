@@ -1,5 +1,33 @@
-<%= form_for(game) do |f| %>
-  <% if game.errors.any? %>
+<div class="booyah-box col-xs-10 col-xs-offset-1 text-center">
+<br />
+<h1>New Game</h1>
+
+<%= simple_form_for(game)  do |f| %>
+  <br />
+  <div class="form-group">
+    <%= f.text_field :name, placeholder: "Enter Any Name You Want", class: 'form-control'  %>
+  </div>
+  <br />
+  <div class="form-group">
+    <%= f.text_field :result, placeholder: "Enter 'in-progess'", class: 'form-control' %>
+  </div>
+  <br />
+  <div class="form-group">
+    <%= f.text_field :white_player_id, placeholder: "White Player Id Number", class: 'form-control' %>
+  </div> 
+  <br />
+  <div class="form-group">
+    <%= f.text_field :black_player_id, placeholder: "Black Player Id Number", class: 'form-control' %>
+  </div>
+  <br />
+  <br />
+  <%= f.submit 'Create', class: 'btn btn-primary' %>
+  <br />
+  <% end %>
+  </div>
+</div>
+
+<% if game.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
 
@@ -11,27 +39,4 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
 
-  <div class="field">
-    <%= f.label :result %>
-    <%= f.text_field :result %>
-  </div>
-
-  <div class="field">
-    <%= f.label :white_player_id %>
-    <%= f.text_field :white_player_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :black_player_id %>
-    <%= f.text_field :black_player_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
