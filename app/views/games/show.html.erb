@@ -11,14 +11,14 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class='col-sm-2'></div> <!-- Padding Div -->
-    <div class='col-sm-8'>
-      <div class='container-fluid chessboard'>
+    <div class='col-sm-8'> <!-- Centering Div -->
+      <div class='container-fluid chessboard'> <!-- Chessboard container -->
         <% x = 8 %>
         <% y = 1 %>
         <% white = 'square-white' %>
         <% black = 'square-black' %>
         <% 8.times do %>
-          <div class='row table-row'>
+          <div class='row'>
             <% 8.times do %>
               <!-- If both x and y are odd or both are even, color them black.
                    Otherwise, color them white. -->   
@@ -27,7 +27,9 @@
                                        black : white %>' 
                                        data-xcoord='<%= x %>' 
                                        data-ycoord='<%= y %>'>
-                <%= render_piece(x, y) %>
+                <div class='square-content'>                       
+                  <%= render_piece(x, y) %>
+                </div>
               </div>
               <% y += 1 %>
             <% end %>

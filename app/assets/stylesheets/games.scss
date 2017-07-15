@@ -54,23 +54,29 @@ body {
 	padding: 20px;
 }
 
-
 .chessboard {
-  color:#fff;
-  margin:7% auto;
   box-shadow:4px 4px 6px #333;
 }
 
 
-.square-white{
-  padding-top: 1.5%;
-  padding-bottom: 1.5%;
+.square-white {
+  padding-bottom: 12.5%;
   background:tan;
+  display:flex;
+  justify-content: center;
+  align-content: center;
 }
 
-.square-black{
-  padding-top: 1.5%;
-  padding-bottom: 1.5%;
+.square-black {
+  padding-bottom: 12.5%;
   background:#444;
+  display:flex;
+  justify-content: center;
+  align-content: center;
 }
 
+.square-content {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
