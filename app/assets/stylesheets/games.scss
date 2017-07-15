@@ -55,4 +55,22 @@ body {
 }
 
 
+.chessboard {
+  color:#fff;
+  margin:7% auto;
+  box-shadow:4px 4px 6px #333;
+}
+
+
+.square-white{
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  background:tan;
+}
+
+.square-black{
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  background:#444;
+}
 

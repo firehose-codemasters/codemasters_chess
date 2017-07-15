@@ -8,25 +8,39 @@
   <p> <%= @game.black_player.name %></p>
 </div>
 <br />
-<table id="htmlboard">
-  <% x = 8 %>
-  <% y = 1 %>
-  <% 8.times do %>
-    <tr>
-      <% 8.times do %>
-        <td>
-          <div data-xcoord="<%= x %>" data-ycoord="<%= y %>" id='square-<%= x %>-<%= y %>'>
-            <%= render_piece(x, y) %>
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-sm-2'></div> <!-- Padding Div -->
+    <div class='col-sm-8'>
+      <div class='container-fluid chessboard'>
+        <% x = 8 %>
+        <% y = 1 %>
+        <% white = 'square-white' %>
+        <% black = 'square-black' %>
+        <% 8.times do %>
+          <div class='row table-row'>
+            <% 8.times do %>
+              <!-- If both x and y are odd or both are even, color them black.
+                   Otherwise, color them white. -->   
+              <div class='col <%= ( x % 2 == 0 && y % 2 == 0 ) ||
+                                       ( x % 2 == 1 && y % 2 == 1 ) ?
+                                       black : white %>' 
+                                       data-xcoord='<%= x %>' 
+                                       data-ycoord='<%= y %>'>
+                <%= render_piece(x, y) %>
+              </div>
+              <% y += 1 %>
+            <% end %>
+            <% y = 1 %>
+            <% x -= 1 %>
           </div>
-        </td>
-        <% y += 1 %>
-      <% end %>
-    <% y = 1 %>
-    <% x -= 1 %>
-    </tr>
-  <% end %>
-</table>
+        <% end %>
+      </div> <!-- End chessboard container -->
+    </div> <!-- End centering div -->
+    <div class='col-sm-2'></div> <!-- Padding Div -->
+  </div>
+</div>
 <br />
-
+<br class='clear' />
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
