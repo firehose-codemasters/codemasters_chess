@@ -9,8 +9,8 @@
 </div>
 <br />
 <table id="htmlboard">
-  <% x = 8 %>
-  <% y = 1 %>
+  <% y = 8 %>
+  <% x = 1 %>
   <% 8.times do %>
     <tr>
       <% 8.times do %>
@@ -19,10 +19,10 @@
             <%= render_piece(x, y) %>
           </div>
         </td>
-        <% y += 1 %>
+        <% x += 1 %>
       <% end %>
-    <% y = 1 %>
-    <% x -= 1 %>
+    <% x = 1 %>
+    <% y -= 1 %>
     </tr>
   <% end %>
 </table>
