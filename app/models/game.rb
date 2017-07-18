@@ -1,8 +1,9 @@
 class Game < ApplicationRecord
   belongs_to :white_player, class_name: 'User'
   belongs_to :black_player, class_name: 'User'
+  has_many :pieces
   validates :name, presence: true
-  has_many :pieces # Need to communicate that each game has this
+   # Need to communicate that each game has this
   validates :result, inclusion: {
     in: %w(in_progress white_win black_win draw),
     message: '%{value} is not a valid result'

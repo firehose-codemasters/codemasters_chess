@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.2'
 
+gem 'jquery-ui-rails'
 gem 'bootstrap', '~> 4.0.0.alpha6' # Use Bootstrap 4.0.0 for styling
 gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease.

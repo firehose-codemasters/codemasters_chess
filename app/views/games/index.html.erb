@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Games</h1>
+
 <div class="booyah-box col-xs-10 col-xs-offset-1">
-<table>
-  <thead>
+<h1>Choose a Game</h1>
+<table class="table table-stripped">
+<thead class="thead thead-default">
     <tr>
       <th>Name</th>
       <th>Result</th>
@@ -15,20 +16,28 @@
 
   <tbody>
     <% @games.each do |game| %>
-      <tr>
+    
+      <tr class="form-group">
         <td><%= link_to game.name, game_path(game.id) %></td>
         <td><%= game.result %></td>
-        <td><%= game.white_player %></td>
-        <td><%= game.black_player %></td>
+        <td><%= game.white_player.id %></td>
+        <td><%= game.black_player.id %></td>
         <td><%= link_to 'Show', game %></td>
         <td><%= link_to 'Edit', edit_game_path(game) %></td>
         <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      
     <% end %>
   </tbody>
 </table>
+  <div class="btn-group">
+    <%= link_to 'Edit', edit_game_path(@games), class: 'btn btn-warning' %>
+     <%= link_to 'Back', root_path, class: 'btn btn-info' %>
+     <%= link_to 'New Game', new_game_path, class: 'btn btn-success' %>
+</div>
 </div>
 
 <br>
 
-<%= link_to 'New Game', new_game_path %>
+
+
