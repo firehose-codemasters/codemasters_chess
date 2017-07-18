@@ -13,8 +13,8 @@
     <div class='col-sm-2'></div> <!-- Padding Div -->
     <div class='col-sm-8'> <!-- Centering Div -->
       <div class='container-fluid chessboard'> <!-- Chessboard container -->
-        <% x = 8 %>
-        <% y = 1 %>
+        <% y = 8 %>
+        <% x = 1 %>
         <% white = 'square-white' %>
         <% black = 'square-black' %>
         <% 8.times do %>
@@ -31,10 +31,10 @@
                   <%= render_piece(x, y) %>
                 </div>
               </div>
-              <% y += 1 %>
+              <% x += 1 %>
             <% end %>
-            <% y = 1 %>
-            <% x -= 1 %>
+            <% x = 1 %>
+            <% y -= 1 %>
           </div>
         <% end %>
       </div> <!-- End chessboard container -->
