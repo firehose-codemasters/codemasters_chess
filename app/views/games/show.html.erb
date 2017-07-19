@@ -25,8 +25,8 @@
 			<% 4.times do %>
 				<td class="step<%= s %>">
 					<select name="<%= selectnames[a] %>"
-						<% n = 1 %>
-						<% 8.times do %>
+						<% n = 0 %>
+						<% 9.times do %>
 							<option value="<%= n %>"><%= n %></option>
 							<% n += 1 %>
 						<% end %>
@@ -43,28 +43,28 @@
 </form>
 
 <table id="htmlboard">
-  <% x = 8 %>
-  <% y = 1 %>
+  <% x = 1 %>
+  <% y = 8 %>
   <tr>
   	<td style="background:#fff"></td>
   	<% 8.times do %>
-  		<th class="row-col-head">Y=<%= y %></th>
-  		<% y += 1 %>
+  		<th class="row-col-head">X=<%= x %></th>
+  		<% x += 1 %>
   	<% end %>
   </tr>
   <% 8.times do %>
     <tr>
-    	<th class="row-col-head">X=<%= x %></th>
-    	<% x -= 1 %>
+    	<th class="row-col-head">Y=<%= y %></th>
       <% 8.times do %>
         <td>
           <div data-xcoord="<%= x %>" data-ycoord="<%= y %>" id='square-<%= x %>-<%= y %>'>
             <%= render_piece(x, y) %>
           </div>
         </td>
-        <% y += 1 %>
+        <% x += 1 %>
       <% end %>
-    <% y = 1 %>
+      <% x = 1 %>
+    	<% y -= 1 %>
     </tr>
   <% end %>
 </table>
