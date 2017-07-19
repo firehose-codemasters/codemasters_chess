@@ -8,11 +8,76 @@
   <p> <%= @game.black_player.name %></p>
 </div>
 <br />
+
+<form>
+	<table id="form-to-move-pieces">
+		<tr>
+			<td class="step1"><b>X</b> position of <b>piece</b> you want to move:</td>
+			<td class="step2"><b>Y</b> position of <b>piece</b> you want to move:</td>
+			<td class="step3"><b>X</b> position of <b>destination</b> square:</td>
+			<td class="step4"><b>Y</b> position of <b>destination</b> square:</td>
+		</tr>
+
+		<tr>
+			<td class="step1">
+				<select name="x_coord_of_piece">
+					<% a = 1 %>
+					<% 8.times do  %>
+						<option value="<%= a %>"><%= a %></option>
+						<% a += 1 %>
+					<% end %>
+				</select>
+			</td>
+		
+			<td class="step2">
+				<select name="x_coord_of_piece">
+					<% b = 1 %>
+					<% 8.times do  %>
+						<option value="<%= b %>"><%= b %></option>
+						<% b += 1 %>
+					<% end %>
+				</select>
+			</td>
+		
+			<td class="step3">
+				<select name="x_coord_of_destination">
+					<% c = 1 %>
+					<% 8.times do  %>
+						<option value="<%= c %>"><%= c %></option>
+						<% c += 1 %>
+					<% end %>
+				</select>
+			</td>
+		
+			<td class="step4">
+				<select name="y_coord_of_destination">
+					<% d = 1 %>
+					<% 8.times do  %>
+						<option value="<%= d %>"><%= d %></option>
+						<% d += 1 %>
+					<% end %>
+				</select>
+			</td>
+		</tr>
+		<tr id="moveit-row"><td colspan="4"><input type="submit" value="Move the Piece"></td></tr>
+	</table>
+</form>
+
+</table>
 <table id="htmlboard">
   <% x = 8 %>
   <% y = 1 %>
+  <tr>
+  	<td style="background:#fff"></td>
+  	<% 8.times do %>
+  		<th class="row-col-head">Y=<%= y %></th>
+  		<% y += 1 %>
+  	<% end %>
+  </tr>
   <% 8.times do %>
     <tr>
+    	<th class="row-col-head">X=<%= x %></th>
+    	<% x -= 1 %>
       <% 8.times do %>
         <td>
           <div data-xcoord="<%= x %>" data-ycoord="<%= y %>" id='square-<%= x %>-<%= y %>'>
@@ -22,7 +87,6 @@
         <% y += 1 %>
       <% end %>
     <% y = 1 %>
-    <% x -= 1 %>
     </tr>
   <% end %>
 </table>
