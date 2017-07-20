@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5 {
 }
 
 #square-8-8 {
-  background-color: f00;
+  background-color: #f00;
 }
 
 #start:hover {
@@ -55,6 +55,8 @@ h1, h2, h3, h4, h5 {
   color:#fff;
   text-shadow:2px 2px 2px #444;
 }
+
+/* ---------- Commented out the #htmlboard declarations below because we're using Bootstrap to generate and style the board:
 
 #htmlboard {
   color:#fff;
@@ -79,31 +81,4 @@ h1, h2, h3, h4, h5 {
   padding:30px;
   text-align:center;
 }
-
-#form-to-move-pieces {
-  background:#cecece;
-  margin:0 auto;
-}
-
-#form-to-move-pieces td, .row-col-head {
-  text-align:center;
-  font-family:Arial, sans-serif;
-  padding:1% 1.5%;
-}
-
-#moveit-row td {
-  background:linear-gradient(left,#fff,#b4b4b4);
-}
-
-.step1 {
-  background:#fff;
-}
-.step2 {
-  background:#e6e6e6;
-}
-.step3 {
-  background:#cdcdcd;
-}
-.step4 {
-  background:#b4b4b4;
-}
+------------ */
