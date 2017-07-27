@@ -57,6 +57,7 @@ body {
 .chessboard {
   box-shadow:4px 4px 6px #333;
 }
+
 .square-white {
   padding-bottom: 12.5%;
   background:tan;
@@ -109,4 +110,18 @@ body {
 }
 .step4 {
   background:#b4b4b4;
+}
+
+.square-black {
+  padding-bottom: 12.5%;
+  background:#444;
+  display:flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.square-content {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
 }
