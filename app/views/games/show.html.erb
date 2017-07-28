@@ -8,6 +8,40 @@
   <p> <%= @game.black_player.name %></p>
 </div>
 <br />
+
+<form>
+	<table id="form-to-move-pieces">
+		<tr>
+			<td class="step1"><b>X</b> position of <b>piece</b> you want to move:</td>
+			<td class="step2"><b>Y</b> position of <b>piece</b> you want to move:</td>
+			<td class="step3"><b>X</b> position of <b>destination</b> square:</td>
+			<td class="step4"><b>Y</b> position of <b>destination</b> square:</td>
+		</tr>
+
+		<% selectnames = ["piece_x_coord", "piece_y_coord", "destination_x_coord", "destination_y_coord"] %>
+		<% s = 1 %>
+		<% a = 0 %>
+		<tr>
+			<% 4.times do %>
+				<td class="step<%= s %>">
+					<select name="<%= selectnames[a] %>"
+						<% n = 0 %>
+						<% 9.times do %>
+							<option value="<%= n %>"><%= n %></option>
+							<% n += 1 %>
+						<% end %>
+					</select>
+				</td>
+			<% a += 1 %>
+			<% s += 1 %>
+			<% end %>
+		</tr>
+		<tr id="moveit-row">
+			<td colspan="4"><input type="submit" name="submit" value="Move the Piece"></td>
+		</tr>
+	</table>
+</form>
+
 <div class='container-fluid'>
   <div class='row'>
     <div class='col-sm-2'></div> <!-- Padding Div -->
@@ -22,7 +56,7 @@
             <% 8.times do %>
               <!-- If both x and y are odd or both are even, color them black.
                    Otherwise, color them white. -->   
-              <div class='col <%= ( x % 2 == 0 && y % 2 == 0 ) ||
+              <div class='table-bordered col <%= ( x % 2 == 0 && y % 2 == 0 ) ||
                                        ( x % 2 == 1 && y % 2 == 1 ) ?
                                        black : white %>' 
                                        data-xcoord='<%= x %>' 
