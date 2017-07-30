@@ -1,24 +1,33 @@
-# README
+# Codemasters Chess
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails-based chess game built by the Codemasters, a Firehose Project agile team.
 
-Things you may want to cover:
+See the live app here: https://codemasters-chess.herokuapp.com
 
-* Ruby version
+Team members:
 
-* System dependencies
+* Jack Anderson (@phrygianjack)
 
-* Configuration
+* Jim Hinckley (@jimchicago)
 
-* Database creation
+* Chris Plain (@jetcitycoder)
 
-* Database initialization
+* Andrew Smentkowski (@asmentko)
 
-* How to run the test suite
+* Erik Young (@erik_vietnam)
 
-* Services (job queues, cache servers, search engines, etc.)
+Mentor: Chris Horn (@chorn)
 
-* Deployment instructions
+---
 
-* ...
+# Implementation Details
+
+* Rails 5.0.2 / Ruby 2.3.1 / PostgreSQL
+
+* CI/CD with Travis and Heroku
+
+* Responsive styling with Bootstrap
+
+* BDD with RSpec test suite
+
+
