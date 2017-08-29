@@ -17,7 +17,7 @@ class PiecesController < ApplicationController
   end
 
   # GET /pieces/1/edit
-  def edit; end
+  def edit;  end
 
   # POST /pieces
   # POST /pieces.json
@@ -48,7 +48,7 @@ class PiecesController < ApplicationController
     # This checks if the move is valid by using the #move_tests method in the model
     return unless @piece.secondary_move_tests(to_x: to_x, to_y: to_y)
     @piece.piece_at(to_x, to_y).kill if @piece.move_result(to_x: to_x, to_y: to_y) == 'kill'
-    @piece.update(piece_params)
+    @piece.update_attributes(piece_params)
     @pieces_game.next_turn
 
     ### Below is the scaffolding that we'll need to fool with to make the UI go ###
