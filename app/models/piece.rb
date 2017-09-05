@@ -9,6 +9,8 @@ class Piece < ApplicationRecord
   validates :y_position, presence: true
   validates :game_id, presence: true
 
+  scope :at, ->( x_position, y_position ) { where( x_position: x_position, y_position: y_position )}
+
   def move_tests(to_x:, to_y:)
     return true if valid_move?(to_x: to_x, to_y: to_y) &&
                    !obstructed_diagonally?(to_x: to_x, to_y: to_y) &&

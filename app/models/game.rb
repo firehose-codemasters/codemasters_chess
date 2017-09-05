@@ -43,5 +43,6 @@ class Game < ApplicationRecord
       rc_stager = resting_color
       update(current_color: rc_stager)
       update(resting_color: cc_stager)
+      save
     end
 end

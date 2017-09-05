@@ -9,7 +9,7 @@
 </div>
 <br />
 
-<%= form_for :piece do |f| %>
+<%= form_for @game do |f| %>
   <table id="form-to-move-pieces">
     <tr>
       <td class="step1"><%= f.label :x_position %> <b>of piece</b> to be moved</td>
@@ -18,17 +18,13 @@
       <td class="step4"><%= f.label :y_position %> of <b>destination</b> square:</td>
     </tr>
 
-    <% selectnames = ["piece_x", "piece_y", "destination_x", "destination_y"] %>
-    <% s = 1 %>
-    <% a = 0 %>
+    <% selectnames = [:piece_x, :piece_y, :destination_x, :destination_y] %>
     <tr>
-      <% 4.times do %>
-        <td class="step<%= s %>">
-          <%= f.select(:selectnames[a], options_for_select([
+      <% 4.times do |step_number| %>
+        <td class="step<%= step_number %>">
+          <%= select_tag(selectnames[step_number - 1], options_for_select([
             ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8] ] )) %>
         </td>
-      <% a += 1 %>
-      <% s += 1 %>
       <% end %>
     </tr>
     <tr id="moveit-row">
