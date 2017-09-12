@@ -1,6 +1,6 @@
 require: rubocop-rspec
 
-# inherit_from: .rubocop_todo.yml
+inherit_from: .rubocop_todo.yml
 
 Rails:
   Enabled: true
@@ -10,79 +10,15 @@ AllCops:
     - 'bin/**/*'
     - 'db/schema.rb'
     - 'vendor/**/*'
-  # Cop names are not displayed in offense messages by default. Change behavior
-  # by overriding DisplayCopNames, or by giving the `-D/--display-cop-names`
-  # option.
   DisplayCopNames: true
-  # Style guide URLs are not displayed in offense messages by default. Change
-  # behavior by overriding `DisplayStyleGuide`, or by giving the
-  # `-S/--display-style-guide` option.
   DisplayStyleGuide: true
 
 Metrics/BlockLength:
-  Max: 85
   Exclude:
-    - 'spec/controllers/**/*'
-    - 'spec/routing/**/*'
-    - 'spec/models/piece_spec.rb'
-    - 'spec/models/game_spec.rb'
-    - 'spec/models/king_spec.rb'
-
-Metrics/LineLength:
-  Max: 130
-  Exclude:
-    - 'app/models/pawn.rb'
-
-Metrics/ClassLength:
-  Max: 100
-  Exclude:
-    - 'app/models/piece.rb'
-
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/MethodLength:
-    Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/MethodLength:
-  CountComments: false  # count full line comments?
-  Max: 65
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-RSpec/ExampleLength:
-  Exclude:
-    - 'spec/views/games/edit.html.erb_spec.rb'
-    - 'spec/views/games/new.html.erb_spec.rb'
-    - 'spec/views/pieces/edit.html.erb_spec.rb'
-    - 'spec/views/pieces/index.html.erb_spec.rb'
-    - 'spec/views/pieces/new.html.erb_spec.rb'
-    - 'spec/views/pieces/show.html.erb_spec.rb'
-    - 'spec/models/piece_spec.rb'
-    - 'spec/controllers/pieces_controller_spec.rb'
-
-RSpec/InstanceVariable:
-  Exclude:
-    - 'spec/views/games/edit.html.erb_spec.rb'
-    - 'spec/views/games/show.html.erb_spec.rb'
-    - 'spec/views/pieces/edit.html.erb_spec.rb'
-    - 'spec/views/users/edit.html.erb_spec.rb'
-
-RSpec/MultipleExpectations:
-  Max: 6
+    - 'spec/**/*.rb'
 
 Style/Documentation:
   Enabled: false
-
-Style/EndOfLine:
-  Exclude:
-    - 'app/models/king.rb'
-    - 'spec/models/king_spec.rb'
-    - 'spec/models/knight_spec.rb'
 
 Style/FirstParameterIndentation:
   EnforcedStyle: consistent
@@ -90,24 +26,6 @@ Style/FirstParameterIndentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/IndentationConsistency:
-  Enabled: false
-
-Style/IndentArray:
-  EnforcedStyle: consistent
-
-Style/IndentHash:
-  EnforcedStyle: consistent
-
-Style/MultilineOperationIndentation:
-  Exclude:
-    - 'app/models/pawn.rb'
-
-Style/NumericPredicate:
-  Enabled: false
-
-RSpec/MultipleDescribes:
-  Enabled: false
-
 RSpec/ExampleLength:
-  Max: 16
+  Enabled: false
+

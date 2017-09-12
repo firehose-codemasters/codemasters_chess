@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'pieces/edit', type: :view do
-  before do
-    @piece = FactoryGirl.create(:piece)
-  end
+  let(:piece) { create :piece }
+
+  before { @piece = piece }
 
   it 'renders the edit piece form' do
     render
 
-    assert_select 'form[action=?][method=?]', piece_path(@piece), 'post' do
+    assert_select 'form[action=?][method=?]', piece_path(piece), 'post' do
       assert_select 'input#piece_color[name=?]', 'piece[color]'
       assert_select 'input#piece_active[name=?]', 'piece[active]'
       assert_select 'input#piece_x_position[name=?]', 'piece[x_position]'

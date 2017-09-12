@@ -38,11 +38,9 @@ class GamesController < ApplicationController
   # PATCH/PUT /games/1
   # PATCH/PUT /games/1.json
   def update
-    Rails.logger.debug "Where are the params?"
-    Rails.logger.debug params
     @piece = @game.pieces.at(params[:piece_x].to_i, params[:piece_y].to_i).first
     unless @piece
-      flash[:alert]="There is no piece on that square!"
+      flash[:alert] = 'There is no piece on that square!'
       redirect_to @game
       return
     end
@@ -50,17 +48,13 @@ class GamesController < ApplicationController
     to_x = params[:destination_x].to_i
 
     # # The update method will change the x_position and y_position of a piece in the database.
-    Rails.logger.debug @piece.class
-    Rails.logger.debug "Updating piece #{@piece}"
     # # This checks if the move is valid by using the #move_tests method in the model
     if @piece.secondary_move_tests(to_x: to_x, to_y: to_y)
-      Rails.logger.debug "Secondary move tests are OK."
       @game.pieces.at(to_x, to_y).kill if @piece.move_result(to_x: to_x, to_y: to_y) == 'kill'
       @piece.update_attributes(x_position: to_x, y_position: to_y)
       @game.next_turn
     else
-      Rails.logger.debug "Invalid move :-("
-      flash[:alert]="That is an invalid move."
+      flash[:alert] = 'That is an invalid move.'
     end
     redirect_to @game
   end

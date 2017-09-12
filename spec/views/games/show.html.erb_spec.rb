@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'games/show', type: :view do
+  let(:game) { create :game }
+
   before do
-    @game = assign(:game, FactoryGirl.create(:game))
-    @white_player = assign(:user, FactoryGirl.create(:user))
-    @black_player = assign(:user, FactoryGirl.create(:user))
+    @game = assign(:game, game)
+    @white_player = assign(:user, create(:user))
+    @black_player = assign(:user, create(:user))
     render
   end
 
@@ -17,10 +19,10 @@ RSpec.describe 'games/show', type: :view do
   end
 
   it 'renders white_player association in <p>' do
-    expect(rendered).to match(@game.white_player.name)
+    expect(rendered).to match(game.white_player.name)
   end
 
   it 'renders black_player association in <p>' do
-    expect(rendered).to match(@game.black_player.name)
+    expect(rendered).to match(game.black_player.name)
   end
 end

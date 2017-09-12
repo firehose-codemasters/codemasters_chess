@@ -140,19 +140,19 @@ RSpec.describe PiecesController, type: :controller do
 
       it 'advances the game to the next turn' do
         piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2, game_id: game2.id)
-          put :update, params:
-            {
-              id: piece.to_param, piece:
-                {
-                  color: 'white',
-                  active: true,
-                  x_position: 4,
-                  y_position: 4,
-                  # # Type needs to be implemented when first piece is created:
-                  # type: 'rook',
-                  game_id: game2.id
-                }
-            }, session: valid_session
+        put :update, params:
+          {
+            id: piece.to_param, piece:
+              {
+                color: 'white',
+                active: true,
+                x_position: 4,
+                y_position: 4,
+                # # Type needs to be implemented when first piece is created:
+                # type: 'rook',
+                game_id: game2.id
+              }
+          }, session: valid_session
         game2.reload
         expect(game2.current_color).to eq('black')
       end
@@ -197,19 +197,19 @@ RSpec.describe PiecesController, type: :controller do
 
       it 'does not advance the game to the next turn' do
         piece = FactoryGirl.create(:queen, x_position: 2, y_position: 2, game_id: game2.id)
-          put :update, params:
-            {
-              id: piece.to_param, piece:
-                {
-                  color: 'white',
-                  active: true,
-                  x_position: 9,
-                  y_position: 13,
-                  # # Type needs to be implemented when first piece is created:
-                  # type: 'rook',
-                  game_id: game2.id
-                }
-            }, session: valid_session
+        put :update, params:
+          {
+            id: piece.to_param, piece:
+              {
+                color: 'white',
+                active: true,
+                x_position: 9,
+                y_position: 13,
+                # # Type needs to be implemented when first piece is created:
+                # type: 'rook',
+                game_id: game2.id
+              }
+          }, session: valid_session
         game2.reload
         expect(game2.current_color).to eq('white')
       end

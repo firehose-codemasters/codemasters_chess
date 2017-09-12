@@ -1,15 +1,12 @@
-# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe 'users/edit', type: :view do
-  before do
-    @user = assign(:user, FactoryGirl.create(:user))
-  end
+  let(:user) { create :user }
+
+  before { @user = assign(:user, user) }
 
   it 'renders the edit user form' do
     render
-
-    assert_select 'form[action=?][method=?]', user_path(@user), 'post' do
-    end
+    assert_select 'form[action=?][method=?]', user_path(user), 'post'
   end
 end

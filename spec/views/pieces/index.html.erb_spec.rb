@@ -1,12 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'pieces/index', type: :view do
-  before do
-    assign(:pieces, [
-      FactoryGirl.create(:piece),
-      FactoryGirl.create(:piece)
-    ])
-  end
+  before { assign(:pieces, [create(:piece), create(:piece)]) }
 
   it 'renders a list of pieces' do
     render

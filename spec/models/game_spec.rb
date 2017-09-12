@@ -1,155 +1,54 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-  describe 'set_pieces' do
-    it 'will create 32 pieces in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(game.pieces.count).to eq(32)
+  let(:game) { create :game }
+
+  describe '#set_pieces' do
+    before { game.set_pieces }
+
+    it 'puts 32 pieces on the board' do
+      expect(game.pieces.count).to eq 32
     end
-    it 'will create a active white pawn at coordinates(1,2) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Pawn.where(x_position: 1, y_position: 2, color: 'white', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
+
+    it 'puts the right number of pieces on the board by type' do
+      expect(Bishop.active.black.size).to eq 2
+      expect(Bishop.active.white.size).to eq 2
+      expect(King.active.black.size).to eq 1
+      expect(King.active.white.size).to eq 1
+      expect(Knight.active.black.size).to eq 2
+      expect(Knight.active.white.size).to eq 2
+      expect(Pawn.active.black.size).to eq 8
+      expect(Pawn.active.white.size).to eq 8
+      expect(Queen.active.black.size).to eq 1
+      expect(Queen.active.white.size).to eq 1
+      expect(Rook.active.black.size).to eq 2
+      expect(Rook.active.white.size).to eq 2
     end
-    it 'will create 8 white pawns' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Pawn.where(color: 'white', active: true).size).to eq(8)
-    end
-    it 'will create a active white rook at coordinates(1,1) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Rook.where(x_position: 1, y_position: 1, color: 'white', active: true).exists?).to eq(true)
-    end
-    it 'will create 2 white rooks' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Rook.where(color: 'white', active: true).size).to eq(2)
-    end
-    it 'will create a active white knight at coordinates(2,1) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Knight.where(x_position: 2, y_position: 1, color: 'white', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 2 white knights' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Knight.where(color: 'white', active: true).size).to eq(2)
-    end
-    it 'will create a active white bishop at coordinates(3,1) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Bishop.where(x_position: 3, y_position: 1, color: 'white', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 2 white bishops' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Bishop.where(color: 'white', active: true).size).to eq(2)
-    end
-    it 'will create a active white queen at coordinates(4,1) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Queen.where(x_position: 4, y_position: 1, color: 'white', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 1 white queen' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Queen.where(color: 'white', active: true).size).to eq(1)
-    end
-    it 'will create a active white king at coordinates(5,1) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(King.where(x_position: 5, y_position: 1, color: 'white', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 1 white king' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(King.where(color: 'white', active: true).size).to eq(1)
-    end
-    it 'will create a active back pawn at coordinates(1,7) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Pawn.where(x_position: 1, y_position: 7, color: 'black', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 8 black pawns' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Pawn.where(color: 'black', active: true).size).to eq(8)
-    end
-    it 'will create a active black rook at coordinates(1,8) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Rook.where(x_position: 1, y_position: 8, color: 'black', active: true).exists?).to eq(true)
-    end
-    it 'will create 2 black rooks' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Rook.where(color: 'black', active: true).size).to eq(2)
-    end
-    it 'will create a active black knight at coordinates(2,8) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Knight.where(x_position: 2, y_position: 8, color: 'black', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 2 black knights' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Knight.where(color: 'black', active: true).size).to eq(2)
-    end
-    it 'will create a active black bishop at coordinates(3,8) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Bishop.where(x_position: 3, y_position: 8, color: 'black', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 2 black bishops' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Bishop.where(color: 'black', active: true).size).to eq(2)
-    end
-    it 'will create a active black queen at coordinates(4,8) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Queen.where(x_position: 4, y_position: 8, color: 'black', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 1 black queen' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(Queen.where(color: 'black', active: true).size).to eq(1)
-    end
-    it 'will create a active black king at coordinates(5,8) in the database' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(King.where(x_position: 5, y_position: 8, color: 'black', active: true).exists?).to eq(true)
-      # Game.pieces into line 8?
-    end
-    it 'will create 1 black king' do
-      game = FactoryGirl.create(:game)
-      game.set_pieces
-      expect(King.where(color: 'black', active: true).size).to eq(1)
+
+    it 'puts pieces in the right location' do
+      expect(Bishop.active.white.at(3, 1)).to exist
+      expect(Bishop.active.black.at(3, 8)).to exist
+      expect(King.active.white.at(5, 1)).to exist
+      expect(King.active.black.at(5, 8)).to exist
+      expect(Knight.active.white.at(2, 1)).to exist
+      expect(Knight.active.black.at(2, 8)).to exist
+      expect(Pawn.active.white.at(1, 2)).to exist
+      expect(Pawn.active.black.at(1, 7)).to exist
+      expect(Queen.active.white.at(4, 1)).to exist
+      expect(Queen.active.black.at(4, 8)).to exist
+      expect(Rook.active.white.at(1, 1)).to exist
+      expect(Rook.active.black.at(1, 8)).to exist
     end
   end
-end
 
-RSpec.describe Game, type: :model do
-  describe 'next_turn' do
+  describe '#next_turn' do
+    before { game.next_turn }
+
     it 'will switch current_color from white to black' do
-      game = FactoryGirl.create(:game)
-      game.next_turn
       expect(game.current_color).to eq('black')
     end
+
     it 'will switch resting_color from black to white' do
-      game = FactoryGirl.create(:game)
-      game.next_turn
       expect(game.resting_color).to eq('white')
     end
   end

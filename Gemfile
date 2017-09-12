@@ -22,12 +22,12 @@ group :development, :test do
   gem 'rails-controller-testing' # Use rails-controller-testing gem to support scaffolded test suites
   gem 'rspec', '~> 3.5.0' # Use RSpec for testing
   gem 'rspec-rails', '~> 3.5.0' # Use RSpec for testing
+  gem 'rubocop', '~> 0.47.1', require: false
+  gem 'rubocop-rspec', '~> 1.15.0', require: false
 end
 
 group :development do
   gem 'listen', '~> 3.0.5'
-  gem 'rubocop', '~> 0.47.1', require: false
-  gem 'rubocop-rspec', '~> 1.15.0', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'

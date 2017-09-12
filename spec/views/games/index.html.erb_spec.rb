@@ -1,12 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'games/index', type: :view do
-  before do
-    assign(:games, [
-      FactoryGirl.create(:game),
-      FactoryGirl.create(:game)
-    ])
-  end
+  before { assign(:games, [create(:game), create(:game)]) }
 
   it 'renders a list of games' do
     render
