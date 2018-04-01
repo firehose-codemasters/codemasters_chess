@@ -10,7 +10,7 @@ Team members:
 
 * Jim Hinckley (@jimchicago)
 
-* Chris Plain (@jetcitycoder)
+* Christopher Plain (@christopherplain)
 
 * Andrew Smentkowski (@asmentko)
 
@@ -29,5 +29,3 @@ Mentor: Chris Horn (@chorn)
 * Responsive styling with Bootstrap
 
 * BDD with RSpec test suite
-
-
